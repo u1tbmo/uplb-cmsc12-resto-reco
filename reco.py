@@ -57,6 +57,9 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
 
 
 def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> None:
+    if not restos_dict:
+        raise_er("No Restos to Reco! Add some Restos first!")
+        return
     print("+------------------------------------------+")
     print("|             Menu > Get Recos             |")
     print("+------------------------------------------+")
