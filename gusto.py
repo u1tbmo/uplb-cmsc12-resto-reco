@@ -1,0 +1,419 @@
+"""
+This module contains the functions for adding, editing, deleting, and displaying gustos.
+"""
+
+"""
+Gusto: a gusto is a preference profile with the following attributes:
+    gustos = {
+        label: [description, group_size, meal_type, budget, max_distance, cuisine_type, min_rating]
+    }
+    label: str = the unique identifier of the gusto
+    description: str = the description of the gusto
+    group_size: int = the number of people the gusto is for
+    meal_type: str = the meal type the gusto is for (breakfast, lunch, dinner)
+    budget: float = the budget of the gusto (in pesos)
+    max_distance: float = the maximum distance of the resto from UPLB gate (in meters)
+    cuisine_type: str = the type of cuisine the resto serves
+    min_rating: float = the minimum rating of the resto (out of 5)
+"""
+# Global Variables / Constants
+LABEL_LENGTH = 9
+
+# File Imports
+import save_load as sl
+from misc import clear_screen, continue_prompt, raise_er
+
+
+def ad_hoc_gusto() -> tuple | None:
+    clear_screen()
+    print("+------------------------------------------+")
+    print("|               Ad Hoc Gusto               |")
+    print("+------------------------------------------+")
+    # User Input: Group Size
+    group_size = input("| Enter number of people: ")
+    # Validation: Group Size
+    if group_size == "":
+        raise_er("Group size cannot be empty!")
+        return None
+    if not group_size.isdigit():
+        raise_er("Invalid group size!")
+        return None
+    group_size = int(group_size)
+    # User Input: Meal Type
+    meal_type = input("| Enter type of meal (Breakfast, Lunch, Dinner): ").upper()
+    # Validation: Meal Type
+    if meal_type.strip() not in ["BREAKFAST", "LUNCH", "DINNER"]:
+        raise_er("Invalid meal type!")
+        return None
+    # User Input: Budget
+    budget = input("| Enter budget: ")
+    # Validation: Budget
+    if budget == "":
+        raise_er("Budget cannot be empty!")
+        return None
+    if not budget.replace(".", "", 1).isdigit():
+        raise_er("Invalid budget!")
+        return None
+    budget = float(budget)
+    # User Input: Max Distance
+    max_distance = input("| Enter maximum distance from UPLB (in meters): ")
+    # Validation: Max Distance
+    if max_distance == "":
+        raise_er("Maximum distance cannot be empty!")
+        return None
+    if not max_distance.replace(".", "", 1).isdigit():
+        raise_er("Invalid maximum distance!")
+        return None
+    max_distance = float(max_distance)
+    # User Input: Cuisine Type
+    cuisine_type = (
+        input('| Enter cuisine type ("ANY" for any cuisine): ').strip().upper()
+    )
+    # Validation: Cuisine Type
+    if "," in cuisine_type:
+        raise_er("Cuisine type cannot contain commas!")
+        return None
+    if cuisine_type == "":
+        raise_er("Cuisine type cannot be empty!")
+        return None
+    # User Input: Minimum Rating
+    min_rating = input("| Enter minimum rating (out of 5): ")
+    # Validation: Minimum Rating
+    if min_rating == "":
+        raise_er("Minimum rating cannot be empty!")
+        return None
+    if not min_rating.replace(".", "", 1).isdigit():
+        raise_er("Invalid minimum rating!")
+        return None
+    min_rating = float(min_rating)
+    if min_rating < 0 or min_rating > 5:
+        raise_er("Minimum rating must be between 0 and 5!")
+        return None
+
+    return (
+        "AD,HOC",  # a clear indicator that this is an ad hoc gusto, the label is also impossible to be used by the user
+        [
+            "AD,HOC",
+            group_size,
+            meal_type,
+            budget,
+            max_distance,
+            cuisine_type,
+            min_rating,
+        ],
+    )
+
+
+def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
+    # Clear the screen
+    clear_screen()
+
+    # Print the header
+    print("+------------------------------------------+")
+    print("|                Add Gusto                 |")
+    print("+------------------------------------------+")
+
+    # User Input: Label
+    label = input("| Enter label: ").strip().upper()
+    print("+------------------------------------------+")
+    # Validation: Label
+    if "," in label:
+        raise_er("Label cannot contain commas!")
+        return gustos_dict
+    elif label == "":
+        raise_er("Label cannot be empty!")
+        return gustos_dict
+    elif len(label) > LABEL_LENGTH:
+        raise_er(f"Label cannot exceed {LABEL_LENGTH} characters!")
+        return gustos_dict
+    elif label in gustos_dict:
+        raise_er(f'Gusto "{label}" already exists!')
+        return gustos_dict
+    else:
+        # User Input: Description
+        description = input("| Enter description: ").strip()
+        # Validation: Description
+        if "," in description:
+            raise_er("Description cannot contain commas!")
+            return gustos_dict
+        if description == "":
+            raise_er("Description cannot be empty!")
+            return gustos_dict
+
+        # User Input: Group Size
+        group_size = input("| Enter number of people: ")
+        # Validation: Group Size
+        if group_size == "":
+            raise_er("Group size cannot be empty!")
+            return gustos_dict
+        if not group_size.isdigit():
+            raise_er("Invalid group size!")
+            return gustos_dict
+        group_size = int(group_size)
+
+        # User Input: Meal Type
+        meal_type = input("| Enter type of meal (Breakfast, Lunch, Dinner): ").upper()
+        # Validation: Meal Type
+        if meal_type.strip() not in ["BREAKFAST", "LUNCH", "DINNER"]:
+            raise_er("Invalid meal type!")
+            return gustos_dict
+
+        # User Input: Budget
+        budget = input("| Enter budget: ")
+        # Validation: Budget
+        if budget == "":
+            raise_er("Budget cannot be empty!")
+            return gustos_dict
+        if not budget.replace(".", "", 1).isdigit():
+            raise_er("Invalid budget!")
+            return gustos_dict
+        budget = float(budget)
+
+        # User Input: Max Distance
+        max_distance = input("| Enter maximum distance from UPLB (in meters): ")
+        # Validation: Max Distance
+        if max_distance == "":
+            raise_er("Maximum distance cannot be empty!")
+            return gustos_dict
+        if not max_distance.replace(".", "", 1).isdigit():
+            raise_er("Invalid maximum distance!")
+            return gustos_dict
+        max_distance = float(max_distance)
+
+        # User Input: Cuisine Type
+        cuisine_type = (
+            input('| Enter cuisine type ("ANY" for any cuisine): ').strip().upper()
+        )
+        # Validation: Cuisine Type
+        if "," in cuisine_type:
+            raise_er("Cuisine type cannot contain commas!")
+            return gustos_dict
+        if cuisine_type == "":
+            raise_er("Cuisine type cannot be empty!")
+            return gustos_dict
+
+        # User Input: Minimum Rating
+        min_rating = input("| Enter minimum rating (out of 5): ")
+        # Validation: Minimum Rating
+        if min_rating == "":
+            raise_er("Minimum rating cannot be empty!")
+            return gustos_dict
+        if not min_rating.replace(".", "", 1).isdigit():
+            raise_er("Invalid minimum rating!")
+            return gustos_dict
+        min_rating = float(min_rating)
+        if min_rating < 0 or min_rating > 5:
+            raise_er("Minimum rating must be between 0 and 5!")
+            return gustos_dict
+        # Add Gusto
+        gustos_dict[label] = [
+            description,
+            group_size,
+            meal_type,
+            budget,
+            max_distance,
+            cuisine_type,
+            min_rating,
+        ]
+        # Save Gustos and Print Success Message
+        sl.save_gustos(gustos_dict)
+        print(f"| Added {label} to Gustos!")
+        continue_prompt()
+        return gustos_dict
+
+
+def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
+    if not gustos_dict:
+        raise_er("No gustos to edit! Add a gusto!")
+        return gustos_dict
+    clear_screen()
+    display_gustos(gustos_dict)
+    print("+------------------------------------------+")
+    print("|                Edit Gusto                |")
+    print("+------------------------------------------+")
+    label = input("| Enter label: ").strip().upper()
+    previous_label = label
+    print("+------------------------------------------+")
+    if "," in label:
+        raise_er("Label cannot contain commas!")
+        return gustos_dict
+    elif label == "":
+        raise_er("Label cannot be empty!")
+        return gustos_dict
+    elif label not in gustos_dict:
+        raise_er(f'Gusto "{label}" does not exist!')
+        return gustos_dict
+    else:
+        print(f"| Gusto Label: {label}")
+        print(f"| Description: {gustos_dict[label][0]}")
+        print(f"| Number of People: {gustos_dict[label][1]}")
+        print(f"| Meal Type: {gustos_dict[label][2]}")
+        print(f"| Budget: {gustos_dict[label][3]}")
+        print(f"| Maximum Distance: {gustos_dict[label][4]}")
+        print(f"| Cuisine Type: {gustos_dict[label][5]}")
+        print(f"| Minimum Rating: {gustos_dict[label][6]}")
+        print("+------------------------------------------+")
+        label = input(f"| Edit label: ").strip().upper()
+        if "," in label:
+            raise_er("Label cannot contain commas!")
+            return gustos_dict
+        elif label == "":
+            raise_er("Label cannot be empty!")
+            return gustos_dict
+        elif label in gustos_dict and previous_label != label:
+            raise_er(f'Gusto "{label}" already exists!')
+            return gustos_dict
+        description = input(f"| Edit description: ").strip()
+        if "," in description:
+            raise_er("Description cannot contain commas!")
+            return gustos_dict
+        if description == "":
+            raise_er("Description cannot be empty!")
+            return gustos_dict
+        group_size = input(f"| Edit number of people: ")
+        if group_size == "":
+            raise_er("Group size cannot be empty!")
+            return gustos_dict
+        elif not group_size.isdigit():
+            raise_er("Invalid group size!")
+            return gustos_dict
+        group_size = int(group_size)
+        meal_type = input("| Edit type of meal (Breakfast, Lunch, Dinner): ").upper()
+        if meal_type.strip() not in ["BREAKFAST", "LUNCH", "DINNER"]:
+            raise_er("Invalid meal type!")
+            return gustos_dict
+        elif meal_type == "":
+            raise_er("Meal type cannot be empty!")
+            return gustos_dict
+        budget = input("| Edit budget: ")
+        if budget == "":
+            raise_er("Budget cannot be empty!")
+            return gustos_dict
+        elif not budget.replace(".", "", 1).isdigit():
+            raise_er("Invalid budget!")
+            return gustos_dict
+        budget = float(budget)
+        if budget < 0:
+            raise_er("Invalid budget!")
+            return gustos_dict
+        max_distance = input("| Edit maximum distance (in meters): ")
+        if max_distance == "":
+            raise_er("Maximum distance cannot be empty!")
+            return gustos_dict
+        elif not max_distance.replace(".", "", 1).isdigit():
+            raise_er("Invalid maximum distance!")
+            return gustos_dict
+        max_distance = float(max_distance)
+        if max_distance < 0:
+            raise_er("Invalid maximum distance!")
+            return gustos_dict
+        cuisine_type = (
+            input('| Edit cuisine type ("ANY" for any cuisine): ').strip().upper()
+        )
+        if "," in cuisine_type:
+            raise_er("Cuisine type cannot contain commas!")
+            return gustos_dict
+        elif cuisine_type == "":
+            raise_er("Cuisine type cannot be empty!")
+            return gustos_dict
+        min_rating = input("| Edit minimum rating (out of 5): ")
+        if min_rating == "":
+            raise_er("Minimum rating cannot be empty!")
+            return gustos_dict
+        elif not min_rating.replace(".", "", 1).isdigit():
+            raise_er("Invalid minimum rating!")
+            return gustos_dict
+        min_rating = float(min_rating)
+        if min_rating < 0 or min_rating > 5:
+            raise_er("Minimum rating must be between 0 and 5!")
+            return gustos_dict
+        if label != previous_label:
+            del gustos_dict[previous_label]
+        gustos_dict[label] = [
+            description,
+            group_size,
+            meal_type,
+            budget,
+            max_distance,
+            cuisine_type,
+            min_rating,
+        ]
+        sl.save_gustos(gustos_dict)
+        if previous_label != label:
+            print(f"| Edited Gusto {previous_label} to {label}!")
+        else:
+            print(f"| Edited Gusto {label}!")
+        continue_prompt()
+        return gustos_dict
+
+
+def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
+    clear_screen()
+
+    display_gustos(gustos_dict)
+
+    print("+------------------------------------------+")
+    print("|              Delete Gusto                |")
+    print("+------------------------------------------+")
+    label = input("| Enter label: ").strip().upper()
+    print("+------------------------------------------+")
+    if label not in gustos_dict:
+        raise_er(f'Gusto "{label}" does not exist!')
+    else:
+        # Display Gusto Info
+        print(f"| Label: {label}")
+        print(f"| Description: {gustos_dict[label][0]}")
+        print(f"| Number of People: {gustos_dict[label][1]}")
+        print(f"| Meal Type: {gustos_dict[label][2]}")
+        print(f"| Budget: {gustos_dict[label][3]}")
+        print(f"| Maximum Distance: {gustos_dict[label][4]}")
+        print(f"| Cuisine Type: {gustos_dict[label][5]}")
+        print(f"| Minimum Rating: {gustos_dict[label][6]}")
+        print("+------------------------------------------+")
+        # Delete Gusto
+        print(f'| Are you sure you want to delete "{label}"?')
+        print("| [Y] Yes")
+        print("| [Any Key] No")
+        choice = input("| Enter choice: ").upper()
+        if choice == "Y":
+            del gustos_dict[label]
+            sl.save_gustos(gustos_dict)
+            print(f'| Deleted "{label}"!')
+            continue_prompt()
+        else:
+            print(f'| Canceled. Expected "Y", got "{choice}"')
+            continue_prompt()
+    return gustos_dict
+
+
+def display_gustos(gustos_dict: dict[str, list]) -> None:
+    clear_screen()
+
+    if not gustos_dict:
+        raise_er("No gustos to display! Add a gusto!")
+        return
+    print(
+        "+-----------------------------------------------------------------------------------------------------------------------+"
+    )
+    print(
+        "|                                                        Gustos                                                         |"
+    )
+    print(
+        "+-----------------------------------------------------------------------------------------------------------------------+"
+    )
+    print(
+        "|   Label   |         Description        |  #  |  Meal Type  |   Budget   |  Max Distance  |    Cuisine    | Min Rating |"
+    )
+    for label, value in gustos_dict.items():
+        # Handle long descriptions
+        desc = ""
+        if len(value[0]) > 26:
+            desc = value[0][:23] + "..."
+        else:
+            desc = value[0]
+        print(
+            f"| {label:<9} | {desc:<26} | {value[1]:>3} | {value[2]:^11} | {value[3]:>10.2f} | {value[4]:>13.2f}m | {value[5]:^13} | {value[6]:^10.1f} |"
+        )
+    print(
+        "+-----------------------------------------------------------------------------------------------------------------------+"
+    )
