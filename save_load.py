@@ -6,7 +6,7 @@ This file contains the functions for saving and loading the restos and gustos.
 import os
 
 # Paths for the data files
-file_dir = os.path.dirname(__file__) + "/data"
+file_dir = os.path.dirname(__file__)
 RESTO_PATH = os.path.join(file_dir, "resto.dat")
 GUSTO_PATH = os.path.join(file_dir, "gusto.dat")
 
