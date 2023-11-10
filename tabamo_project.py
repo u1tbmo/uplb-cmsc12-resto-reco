@@ -30,7 +30,6 @@ def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         g.delete_gustos(gustos_dict)
     elif choice == "4":
         g.display_gustos(gustos_dict)
-        continue_prompt()
     elif choice == "0":
         clear_screen()
     else:
