@@ -16,7 +16,7 @@ Restos Format:
     rating: float = the average rating of the resto (out of 5)
 """
 # Global Variables / Constants
-NAME_LENGTH = 22
+NAME_LENGTH = 16
 
 # File Imports
 import save_load as sl
@@ -290,17 +290,17 @@ def display_restos(restos_dict: dict[str, list]) -> None:
         raise_er("No restos to display. Add a resto!")
         return
     print(
-        "+-----------------------------------------------------------------------------------------------------------------------+"
+        "+-----------------------------------------------------------------------------------------------------------------+"
     )
     print(
-        "|                                                        Restos                                                         |"
+        "|                                                     Restos                                                      |"
     )
     print(
-        "+-----------------------------------------------------------------------------------------------------------------------+"
+        "+-----------------------------------------------------------------------------------------------------------------+"
     )
     print(
         #                                                                   | Breakfast, Lunch, Dinner |
-        "|          Name          | Distance from UPLB Gate |    Cuisine    |        Meal Types        |    Cost    |   Rating   |"
+        "|       Name       | Distance from UPLB Gate |    Cuisine    |        Meal Types        |    Cost    |   Rating   |"
     )
     for name, value in restos_dict.items():
         meal_types = ""
@@ -315,7 +315,7 @@ def display_restos(restos_dict: dict[str, list]) -> None:
         if value[2] != "BLD":
             meal_types = f" {meal_types} "
         print(
-            f"| {name:<22} | {value[0]:>22.2f}m | {value[1]:^13} | {meal_types:^24} | {value[3]:>10.2f} | {value[4]:^10.1f} |"
+            f"| {name:<16} | {value[0]:>22.2f}m | {value[1]:^13} | {meal_types:^24} | {value[3]:>10.2f} | {value[4]:^10.1f} |"
         )
     print(
         "+-----------------------------------------------------------------------------------------------------------------------+"

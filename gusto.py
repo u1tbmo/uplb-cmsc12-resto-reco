@@ -397,26 +397,26 @@ def display_gustos(gustos_dict: dict[str, list]) -> None:
         raise_er("No gustos to display! Add a gusto!")
         return
     print(
-        "+-----------------------------------------------------------------------------------------------------------------------+"
+        "+-----------------------------------------------------------------------------------------------------------------+"
     )
     print(
-        "|                                                        Gustos                                                         |"
+        "|                                                     Gustos                                                      |"
     )
     print(
-        "+-----------------------------------------------------------------------------------------------------------------------+"
+        "+-----------------------------------------------------------------------------------------------------------------+"
     )
     print(
-        "|   Label   |         Description        |  #  |  Meal Type  |   Budget   |  Max Distance  |    Cuisine    | Min Rating |"
+        "|   Label   |      Description     |  #  |  Meal Type  |   Budget   |  Max Distance  |    Cuisine    | Min Rating |"
     )
     for label, value in gustos_dict.items():
         # Handle long descriptions
         desc = ""
-        if len(value[0]) > 26:
-            desc = value[0][:23] + "..."
+        if len(value[0]) > 20:
+            desc = value[0][:17] + "..."
         else:
             desc = value[0]
         print(
-            f"| {label:<9} | {desc:<26} | {value[1]:>3} | {value[2]:^11} | {value[3]:>10.2f} | {value[4]:>13.2f}m | {value[5]:^13} | {value[6]:^10.1f} |"
+            f"| {label:<9} | {desc:<20} | {value[1]:>3} | {value[2]:^11} | {value[3]:>10.2f} | {value[4]:>13.2f}m | {value[5]:^13} | {value[6]:^10.1f} |"
         )
     print(
         "+-----------------------------------------------------------------------------------------------------------------------+"
