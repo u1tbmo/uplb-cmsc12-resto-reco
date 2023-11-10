@@ -248,6 +248,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
+    if not restos_dict:
+        raise_er("No restos to delete. Add a resto!")
+        return restos_dict
     clear_screen()
     display_restos(restos_dict)
     print("+------------------------------------------+")

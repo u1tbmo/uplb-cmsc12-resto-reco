@@ -348,6 +348,10 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
+    if not gustos_dict:
+        raise_er("No gustos to delete! Add a gusto!")
+        return gustos_dict
+
     clear_screen()
 
     display_gustos(gustos_dict)
