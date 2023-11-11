@@ -31,7 +31,7 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     # Print the header
     print(
         f"--------------------------------------------\n",
-        f"                 {c.YELLOW2}Add Resto{c.end}                  \n",
+        f"                 {c.YELLOW2}Add Resto{c.END}                  \n",
         f"--------------------------------------------\n",
         sep="",
         end="",
