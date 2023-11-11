@@ -76,7 +76,7 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             return restos_dict
 
         # User Input: Meal Type
-        print('  Enter y if the resto serves the meal type, Press "Enter" if not.')
+        info('Enter y if the resto serves the meal type, Press "Enter" if not.')
         meal_type = ""
         if input("  Does the resto serve breakfast?: ").strip().lower() == "y":
             meal_type += "B"
