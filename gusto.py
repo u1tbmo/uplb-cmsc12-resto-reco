@@ -21,14 +21,19 @@ LABEL_LENGTH = 9
 
 # File Imports
 import save_load as sl
-from misc import clear_screen, continue_prompt, raise_er
+from misc import clear_screen, continue_prompt, info, raise_er
+import colors as c
 
 
 def ad_hoc_gusto() -> tuple | None:
     clear_screen()
-    print("+------------------------------------------+")
-    print("|               Ad Hoc Gusto               |")
-    print("+------------------------------------------+")
+    print(
+        "+------------------------------------------+\n",
+        "|               Ad Hoc Gusto               |\n",
+        "+------------------------------------------+\n",
+        sep="",
+        end="",
+    )
     # User Input: Group Size
     group_size = input("| Enter number of people: ")
     # Validation: Group Size
@@ -109,9 +114,13 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     clear_screen()
 
     # Print the header
-    print("+------------------------------------------+")
-    print("|                Add Gusto                 |")
-    print("+------------------------------------------+")
+    print(
+        "+------------------------------------------+\n",
+        "|                Add Gusto                 |\n",
+        "+------------------------------------------+\n",
+        sep="",
+        end="",
+    )
 
     # User Input: Label
     label = input("| Enter label: ").strip().upper()
@@ -217,7 +226,7 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         ]
         # Save Gustos and Print Success Message
         sl.save_gustos(gustos_dict)
-        print(f"| Added {label} to Gustos!")
+        info(f'Added Gusto "{label}"')
         continue_prompt()
         return gustos_dict
 
@@ -227,10 +236,14 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         raise_er("No gustos to edit! Add a gusto!")
         return gustos_dict
     clear_screen()
-    display_gustos(gustos_dict)
-    print("+------------------------------------------+")
-    print("|                Edit Gusto                |")
-    print("+------------------------------------------+")
+    display_gustos_simple(gustos_dict)
+    print(
+        "+------------------------------------------+\n",
+        "|                Edit Gusto                |\n",
+        "+------------------------------------------+\n",
+        sep="",
+        end="",
+    )
     label = input("| Enter label: ").strip().upper()
     previous_label = label
     print("+------------------------------------------+")
@@ -244,6 +257,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         raise_er(f'Gusto "{label}" does not exist!')
         return gustos_dict
     else:
+        info(f"Fetched Gusto {label}!")
         print(f"| Gusto Label: {label}")
         print(f"| Description: {gustos_dict[label][0]}")
         print(f"| Number of People: {gustos_dict[label][1]}")
@@ -340,9 +354,9 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         ]
         sl.save_gustos(gustos_dict)
         if previous_label != label:
-            print(f"| Edited Gusto {previous_label} to {label}!")
+            info(f'Edited Gusto "{previous_label}" to "{label}"')
         else:
-            print(f"| Edited Gusto {label}!")
+            info(f'Edited Gusto "{label}"')
         continue_prompt()
         return gustos_dict
 
@@ -354,17 +368,22 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
 
     clear_screen()
 
-    display_gustos(gustos_dict)
+    display_gustos_simple(gustos_dict)
 
-    print("+------------------------------------------+")
-    print("|              Delete Gusto                |")
-    print("+------------------------------------------+")
+    print(
+        "+------------------------------------------+\n",
+        "|              Delete Gusto                |\n",
+        "+------------------------------------------+\n",
+        sep="",
+        end="",
+    )
     label = input("| Enter label: ").strip().upper()
     print("+------------------------------------------+")
     if label not in gustos_dict:
         raise_er(f'Gusto "{label}" does not exist!')
     else:
         # Display Gusto Info
+        info(f"Fetched Gusto {label}!")
         print(f"| Label: {label}")
         print(f"| Description: {gustos_dict[label][0]}")
         print(f"| Number of People: {gustos_dict[label][1]}")
@@ -375,38 +394,57 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         print(f"| Minimum Rating: {gustos_dict[label][6]}")
         print("+------------------------------------------+")
         # Delete Gusto
-        print(f'| Are you sure you want to delete "{label}"?')
-        print("| [Y] Yes")
-        print("| [Any Key] No")
+        print(f"| Are you sure you want to delete {label}?")
+        print(f"{c.GREEN}| [Y] Yes{c.END}")
+        print(f"{c.RED}| [Any Key] No{c.END}")
         choice = input("| Enter choice: ").upper()
         if choice == "Y":
             del gustos_dict[label]
             sl.save_gustos(gustos_dict)
-            print(f'| Deleted "{label}"!')
+            info(f'Deleted Gusto "{label}"')
             continue_prompt()
         else:
-            print(f'| Canceled. Expected "Y", got "{choice}"')
+            info(f'Canceled. Expected "Y", got "{choice}"')
             continue_prompt()
     return gustos_dict
 
 
-def display_gustos(gustos_dict: dict[str, list]) -> None:
+def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
+    clear_screen()
+    if not gustos_dict:
+        raise_er("No gustos to display! Add a gusto!")
+        return
+    print(
+        "+-------------------------------------------+\n",
+        "|                  Gustos                   |\n",
+        "+-------------------------------------------+\n",
+        "|   Label   |          Description          |\n",
+        sep="",
+        end="",
+    )
+    for label, value in gustos_dict.items():
+        desc = ""
+        if len(value[0]) > 29:
+            desc = value[0][:26] + "..."
+        else:
+            desc = value[0]
+        print(f"| {label:<9} | {desc:<29} |")
+    print("+-------------------------------------------+")
+
+
+def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
     clear_screen()
 
     if not gustos_dict:
         raise_er("No gustos to display! Add a gusto!")
         return
     print(
-        "+-----------------------------------------------------------------------------------------------------------------+"
-    )
-    print(
-        "|                                                     Gustos                                                      |"
-    )
-    print(
-        "+-----------------------------------------------------------------------------------------------------------------+"
-    )
-    print(
-        "|   Label   |      Description     |  #  |  Meal Type  |   Budget   |  Max Distance  |    Cuisine    | Min Rating |"
+        "+-----------------------------------------------------------------------------------------------------------------+\n",
+        "|                                                     Gustos                                                      |\n",
+        "+-----------------------------------------------------------------------------------------------------------------+\n",
+        "|   Label   |      Description     |  #  |  Meal Type  |   Budget   |  Max Distance  |    Cuisine    | Min Rating |\n",
+        sep="",
+        end="",
     )
     for label, value in gustos_dict.items():
         # Handle long descriptions
@@ -419,5 +457,7 @@ def display_gustos(gustos_dict: dict[str, list]) -> None:
             f"| {label:<9} | {desc:<20} | {value[1]:>3} | {value[2]:^11} | {value[3]:>10.2f} | {value[4]:>13.2f}m | {value[5]:^13} | {value[6]:^10.1f} |"
         )
     print(
-        "+-----------------------------------------------------------------------------------------------------------------+"
+        "+-----------------------------------------------------------------------------------------------------------------+\n",
+        sep="",
+        end="",
     )

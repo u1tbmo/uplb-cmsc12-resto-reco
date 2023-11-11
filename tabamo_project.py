@@ -5,14 +5,14 @@ This program recommends dining place/s based on the preferences of the user.
 # Project
 
 # Standard Library Imports
-import random
-import time
+import os
 
 # File Imports
 import save_load as sl
 import gusto as g
 import resto as r
 import reco as rc
+import colors as c
 from misc import clear_screen, continue_prompt, raise_er
 
 # Global Variables
@@ -29,7 +29,11 @@ def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     elif choice == "3":
         g.delete_gustos(gustos_dict)
     elif choice == "4":
-        g.display_gustos(gustos_dict)
+        g.display_gustos_simple(gustos_dict)
+        continue_prompt()
+    elif choice == "5":
+        g.display_gustos_detailed(gustos_dict)
+        continue_prompt()
     elif choice == "0":
         clear_screen()
     else:
@@ -46,7 +50,11 @@ def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     elif choice == "3":
         r.delete_restos(restos_dict)
     elif choice == "4":
-        r.display_restos(restos_dict)
+        r.display_restos_simple(restos_dict)
+        continue_prompt()
+    elif choice == "5":
+        r.display_restos_detailed(restos_dict)
+        continue_prompt()
     elif choice == "0":
         clear_screen()
     else:
@@ -56,55 +64,88 @@ def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
 def main_menu() -> str:
     print(
-        "+------------------------------------------+",
-        "|          Welcome to Euan's UPLB          |",
-        "|               Resto Reco!                |",
-        "+------------------------------------------+",
-        "|                   Menu                   |",
-        "+------------------------------------------+",
-        "| [1] Manage Gustos                        |",
-        "| [2] Manage Restos                        |",
-        "| [3] Get Recos                            |",
-        "| [A] About                                |",
-        "| [H] Help                                 |",
-        "| [0] Exit                                 |",
-        "+------------------------------------------+",
-        sep="\n",
-        end="\n",
+        "+-------------------------------------------+\n",
+        "|                Main Menu                  |\n",
+        "+-------------------------------------------+\n",
+        "| 1 | Manage Gustos                         |\n",
+        "| 2 | Manage Restos                         |\n",
+        "| 3 | Get Recos                             |\n",
+        "| A | About                                 |\n",
+        "| H | Help                                  |\n",
+        "| 0 | Exit                                  |\n",
+        "+-------------------------------------------+\n",
+        sep="",
+        end="",
     )
-    return input("| Enter choice: ")
+    return input(f"| Enter choice: ")
 
 
 def gusto_menu() -> str:
+    clear_screen()
     print(
-        "+------------------------------------------+",
-        "|           Menu > Manage Gustos           |",
-        "+------------------------------------------+",
-        "| [1] Add Gusto                            |",
-        "| [2] Edit Gusto                           |",
-        "| [3] Delete Gusto                         |",
-        "| [4] Display Gustos                       |",
-        "| [0] Back to Main Menu                    |",
-        "+------------------------------------------+",
-        sep="\n",
-        end="\n",
+        f"{c.GRAY}",
+        "+-------------------------------------------+\n",
+        "|                Main Menu                  |\n",
+        "+-------------------------------------------+\n",
+        f"| {c.YELLOW2}1 | Manage Gustos{c.GRAY}                         |\n",
+        "| 2 | Manage Restos                         |\n",
+        "| 3 | Get Recos                             |\n",
+        "| A | About                                 |\n",
+        "| H | Help                                  |\n",
+        "| 0 | Exit                                  |\n",
+        "+-------------------------------------------+\n",
+        f"{c.END}",
+        sep="",
+        end="",
+    )
+    print(
+        "+-------------------------------------------+\n",
+        "|               Manage Gustos               |\n",
+        "+-------------------------------------------+\n",
+        "| 1 | Add Gusto                             |\n",
+        "| 2 | Edit Gusto                            |\n",
+        "| 3 | Delete Gusto                          |\n",
+        "| 4 | Display Gustos (Simple)               |\n",
+        "| 5 | Display Gustos (Detailed)             |\n",
+        "| 0 | Back to Main Menu                     |\n",
+        "+-------------------------------------------+\n",
+        sep="",
+        end="",
     )
     return input("| Enter choice: ")
 
 
 def resto_menu() -> str:
+    clear_screen()
     print(
-        "+------------------------------------------+",
-        "|           Menu > Manage Restos           |",
-        "+------------------------------------------+",
-        "| [1] Add Resto                            |",
-        "| [2] Edit Resto                           |",
-        "| [3] Delete Resto                         |",
-        "| [4] Display Restos                       |",
-        "| [0] Back to Main Menu                    |",
-        "+------------------------------------------+",
-        sep="\n",
-        end="\n",
+        f"{c.GRAY}",
+        "+-------------------------------------------+\n",
+        "|                Main Menu                  |\n",
+        "+-------------------------------------------+\n",
+        "| 1 | Manage Gustos                         |\n",
+        f"| {c.YELLOW2}2 | Manage Restos{c.GRAY}                         |\n",
+        "| 3 | Get Recos                             |\n",
+        "| A | About                                 |\n",
+        "| H | Help                                  |\n",
+        "| 0 | Exit                                  |\n",
+        "+-------------------------------------------+\n",
+        f"{c.END}",
+        sep="",
+        end="",
+    )
+    print(
+        "+-------------------------------------------+\n",
+        "|               Manage Restos               |\n",
+        "+-------------------------------------------+\n",
+        "| 1 | Add Resto                             |\n",
+        "| 2 | Edit Resto                            |\n",
+        "| 3 | Delete Resto                          |\n",
+        "| 4 | Display Restos (Simple)               |\n",
+        "| 5 | Display Restos (Detailed)             |\n",
+        "| 0 | Back to Main Menu                     |\n",
+        "+-------------------------------------------+\n",
+        sep="",
+        end="",
     )
     return input("| Enter choice: ")
 
@@ -112,15 +153,15 @@ def resto_menu() -> str:
 def about() -> None:
     clear_screen()
     print(
-        "+------------------------------------------+",
-        "|                  About                   |",
-        "+------------------------------------------+",
-        "|         Euan's UPLB Resto Reco!          |",
-        "|    Programmed by: Tabamo, Euan Jed S.    |",
-        "|       Started on November 7, 2023        |",
-        "+------------------------------------------+",
-        sep="\n",
-        end="\n",
+        "+------------------------------------------+\n",
+        "|                  About                   |\n",
+        "+------------------------------------------+\n",
+        "|         Euan's UPLB Resto Reco!          |\n",
+        "|    Programmed by: Tabamo, Euan Jed S.    |\n",
+        "|       Started on November 7, 2023        |\n",
+        "+------------------------------------------+\n",
+        sep="",
+        end="",
     )
     continue_prompt()
 
@@ -128,15 +169,16 @@ def about() -> None:
 def help() -> None:
     clear_screen()
     print(
-        "+------------------------------------------+",
-        "|               Menu > Help                |",
-        "+------------------------------------------+",
-        "| [1] Gustos                               |",
-        "| [2] Restos                               |",
-        "| [3] Recos                                |",
-        "+------------------------------------------+",
-        sep="\n",
-        end="\n",
+        "+------------------------------------------+\n",
+        "|                   Help                   |\n",
+        "+------------------------------------------+\n",
+        "| 1 | Gustos                               |\n",
+        "| 2 | Restos                               |\n",
+        "| 3 | Recos                                |\n",
+        "| 0 | Back to Main Menu                    |\n",
+        "+------------------------------------------+\n",
+        sep="",
+        end="",
     )
     choice = input("| Enter choice: ")
     if choice == "1":
@@ -145,6 +187,8 @@ def help() -> None:
         help_restos()
     elif choice == "3":
         help_recos()
+    elif choice == "0":
+        clear_screen()
     else:
         print("| ERROR: Invalid choice!")
         continue_prompt()
@@ -153,20 +197,20 @@ def help() -> None:
 def help_gustos() -> None:
     clear_screen()
     print(
-        "+-------------------------------------------------------------------------+",
-        "| Gustos are preference profiles that contain the following attributes:   |",
-        "+-------------------------------------------------------------------------+",
-        "| Label = the unique identifier of the gusto                              |",
-        "| Description = the description of the gusto                              |",
-        "| Group Size = the number of people the gusto is for                      |",
-        "| Meal Type = the meal type the gusto is for (breakfast, lunch, dinner)   |",
-        "| Budget = the budget of the gusto (in pesos)                             |",
-        "| Max Distance = the maximum distance of the resto from UPLB gate         |",
-        "| Cuisine Type = the type of cuisine the resto serves                     |",
-        "| Min Rating = the minimum rating of the resto                            |",
-        "+-------------------------------------------------------------------------+",
-        sep="\n",
-        end="\n",
+        "+-------------------------------------------------------------------------+\n",
+        "| Gustos are preference profiles that contain the following attributes:   |\n",
+        "+-------------------------------------------------------------------------+\n",
+        "| Label = the unique identifier of the gusto                              |\n",
+        "| Description = the description of the gusto                              |\n",
+        "| Group Size = the number of people the gusto is for                      |\n",
+        "| Meal Type = the meal type the gusto is for (breakfast, lunch, dinner)   |\n",
+        "| Budget = the budget of the gusto (in pesos)                             |\n",
+        "| Max Distance = the maximum distance of the resto from UPLB gate         |\n",
+        "| Cuisine Type = the type of cuisine the resto serves                     |\n",
+        "| Min Rating = the minimum rating of the resto                            |\n",
+        "+-------------------------------------------------------------------------+\n",
+        sep="",
+        end="",
     )
     continue_prompt()
 
@@ -174,18 +218,19 @@ def help_gustos() -> None:
 def help_restos() -> None:
     clear_screen()
     print(
-        "+-------------------------------------------------------------------------+",
-        "| Restos are dining places with the following attributes:                 |",
-        "+-------------------------------------------------------------------------+",
-        "| Name = the unique identifier of the resto                               |",
-        "| Distance = the distance from UPLB gate to the resto                     |",
-        "| Cuisine Type = the type of cuisine the resto serves                     |",
-        "| Meal Type = the meal types the resto serves (breakfast, lunch, dinner)  |",
-        "| Cost = the average cost of a meal in the resto                          |",
-        "| Rating = the average rating of the resto                                |",
-        "+-------------------------------------------------------------------------+",
-        sep="\n",
-        end="\n",
+        f"{c.YELLOW2}"
+        "+-------------------------------------------------------------------------+\n",
+        "| Restos are dining places with the following attributes:                 |\n",
+        "+-------------------------------------------------------------------------+\n",
+        "| Name = the unique identifier of the resto                               |\n",
+        "| Distance = the distance from UPLB gate to the resto                     |\n",
+        "| Cuisine Type = the type of cuisine the resto serves                     |\n",
+        "| Meal Type = the meal types the resto serves (breakfast, lunch, dinner)  |\n",
+        "| Cost = the average cost of a meal in the resto                          |\n",
+        "| Rating = the average rating of the resto                                |\n",
+        "+-------------------------------------------------------------------------+\n",
+        sep="",
+        end="",
     )
     continue_prompt()
 
@@ -193,42 +238,42 @@ def help_restos() -> None:
 def help_recos() -> None:
     clear_screen()
     print(
-        "+-------------------------------------------------------------------------+",
-        "| Recos are dining place/s recommended by the program based on the user's |",
-        "| preferences. The program will recommend resto/s that are within the     |",
-        '| "gustos" or preference profile of the user.                             |',
-        "+-------------------------------------------------------------------------+",
-        sep="\n",
-        end="\n",
+        "+-------------------------------------------------------------------------+\n",
+        "| Recos are dining place/s recommended by the program based on the user's |\n",
+        "| preferences. The program will recommend resto/s that are within the     |\n",
+        '| "gustos" or preference profile of the user.                             |\n',
+        "+-------------------------------------------------------------------------+\n",
+        sep="",
+        end="",
     )
     continue_prompt()
 
 
 def exit() -> None:
     clear_screen()
-    message = "See you next time!     "
-    for i in range(len(message)):
-        rotate = message[i % len(message) :] + message[: i % len(message)]
-        print(rotate)
-        time.sleep(0.02)
-        clear_screen()
-    print(message)
+    message = f"{c.ITALIC}See you next time!{c.END}"
+    print(f"{message}")
+
+
+def load_colors() -> None:
+    os.system("")
 
 
 def main():
+    load_colors()
     sl.load(restos, gustos)
     clear_screen()
     while True:
         choice = main_menu()
-        if choice == "1":
-            gustos_dict = manage_gustos(gustos)
-        elif choice == "2":
-            restos_dict = manage_restos(restos)
-        elif choice == "3":
-            rc.get_recos(restos, gustos)
-        elif choice == "0":
+        if choice == "0":
             exit()
             break
+        elif choice == "1":
+            manage_gustos(gustos)
+        elif choice == "2":
+            manage_restos(restos)
+        elif choice == "3":
+            rc.get_recos(restos, gustos)
         elif choice.upper() == "A":
             about()
         elif choice.upper() == "H":

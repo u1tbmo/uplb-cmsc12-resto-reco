@@ -20,7 +20,8 @@ NAME_LENGTH = 16
 
 # File Imports
 import save_load as sl
-from misc import clear_screen, continue_prompt, raise_er
+from misc import clear_screen, continue_prompt, info, raise_er
+import colors as c
 
 
 def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
@@ -28,9 +29,13 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     clear_screen()
 
     # Print the header
-    print("+------------------------------------------+")
-    print("|                Add Resto                 |")
-    print("+------------------------------------------+")
+    print(
+        "+------------------------------------------+\n",
+        "|                Add Resto                 |\n",
+        "+------------------------------------------+\n",
+        sep="",
+        end="",
+    )
 
     # User Input: Name
     name = input("| Name: ").strip().upper()
@@ -114,7 +119,7 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
         # Save restos and print success message
         sl.save_restos(restos_dict)
-        print(f'| Added "{name}" to Restos!')
+        info(f'Added Resto "{name}"')
         continue_prompt()
         return restos_dict
 
@@ -128,7 +133,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     clear_screen()
 
     # Display restos
-    display_restos(restos_dict)
+    display_restos_simple(restos_dict)
 
     # Print the header
     print("+------------------------------------------+")
@@ -151,6 +156,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         return restos_dict
     else:
         # Display Resto Info
+        info(f"Fetched Resto {name}!")
         print(f"| Name: {name}")
         print(f"| Distance from UPLB gate: {restos_dict[name][0]} meters")
         print(f"| Cuisine Type: {restos_dict[name][1]}")
@@ -240,9 +246,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         # Save restos and print success message
         sl.save_restos(restos_dict)
         if previous_name != name:
-            print(f'| Edited Resto "{previous_name} to {name}"')
+            info(f'Edited Resto "{previous_name} to {name}"')
         else:
-            print(f'| Edited Resto "{name}"')
+            info(f'Edited Resto "{name}"')
         continue_prompt()
         return restos_dict
 
@@ -252,15 +258,17 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         raise_er("No restos to delete. Add a resto!")
         return restos_dict
     clear_screen()
-    display_restos(restos_dict)
+    display_restos_simple(restos_dict)
     print("+------------------------------------------+")
     print("|              Delete Resto                |")
     print("+------------------------------------------+")
     name = input("Name: ").strip().upper()
+    print("+------------------------------------------+")
     if name not in restos_dict:
         raise_er(f"Resto {name} does not exist.")
         return restos_dict
     else:
+        info(f"Fetched Resto {name}!")
         print(f"| Name: {name}")
         print(f"| Distance from UPLB gate: {restos_dict[name][0]} meters")
         print(f"| Cuisine Type: {restos_dict[name][1]}")
@@ -275,15 +283,33 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         if choice == "Y":
             del restos_dict[name]
             sl.save_gustos(restos_dict)
-            print(f'| Deleted "{name}"!')
+            info(f'Deleted Resto "{name}"')
             continue_prompt()
         else:
-            print(f'| Canceled. Expected "Y", got "{choice}"')
+            info(f'Canceled. Expected "Y", got "{choice}"')
             continue_prompt()
     return restos_dict
 
 
-def display_restos(restos_dict: dict[str, list]) -> None:
+def display_restos_simple(restos_dict: dict[str, list]) -> None:
+    clear_screen()
+    if not restos_dict:
+        raise_er("No restos to display. Add a resto!")
+        return
+    print(
+        "+-------------------------------------------+\n",
+        "|                  Restos                   |\n",
+        "+-------------------------------------------+\n",
+        "|       Name       |        Cuisine         |\n",
+        sep="",
+        end="",
+    )
+    for name, value in restos_dict.items():
+        print(f"| {name:<16} | {value[1]:<22} |")
+    print("+-------------------------------------------+")
+
+
+def display_restos_detailed(restos_dict: dict[str, list]) -> None:
     clear_screen()
 
     if not restos_dict:
@@ -320,4 +346,3 @@ def display_restos(restos_dict: dict[str, list]) -> None:
     print(
         "+-----------------------------------------------------------------------------------------------------------------+"
     )
-    continue_prompt()

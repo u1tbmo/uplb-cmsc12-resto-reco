@@ -61,9 +61,10 @@ def load_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     return gustos_dict
 
 
-def load(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> None:
+def load(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> tuple:
     restos_dict = load_restos(restos_dict)
     gustos_dict = load_gustos(gustos_dict)
+    return (restos_dict, gustos_dict)
 
 
 def save_restos(restos_dict: dict[str, list]) -> None:

@@ -6,10 +6,9 @@ This module contains the functions for recommending restos.
 import random
 
 # File Imports
-import save_load as sl
+import colors as c
 from misc import clear_screen, continue_prompt, raise_er
 import gusto as g
-import resto as r
 
 
 def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
@@ -36,12 +35,12 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
             continue
 
         meal_types = []
-        for c in r_meal_type:
-            if c == "B":
+        for choice in r_meal_type:
+            if choice == "B":
                 meal_types.append("BREAKFAST")
-            elif c == "L":
+            elif choice == "L":
                 meal_types.append("LUNCH")
-            elif c == "D":
+            elif choice == "D":
                 meal_types.append("DINNER")
         if g_meal_type not in meal_types:
             continue
@@ -60,17 +59,39 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     if not restos_dict:
         raise_er("No Restos to Reco! Add some Restos first!")
         return
-    print("+------------------------------------------+")
-    print("|             Menu > Get Recos             |")
-    print("+------------------------------------------+")
-    print("| [1] Get Recos from Gustos                |")
-    print("| [2] Get Recos from a New Gusto           |")
-    print("| [0] Back to Main Menu                    |")
-    print("+------------------------------------------+")
+    clear_screen()
+    print(
+        f"{c.GRAY}",
+        "+-------------------------------------------+\n",
+        "|                Main Menu                  |\n",
+        "+-------------------------------------------+\n",
+        "| 1 | Manage Gustos                         |\n",
+        "| 2 | Manage Restos                         |\n",
+        f"| {c.YELLOW2}3 | Get Recos{c.GRAY}                             |\n",
+        "| A | About                                 |\n",
+        "| H | Help                                  |\n",
+        "| 0 | Exit                                  |\n",
+        "+-------------------------------------------+\n",
+        f"{c.END}",
+        sep="",
+        end="",
+    )
+    print(
+        "+-------------------------------------------------+\n",
+        "|                    Get Recos                    |\n",
+        "+-------------------------------------------------+\n",
+        "| 1 | Get Reco from an Existing Gusto             |\n",
+        "| 2 | Get Reco from an Ad Hoc Gusto               |\n",
+        "| 0 | Back to Main Menu                           |\n",
+        "+-------------------------------------------------+\n",
+        sep="",
+        end="",
+    )
+
     choice = input("| Enter choice: ")
     if choice == "1":
         clear_screen()
-        g.display_gustos(gustos_dict)
+        g.display_gustos_simple(gustos_dict)
         label = input("| Enter gusto label: ").strip().upper()
         if label not in gustos_dict:
             raise_er("Invalid gusto label!")
@@ -124,12 +145,12 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     print("+------------------------------------------+")
     for name in recos:
         meal_types = []
-        for c in restos_dict[name][2]:
-            if c == "B":
+        for choice in restos_dict[name][2]:
+            if choice == "B":
                 meal_types.append("BREAKFAST")
-            elif c == "L":
+            elif choice == "L":
                 meal_types.append("LUNCH")
-            elif c == "D":
+            elif choice == "D":
                 meal_types.append("DINNER")
         print(f"| Resto: {name}")
         print(f"| Distance: {restos_dict[name][0]}")

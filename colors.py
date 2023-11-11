@@ -14,7 +14,7 @@ SELECTED = "\33[7m"
 
 # Text Colors
 BLACK = "\33[30m"
-GREY = "\33[90m"
+GRAY = "\33[90m"
 RED = "\33[31m"
 RED2 = "\33[91m"
 GREEN = "\33[32m"
