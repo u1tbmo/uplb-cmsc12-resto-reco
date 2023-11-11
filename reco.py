@@ -62,37 +62,37 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     clear_screen()
     print(
         f"{c.GRAY}",
-        "+-------------------------------------------+\n",
-        "|                Main Menu                  |\n",
-        "+-------------------------------------------+\n",
-        "| 1 | Manage Gustos                         |\n",
-        "| 2 | Manage Restos                         |\n",
-        f"| {c.YELLOW2}3 | Get Recos{c.GRAY}                             |\n",
-        "| A | About                                 |\n",
-        "| H | Help                                  |\n",
-        "| 0 | Exit                                  |\n",
-        "+-------------------------------------------+\n",
+        f"---------------------------------------------\n",
+        f"                 Main Menu                   \n",
+        f"---------------------------------------------\n",
+        f"  1   Manage Gustos                          \n",
+        f"  2   Manage Restos                          \n",
+        f"  {c.YELLOW2}3   Get Recos{c.GRAY}                              \n",
+        f"  A   About                                  \n",
+        f"  H   Help                                   \n",
+        f"  0   Exit                                   \n",
+        f"---------------------------------------------\n",
         f"{c.END}",
         sep="",
         end="",
     )
     print(
-        "+-------------------------------------------------+\n",
-        "|                    Get Recos                    |\n",
-        "+-------------------------------------------------+\n",
-        "| 1 | Get Reco from an Existing Gusto             |\n",
-        "| 2 | Get Reco from an Ad Hoc Gusto               |\n",
-        "| 0 | Back to Main Menu                           |\n",
-        "+-------------------------------------------------+\n",
+        f"---------------------------------------------------\n",
+        f"                     {c.YELLOW2}Get Recos{c.END}                     \n",
+        f"---------------------------------------------------\n",
+        f"  1   Get Reco from an Existing Gusto              \n",
+        f"  2   Get Reco from an Ad Hoc Gusto                \n",
+        f"  0   Back to Main Menu                            \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
 
-    choice = input("| Enter choice: ")
+    choice = input("  Enter choice: ")
     if choice == "1":
         clear_screen()
         g.display_gustos_simple(gustos_dict)
-        label = input("| Enter gusto label: ").strip().upper()
+        label = input("  Enter gusto label: ").strip().upper()
         if label not in gustos_dict:
             raise_er("Invalid gusto label!")
             return
@@ -111,38 +111,38 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         return
 
     if not recos:
-        print("+-------------------------------------------------+")
-        print("| We cannot find a resto match for your gusto!    |")
-        print("| Want to find a match? Try:                      |")
-        print("| - Adding more Restos                            |")
-        print("| - A different Gusto                             |")
-        print("| - Increasing your Gusto's budget                |")
-        print("| - Increasing your Gusto's max distance          |")
-        print("| - Changing your Gusto's cuisine type            |")
-        print("| - Decreasing your Gusto's group size            |")
-        print("| - Decreasing your Gusto's minimum rating        |")
-        print("+-------------------------------------------------+")
+        print("---------------------------------------------------")
+        print("  We cannot find a resto match for your gusto!     ")
+        print("  Want to find a match? Try:                       ")
+        print("  - Adding more Restos                             ")
+        print("  - A different Gusto                              ")
+        print("  - Increasing your Gusto's budget                 ")
+        print("  - Increasing your Gusto's max distance           ")
+        print("  - Changing your Gusto's cuisine type             ")
+        print("  - Decreasing your Gusto's group size             ")
+        print("  - Decreasing your Gusto's minimum rating         ")
+        print("---------------------------------------------------")
         continue_prompt()
         return
 
     clear_screen()
-    print("+------------------------------------------+")
-    print("|   We Reco these Restos for your Gusto!   |")
-    print("+------------------------------------------+")
-    print("|                  Gusto                   |")
-    print("+------------------------------------------+")
+    print("--------------------------------------------")
+    print("    We Reco these Restos for your Gusto!    ")
+    print("--------------------------------------------")
+    print("                   Gusto                    ")
+    print("--------------------------------------------")
     if gusto[0] != "AD,HOC":
-        print(f"| Label: {gusto[0]}")
-        print(f"| Description: {gusto[1][0]}")
-    print(f"| Group Size: {gusto[1][1]}")
-    print(f"| Meal Type: {gusto[1][2]}")
-    print(f"| Budget: {gusto[1][3]}")
-    print(f"| Max Distance: {gusto[1][4]}")
-    print(f"| Cuisine Type: {gusto[1][5]}")
-    print(f"| Min Rating: {gusto[1][6]}")
-    print("+------------------------------------------+")
-    print("|                  Recos                   |")
-    print("+------------------------------------------+")
+        print(f"  Label: {gusto[0]}")
+        print(f"  Description: {gusto[1][0]}")
+    print(f"  Group Size: {gusto[1][1]}")
+    print(f"  Meal Type: {gusto[1][2]}")
+    print(f"  Budget: {gusto[1][3]}")
+    print(f"  Max Distance: {gusto[1][4]}")
+    print(f"  Cuisine Type: {gusto[1][5]}")
+    print(f"  Min Rating: {gusto[1][6]}")
+    print("--------------------------------------------")
+    print("                   Recos                    ")
+    print("--------------------------------------------")
     for name in recos:
         meal_types = []
         for choice in restos_dict[name][2]:
@@ -152,11 +152,11 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
                 meal_types.append("LUNCH")
             elif choice == "D":
                 meal_types.append("DINNER")
-        print(f"| Resto: {name}")
-        print(f"| Distance: {restos_dict[name][0]}")
-        print(f"| Cuisine Type: {restos_dict[name][1]}")
-        print(f"| Meal Type: {", ".join(meal_types)}")
-        print(f"| Cost: {restos_dict[name][3]}")
-        print(f"| Rating: {restos_dict[name][4]}")
-        print("+------------------------------------------+")
+        print(f"  Resto: {name}")
+        print(f"  Distance: {restos_dict[name][0]}")
+        print(f"  Cuisine Type: {restos_dict[name][1]}")
+        print(f"  Meal Type: {", ".join(meal_types)}")
+        print(f"  Cost: {restos_dict[name][3]}")
+        print(f"  Rating: {restos_dict[name][4]}")
+        print("--------------------------------------------")
     continue_prompt()
