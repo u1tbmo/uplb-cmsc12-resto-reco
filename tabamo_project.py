@@ -212,7 +212,7 @@ def help() -> None:
 
 def exit() -> None:
     clear_screen()
-    message = f"{c.ITALIC}See you next time!{c.END}"
+    message = f"{c.ITALIC}{c.YELLOW2}See you next time!{c.END}"
     print(f"{message}")
 
 
