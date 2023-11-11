@@ -134,11 +134,11 @@ def help_recos() -> None:
         end="",
     )
     print(
-        "---------------------------------------------------------------------------\n",
-        "  Recos are dining place/s recommended by the program based on the user's  \n",
-        "  preferences. The program will recommend resto/s that are within the      \n",
-        '  "gustos" or preference profile of the user.                              \n',
-        "---------------------------------------------------------------------------\n",
+        f"---------------------------------------------------------------------------\n",
+        f"  {c.YELLOW2}Recos{c.END} are dining place/s recommended by the program based on the user's  \n",
+        f"  preferences. The program will recommend resto/s that are within the      \n",
+        f'  "gustos" or preference profile of the user.                              \n',
+        f"---------------------------------------------------------------------------\n",
         sep="",
         end="",
     )
