@@ -21,48 +21,6 @@ restos: dict[str, list] = {}
 gustos: dict[str, list] = {}
 
 
-def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
-    choice = gusto_menu()
-    if choice == "1":
-        g.add_gustos(gustos_dict)
-    elif choice == "2":
-        g.edit_gustos(gustos_dict)
-    elif choice == "3":
-        g.delete_gustos(gustos_dict)
-    elif choice == "4":
-        g.display_gustos_simple(gustos_dict)
-        continue_prompt()
-    elif choice == "5":
-        g.display_gustos_detailed(gustos_dict)
-        continue_prompt()
-    elif choice == "0":
-        clear_screen()
-    else:
-        raise_er("Invalid choice!")
-    return gustos_dict
-
-
-def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
-    choice = resto_menu()
-    if choice == "1":
-        r.add_restos(restos_dict)
-    elif choice == "2":
-        r.edit_restos(restos_dict)
-    elif choice == "3":
-        r.delete_restos(restos_dict)
-    elif choice == "4":
-        r.display_restos_simple(restos_dict)
-        continue_prompt()
-    elif choice == "5":
-        r.display_restos_detailed(restos_dict)
-        continue_prompt()
-    elif choice == "0":
-        clear_screen()
-    else:
-        raise_er("Invalid choice!")
-    return restos_dict
-
-
 def main_menu() -> str:
     print(
         f"---------------------------------------------\n",
@@ -210,14 +168,56 @@ def help() -> None:
         raise_er("Invalid choice!")
 
 
-def exit() -> None:
-    clear_screen()
-    message = f"{c.ITALIC}{c.YELLOW2}See you next time!{c.END}"
-    print(f"{message}")
+def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
+    choice = gusto_menu()
+    if choice == "1":
+        g.add_gustos(gustos_dict)
+    elif choice == "2":
+        g.edit_gustos(gustos_dict)
+    elif choice == "3":
+        g.delete_gustos(gustos_dict)
+    elif choice == "4":
+        g.display_gustos_simple(gustos_dict)
+        continue_prompt()
+    elif choice == "5":
+        g.display_gustos_detailed(gustos_dict)
+        continue_prompt()
+    elif choice == "0":
+        clear_screen()
+    else:
+        raise_er("Invalid choice!")
+    return gustos_dict
+
+
+def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
+    choice = resto_menu()
+    if choice == "1":
+        r.add_restos(restos_dict)
+    elif choice == "2":
+        r.edit_restos(restos_dict)
+    elif choice == "3":
+        r.delete_restos(restos_dict)
+    elif choice == "4":
+        r.display_restos_simple(restos_dict)
+        continue_prompt()
+    elif choice == "5":
+        r.display_restos_detailed(restos_dict)
+        continue_prompt()
+    elif choice == "0":
+        clear_screen()
+    else:
+        raise_er("Invalid choice!")
+    return restos_dict
 
 
 def load_colors() -> None:
     os.system("")
+
+
+def exit() -> None:
+    clear_screen()
+    message = f"{c.ITALIC}{c.YELLOW2}See you next time!{c.END}"
+    print(f"{message}")
 
 
 def main():
