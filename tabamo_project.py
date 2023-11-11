@@ -178,7 +178,7 @@ def help() -> None:
         f"  2   Manage Restos                          \n",
         f"  3   Get Recos                              \n",
         f"  A   About                                  \n",
-        f"  {c.YELLOW2}H   Help{c.END}                                   \n",
+        f"  {c.YELLOW2}H   Help{c.GRAY}                                   \n",
         f"  0   Exit                                   \n",
         f"---------------------------------------------\n",
         f"{c.END}",
@@ -208,7 +208,6 @@ def help() -> None:
         clear_screen()
     else:
         raise_er("Invalid choice!")
-        continue_prompt()
 
 
 def exit() -> None:
