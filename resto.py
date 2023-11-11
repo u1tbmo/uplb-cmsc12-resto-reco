@@ -30,9 +30,9 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
     # Print the header
     print(
-        "--------------------------------------------\n",
-        "                 Add Resto                  \n",
-        "--------------------------------------------\n",
+        f"--------------------------------------------\n",
+        f"                 {c.YELLOW2}Add Resto{c.end}                  \n",
+        f"--------------------------------------------\n",
         sep="",
         end="",
     )
@@ -136,9 +136,13 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     display_restos_simple(restos_dict)
 
     # Print the header
-    print("--------------------------------------------")
-    print("                 Edit Resto                 ")
-    print("--------------------------------------------")
+    print(
+        f"--------------------------------------------\n",
+        f"                 {c.YELLOW2}Edit Resto{c.END}                 \n",
+        f"--------------------------------------------\n",
+        sep="",
+        end="",
+    )
 
     # User Input: Name
     name = input("  Name: ").strip().upper()
@@ -259,9 +263,13 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         return restos_dict
     clear_screen()
     display_restos_simple(restos_dict)
-    print("--------------------------------------------")
-    print("               Delete Resto                 ")
-    print("--------------------------------------------")
+    print(
+        f"--------------------------------------------\n",
+        f"               {c.YELLOW2}Delete Resto{c.END}                 \n",
+        f"--------------------------------------------\n",
+        sep="",
+        end="",
+    )
     name = input("  Enter name: ").strip().upper()
     print("--------------------------------------------")
     if name not in restos_dict:
@@ -297,9 +305,9 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
         raise_er("No restos to display. Add a resto!")
         return
     print(
-        "---------------------------------------------\n",
-        "                   Restos                    \n",
-        "---------------------------------------------\n",
+        f"---------------------------------------------\n",
+        f"                   {c.YELLOW2}Restos{c.END}                    \n",
+        f"---------------------------------------------\n",
         "        Name                Cuisine          \n",
         sep="",
         end="",
@@ -316,21 +324,21 @@ def display_restos_detailed(restos_dict: dict[str, list]) -> None:
         raise_er("No restos to display. Add a resto!")
         return
     print(
-        "-------------------------------------------------------------------------------------------------------------------\n",
-        "                                                      Restos                                                       \n",
-        "-------------------------------------------------------------------------------------------------------------------\n",
+        f"-------------------------------------------------------------------------------------------------------------------\n",
+        f"                                                      {c.YELLOW2}Restos{c.END}                                                       \n",
+        f"-------------------------------------------------------------------------------------------------------------------\n",
         "        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    \n",
         sep="",
         end="",
     )
     for name, value in restos_dict.items():
         meal_types = ""
-        for c in value[2]:
-            if c == "B":
+        for choice in value[2]:
+            if choice == "B":
                 meal_types += "Breakfast, "
-            elif c == "L":
+            elif choice == "L":
                 meal_types += "Lunch, "
-            elif c == "D":
+            elif choice == "D":
                 meal_types += "Dinner, "
         meal_types = meal_types.rstrip(", ")
         if value[2] != "BLD":

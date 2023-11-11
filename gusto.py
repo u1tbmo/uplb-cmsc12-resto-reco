@@ -28,9 +28,9 @@ import colors as c
 def ad_hoc_gusto() -> tuple | None:
     clear_screen()
     print(
-        "--------------------------------------------\n",
-        "                Ad Hoc Gusto                \n",
-        "--------------------------------------------\n",
+        f"--------------------------------------------\n",
+        f"                {c.YELLOW2}Ad Hoc Gusto{c.END}                \n",
+        f"--------------------------------------------\n",
         sep="",
         end="",
     )
@@ -115,9 +115,9 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
 
     # Print the header
     print(
-        "--------------------------------------------\n",
-        "                 Add Gusto                  \n",
-        "--------------------------------------------\n",
+        f"--------------------------------------------\n",
+        f"                 {c.YELLOW2}Add Gusto{c.END}                  \n",
+        f"--------------------------------------------\n",
         sep="",
         end="",
     )
@@ -238,9 +238,9 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     clear_screen()
     display_gustos_simple(gustos_dict)
     print(
-        "--------------------------------------------\n",
-        "                 Edit Gusto                 \n",
-        "--------------------------------------------\n",
+        f"--------------------------------------------\n",
+        f"                 {c.YELLOW2}Edit Gusto{c.END}                 \n",
+        f"--------------------------------------------\n",
         sep="",
         end="",
     )
@@ -371,9 +371,9 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     display_gustos_simple(gustos_dict)
 
     print(
-        "--------------------------------------------\n",
-        "               Delete Gusto                 \n",
-        "--------------------------------------------\n",
+        f"--------------------------------------------\n",
+        f"               {c.YELLOW2}Delete Gusto{c.END}                 \n",
+        f"--------------------------------------------\n",
         sep="",
         end="",
     )
@@ -415,9 +415,9 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         raise_er("No gustos to display! Add a gusto!")
         return
     print(
-        "---------------------------------------------\n",
-        "                   Gustos                    \n",
-        "---------------------------------------------\n",
+        f"---------------------------------------------\n",
+        f"                   {c.YELLOW2}Gustos{c.END}                    \n",
+        f"---------------------------------------------\n",
         "    Label              Description           \n",
         sep="",
         end="",
@@ -439,9 +439,9 @@ def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
         raise_er("No gustos to display! Add a gusto!")
         return
     print(
-        "-------------------------------------------------------------------------------------------------------------------\n",
-        "                                                      Gustos                                                       \n",
-        "-------------------------------------------------------------------------------------------------------------------\n",
+        f"-------------------------------------------------------------------------------------------------------------------\n",
+        f"                                                      {c.YELLOW2}Gustos{c.END}                                                       \n",
+        f"-------------------------------------------------------------------------------------------------------------------\n",
         "    Label          Description        #     Meal Type      Budget      Max Distance       Cuisine      Min Rating  \n",
         sep="",
         end="",
