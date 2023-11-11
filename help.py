@@ -3,7 +3,7 @@ This module contains the functions that display the help menu.
 """
 
 # File Imports
-from misc import clear_screen, continue_prompt
+from misc import clear_screen, continue_prompt, raise_er
 import colors as c
 
 
@@ -143,3 +143,7 @@ def help_recos() -> None:
         end="",
     )
     continue_prompt()
+
+
+if __name__ == "__main__":
+    raise_er("You are running a module: help.py")

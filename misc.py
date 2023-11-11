@@ -29,3 +29,7 @@ def raise_er(message: str) -> None:
     """Prints an error message and prompts the user to press enter to continue."""
     print(f"{c.RED}  ERROR: {message}{c.END}")
     continue_prompt()
+
+
+if __name__ == "__main__":
+    raise_er("You are running a module: misc.py")

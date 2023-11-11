@@ -160,3 +160,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         print(f"  Rating: {restos_dict[name][4]}")
         print("--------------------------------------------")
     continue_prompt()
+
+
+if __name__ == "__main__":
+    raise_er("You are running a module: reco.py")

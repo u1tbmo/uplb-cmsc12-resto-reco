@@ -341,3 +341,7 @@ def display_restos_detailed(restos_dict: dict[str, list]) -> None:
     print(
         "-------------------------------------------------------------------------------------------------------------------"
     )
+
+
+if __name__ == "__main__":
+    raise_er("You are running a module: resto.py")

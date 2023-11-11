@@ -460,3 +460,7 @@ def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
         sep="",
         end="",
     )
+
+
+if __name__ == "__main__":
+    raise_er("You are running a module: gusto.py")
