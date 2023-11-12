@@ -350,7 +350,7 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
         end="",
     )
     for name, value in restos_dict.items():
-        print(f"  {name:<16}   {value[1]:<22}  ")
+        print(f"  {name:<16}   {value[1].capitalize():<22}  ")
     print("---------------------------------------------")
 
 
@@ -379,7 +379,7 @@ def display_restos_detailed(restos_dict: dict[str, list]) -> None:
         if value[2] != "BLD":
             meal_types = f" {meal_types} "
         print(
-            f"  {name:<16}   {value[0]:>22.2f}m   {value[1]:^13}   {meal_types:^24}   {value[3]:>10.2f}   {value[4]:^10.1f}  "
+            f"  {name:<16}   {value[0]:>22.2f}m   {value[1].capitalize():^13}   {meal_types:^24}   {value[3]:>10.2f}   {value[4]:^10.1f}  "
         )
     print(
         "-------------------------------------------------------------------------------------------------------------------"

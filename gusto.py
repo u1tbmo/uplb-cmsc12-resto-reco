@@ -468,7 +468,7 @@ def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
         else:
             desc = value[0]
         print(
-            f"  {label:<9}   {desc:<20}   {value[1]:>3}   {value[2]:^11}   {value[3]:>10.2f}   {value[4]:>13.2f}m   {value[5]:^13}   {value[6]:^10.1f}  "
+            f"  {label:<9}   {desc:<20}   {value[1]:>3}   {value[2]:^11}   {value[3]:>10.2f}   {value[4]:>13.2f}m   {value[5].capitalize():^13}   {value[6]:^10.1f}  "
         )
     print(
         "-------------------------------------------------------------------------------------------------------------------\n",
