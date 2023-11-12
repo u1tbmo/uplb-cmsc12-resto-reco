@@ -29,7 +29,7 @@ def ad_hoc_gusto() -> tuple | None:
     clear_screen()
     print(
         f"--------------------------------------------\n",
-        f"                {c.YELLOW2}Ad Hoc Gusto{c.END}                \n",
+        f"       {c.YELLOW2}Get Reco/s from an Ad Hoc Gusto{c.END}      \n",
         f"--------------------------------------------\n",
         sep="",
         end="",

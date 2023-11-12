@@ -80,8 +80,8 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         f"---------------------------------------------------\n",
         f"                     {c.YELLOW2}Get Recos{c.END}                     \n",
         f"---------------------------------------------------\n",
-        f"  1   Get Reco from an Existing Gusto              \n",
-        f"  2   Get Reco from an Ad Hoc Gusto                \n",
+        f"  1   Get Reco/s from an Existing Gusto            \n",
+        f"  2   Get Reco/s from an Ad Hoc Gusto              \n",
         f"  0   Back to Main Menu                            \n",
         f"---------------------------------------------------\n",
         sep="",
@@ -91,6 +91,13 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     choice = input("  Enter choice: ")
     if choice == "1":
         clear_screen()
+        print(
+            f"---------------------------------------------------\n",
+            f"         {c.YELLOW2}Get Reco/s from an Existing Gusto{c.END}         \n",
+            f"---------------------------------------------------\n",
+            sep="",
+            end="",
+        )
         g.display_gustos_simple(gustos_dict)
         label = input("  Enter gusto label: ").strip().upper()
         if label not in gustos_dict:
