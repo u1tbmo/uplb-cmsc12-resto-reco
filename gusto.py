@@ -410,7 +410,6 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
-    clear_screen()
     if not gustos_dict:
         raise_er("No gustos to display! Add a gusto!")
         return
@@ -433,8 +432,6 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
 
 
 def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
-    clear_screen()
-
     if not gustos_dict:
         raise_er("No gustos to display! Add a gusto!")
         return

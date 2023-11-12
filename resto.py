@@ -300,7 +300,6 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def display_restos_simple(restos_dict: dict[str, list]) -> None:
-    clear_screen()
     if not restos_dict:
         raise_er("No restos to display. Add a resto!")
         return
@@ -318,8 +317,6 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
 
 
 def display_restos_detailed(restos_dict: dict[str, list]) -> None:
-    clear_screen()
-
     if not restos_dict:
         raise_er("No restos to display. Add a resto!")
         return

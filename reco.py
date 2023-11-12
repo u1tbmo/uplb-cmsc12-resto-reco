@@ -133,11 +133,20 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         return
 
     clear_screen()
-    print("--------------------------------------------")
-    print("    We Reco these Restos for your Gusto!    ")
-    print("--------------------------------------------")
-    print("                   Gusto                    ")
-    print("--------------------------------------------")
+    print(
+        f"-------------------------------------------------------------------------------------------------------------------\n",
+        f"                                 {c.YELLOW2}We Reco the Following Restos based on your Gusto!{c.END}                                 \n",
+        f"-------------------------------------------------------------------------------------------------------------------\n",
+        sep="",
+        end="",
+    )
+    print(
+        f"-------------------------------------------------------------------------------------------------------------------\n",
+        f"                                                       {c.YELLOW2}Gusto{c.END}                                                       \n",
+        f"-------------------------------------------------------------------------------------------------------------------\n",
+        sep="",
+        end="",
+    )
     if gusto[0] != "AD,HOC":
         print(f"  Label: {gusto[0]}")
         print(f"  Description: {gusto[1][0]}")
@@ -147,25 +156,36 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     print(f"  Max Distance: {gusto[1][4]}")
     print(f"  Cuisine Type: {gusto[1][5]}")
     print(f"  Min Rating: {gusto[1][6]}")
-    print("--------------------------------------------")
-    print("                   Recos                    ")
-    print("--------------------------------------------")
+    print(
+        f"-------------------------------------------------------------------------------------------------------------------"
+    )
+    print(
+        f"-------------------------------------------------------------------------------------------------------------------\n",
+        f"                                                       {c.YELLOW2}Recos{c.END}                                                       \n",
+        f"-------------------------------------------------------------------------------------------------------------------\n",
+        "        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    \n",
+        sep="",
+        end="",
+    )
     for name in recos:
-        meal_types = []
-        for choice in restos_dict[name][2]:
+        value = restos_dict[name]
+        meal_types = ""
+        for choice in value[2]:
             if choice == "B":
-                meal_types.append("BREAKFAST")
+                meal_types += "Breakfast, "
             elif choice == "L":
-                meal_types.append("LUNCH")
+                meal_types += "Lunch, "
             elif choice == "D":
-                meal_types.append("DINNER")
-        print(f"  Resto: {name}")
-        print(f"  Distance: {restos_dict[name][0]}")
-        print(f"  Cuisine Type: {restos_dict[name][1]}")
-        print(f"  Meal Type: {", ".join(meal_types)}")
-        print(f"  Cost: {restos_dict[name][3]}")
-        print(f"  Rating: {restos_dict[name][4]}")
-        print("--------------------------------------------")
+                meal_types += "Dinner, "
+        meal_types = meal_types.rstrip(", ")
+        if value[2] != "BLD":
+            meal_types = f" {meal_types} "
+        print(
+            f"  {name:<16}   {value[0]:>22.2f}m   {value[1]:^13}   {meal_types:^24}   {value[3]:>10.2f}   {value[4]:^10.1f}  "
+        )
+    print(
+        "-------------------------------------------------------------------------------------------------------------------"
+    )
     continue_prompt()
 
 

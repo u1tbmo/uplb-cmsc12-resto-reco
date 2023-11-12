@@ -177,9 +177,11 @@ def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     elif choice == "3":
         g.delete_gustos(gustos_dict)
     elif choice == "4":
+        clear_screen()
         g.display_gustos_simple(gustos_dict)
         continue_prompt()
     elif choice == "5":
+        clear_screen()
         g.display_gustos_detailed(gustos_dict)
         continue_prompt()
     elif choice == "0":
@@ -198,9 +200,11 @@ def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     elif choice == "3":
         r.delete_restos(restos_dict)
     elif choice == "4":
+        clear_screen()
         r.display_restos_simple(restos_dict)
         continue_prompt()
     elif choice == "5":
+        clear_screen()
         r.display_restos_detailed(restos_dict)
         continue_prompt()
     elif choice == "0":
