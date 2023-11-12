@@ -435,7 +435,7 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         f"---------------------------------------------\n",
         f"                   {c.YELLOW2}Gustos{c.END}                    \n",
         f"---------------------------------------------\n",
-        "    Label              Description           \n",
+        f"{c.CYAN2}    Label              Description           {c.END}\n",
         sep="",
         end="",
     )
@@ -457,7 +457,7 @@ def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
         f"-------------------------------------------------------------------------------------------------------------------\n",
         f"                                                      {c.YELLOW2}Gustos{c.END}                                                       \n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
-        "    Label          Description        #     Meal Type      Budget      Max Distance       Cuisine      Min Rating  \n",
+        f"{c.CYAN2}    Label          Description        #     Meal Type      Budget      Max Distance       Cuisine      Min Rating  {c.END}\n",
         sep="",
         end="",
     )
