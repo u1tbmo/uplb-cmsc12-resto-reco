@@ -257,7 +257,16 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         raise_er(f'Gusto "{label}" does not exist!')
         return gustos_dict
     else:
+        clear_screen()
+        print(
+            f"--------------------------------------------\n",
+            f"                 {c.YELLOW2}Edit Gusto{c.END}                 \n",
+            f"--------------------------------------------\n",
+            sep="",
+            end="",
+        )
         info(f"Fetched Gusto {label}!")
+        print("--------------------------------------------")
         print(f"  Gusto Label: {label}")
         print(f"  Description: {gustos_dict[label][0]}")
         print(f"  Number of People: {gustos_dict[label][1]}")
@@ -382,12 +391,21 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     if label not in gustos_dict:
         raise_er(f'Gusto "{label}" does not exist!')
     else:
-        # Display Gusto Info
+        clear_screen()
+        print(
+            f"--------------------------------------------\n",
+            f"               {c.YELLOW2}Delete Gusto{c.END}                 \n",
+            f"--------------------------------------------\n",
+            sep="",
+            end="",
+        )
         info(f"Fetched Gusto {label}!")
+        print("--------------------------------------------")
+        # Display Gusto Info
         print(f"  Label: {label}")
         print(f"  Description: {gustos_dict[label][0]}")
         print(f"  Number of People: {gustos_dict[label][1]}")
-        print(f"  Meal Type: {gustos_dict[label][2]}")
+        print(f"  Meal Type: {gustos_dict[label][2].capitalize()}")
         print(f"  Budget: {gustos_dict[label][3]}")
         print(f"  Maximum Distance: {gustos_dict[label][4]}")
         print(f"  Cuisine Type: {gustos_dict[label][5]}")

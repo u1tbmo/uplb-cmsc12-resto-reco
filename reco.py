@@ -35,12 +35,12 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
             continue
 
         meal_types = []
-        for choice in r_meal_type:
-            if choice == "B":
+        for char in r_meal_type:
+            if char == "B":
                 meal_types.append("BREAKFAST")
-            elif choice == "L":
+            elif char == "L":
                 meal_types.append("LUNCH")
-            elif choice == "D":
+            elif char == "D":
                 meal_types.append("DINNER")
         if g_meal_type not in meal_types:
             continue
@@ -151,7 +151,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         print(f"  Label: {gusto[0]}")
         print(f"  Description: {gusto[1][0]}")
     print(f"  Group Size: {gusto[1][1]}")
-    print(f"  Meal Type: {gusto[1][2]}")
+    print(f"  Meal Type: {gusto[1][2].capitalize()}")
     print(f"  Budget: {gusto[1][3]}")
     print(f"  Max Distance: {gusto[1][4]}")
     print(f"  Cuisine Type: {gusto[1][5]}")
@@ -170,12 +170,12 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     for name in recos:
         value = restos_dict[name]
         meal_types = ""
-        for choice in value[2]:
-            if choice == "B":
+        for char in value[2]:
+            if char == "B":
                 meal_types += "Breakfast, "
-            elif choice == "L":
+            elif char == "L":
                 meal_types += "Lunch, "
-            elif choice == "D":
+            elif char == "D":
                 meal_types += "Dinner, "
         meal_types = meal_types.rstrip(", ")
         if value[2] != "BLD":

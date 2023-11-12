@@ -159,12 +159,31 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         raise_er(f"Resto {name} does not exist.")
         return restos_dict
     else:
-        # Display Resto Info
+        clear_screen()
+        print(
+            f"--------------------------------------------\n",
+            f"                 {c.YELLOW2}Edit Resto{c.END}                 \n",
+            f"--------------------------------------------\n",
+            sep="",
+            end="",
+        )
         info(f"Fetched Resto {name}!")
+        print("--------------------------------------------")
+        value = restos_dict[name]
+        meal_types = ""
+        for char in value[2]:
+            if char == "B":
+                meal_types += "Breakfast, "
+            elif char == "L":
+                meal_types += "Lunch, "
+            elif char == "D":
+                meal_types += "Dinner, "
+        meal_types = meal_types.rstrip(", ")
+        # Display Resto Info
         print(f"  Name: {name}")
         print(f"  Distance from UPLB gate: {restos_dict[name][0]} meters")
         print(f"  Cuisine Type: {restos_dict[name][1]}")
-        print(f"  Meal Type: {restos_dict[name][2]}")
+        print(f"  Meal Types: {meal_types}")
         print(f"  Cost: {restos_dict[name][3]} pesos")
         print(f"  Rating: {restos_dict[name][4]}")
         print("--------------------------------------------")
@@ -276,11 +295,30 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         raise_er(f"Resto {name} does not exist.")
         return restos_dict
     else:
+        clear_screen()
+        print(
+            f"--------------------------------------------\n",
+            f"               {c.YELLOW2}Delete Resto{c.END}                 \n",
+            f"--------------------------------------------\n",
+            sep="",
+            end="",
+        )
         info(f"Fetched Resto {name}!")
+        print("--------------------------------------------")
+        value = restos_dict[name]
+        meal_types = ""
+        for char in value[2]:
+            if char == "B":
+                meal_types += "Breakfast, "
+            elif char == "L":
+                meal_types += "Lunch, "
+            elif char == "D":
+                meal_types += "Dinner, "
+        meal_types = meal_types.rstrip(", ")
         print(f"  Name: {name}")
         print(f"  Distance from UPLB gate: {restos_dict[name][0]} meters")
         print(f"  Cuisine Type: {restos_dict[name][1]}")
-        print(f"  Meal Type: {restos_dict[name][2]}")
+        print(f"  Meal Types: {meal_types}")
         print(f"  Cost: {restos_dict[name][3]} pesos")
         print(f"  Rating: {restos_dict[name][4]}")
         print("--------------------------------------------")
