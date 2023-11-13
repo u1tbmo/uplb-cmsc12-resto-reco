@@ -30,9 +30,9 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
     # Print the header
     print(
-        f"--------------------------------------------\n",
-        f"                 {c.YELLOW2}Add Resto{c.END}                  \n",
-        f"--------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                     {c.YELLOW2}Add Resto{c.END}                     \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -143,9 +143,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
     # Print the header
     print(
-        f"--------------------------------------------\n",
-        f"                 {c.YELLOW2}Edit Resto{c.END}                 \n",
-        f"--------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                     {c.YELLOW2}Edit Resto{c.END}                    \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -167,9 +167,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     else:
         clear_screen()
         print(
-            f"--------------------------------------------\n",
-            f"                 {c.YELLOW2}Edit Resto{c.END}                 \n",
-            f"--------------------------------------------\n",
+            f"---------------------------------------------------\n",
+            f"                     {c.YELLOW2}Edit Resto{c.END}                    \n",
+            f"---------------------------------------------------\n",
             sep="",
             end="",
         )
@@ -295,9 +295,9 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     clear_screen()
     display_restos_simple(restos_dict)
     print(
-        f"--------------------------------------------\n",
-        f"               {c.YELLOW2}Delete Resto{c.END}                 \n",
-        f"--------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                    {c.YELLOW2}Delete Resto{c.END}                   \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -309,9 +309,9 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     else:
         clear_screen()
         print(
-            f"--------------------------------------------\n",
-            f"               {c.YELLOW2}Delete Resto{c.END}                 \n",
-            f"--------------------------------------------\n",
+            f"---------------------------------------------------\n",
+            f"                    {c.YELLOW2}Delete Resto{c.END}                   \n",
+            f"---------------------------------------------------\n",
             sep="",
             end="",
         )
@@ -354,16 +354,17 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
         raise_er("No restos to display. Add a resto!")
         return
     print(
-        f"---------------------------------------------\n",
-        f"                   {c.YELLOW2}Restos{c.END}                    \n",
-        f"---------------------------------------------\n",
-        f"{c.CYAN2}        Name                Cuisine          {c.END}\n",
+        f"---------------------------------------------------\n",
+        f"                       {c.YELLOW2}Restos{c.END}                      \n",
+        f"---------------------------------------------------\n",
+        f"{c.CYAN2}        Name                    Cuisine            {c.END}\n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
     for name, value in restos_dict.items():
-        print(f"  {name:<16}   {value[1].capitalize():<22}  ")
-    print("---------------------------------------------")
+        print(f"  {name:^16}   {value[1].capitalize():^28}  ")
+    print("---------------------------------------------------")
 
 
 def display_restos_detailed(restos_dict: dict[str, list]) -> None:
@@ -375,6 +376,7 @@ def display_restos_detailed(restos_dict: dict[str, list]) -> None:
         f"                                                      {c.YELLOW2}Restos{c.END}                                                       \n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
         f"{c.CYAN2}        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    {c.END}\n",
+        f"-------------------------------------------------------------------------------------------------------------------\n",
         sep="",
         end="",
     )

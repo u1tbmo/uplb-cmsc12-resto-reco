@@ -31,5 +31,17 @@ def raise_er(message: str) -> None:
     continue_prompt()
 
 
+def print_format_table():
+    """Prints table of formatted text format options."""
+    x = 0
+    for i in range(24):
+        colors = ""
+        for j in range(5):
+            code = str(x + j)
+            colors = colors + "\33[" + code + "m\\33[" + code + "m\033[0m "
+        print(colors)
+        x = x + 5
+
+
 if __name__ == "__main__":
     raise_er("You are running a module: misc.py")

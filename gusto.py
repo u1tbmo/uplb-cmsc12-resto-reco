@@ -28,9 +28,9 @@ import colors as c
 def ad_hoc_gusto() -> tuple | None:
     clear_screen()
     print(
-        f"--------------------------------------------\n",
-        f"       {c.YELLOW2}Get Reco/s from an Ad Hoc Gusto{c.END}      \n",
-        f"--------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"          {c.YELLOW2}Get Reco/s from an Ad Hoc Gusto{c.END}          \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -124,9 +124,9 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
 
     # Print the header
     print(
-        f"--------------------------------------------\n",
-        f"                 {c.YELLOW2}Add Gusto{c.END}                  \n",
-        f"--------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                     {c.YELLOW2}Add Gusto{c.END}                     \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -256,9 +256,9 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     clear_screen()
     display_gustos_simple(gustos_dict)
     print(
-        f"--------------------------------------------\n",
-        f"                 {c.YELLOW2}Edit Gusto{c.END}                 \n",
-        f"--------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                     {c.YELLOW2}Edit Gusto{c.END}                    \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -277,14 +277,14 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     else:
         clear_screen()
         print(
-            f"--------------------------------------------\n",
-            f"                 {c.YELLOW2}Edit Gusto{c.END}                 \n",
-            f"--------------------------------------------\n",
+            f"---------------------------------------------------\n",
+            f"                     {c.YELLOW2}Edit Gusto{c.END}                    \n",
+            f"---------------------------------------------------\n",
             sep="",
             end="",
         )
         info(f"Fetched Gusto {label}!")
-        print("--------------------------------------------")
+        print("---------------------------------------------------")
         print(f"  Gusto Label: {label}")
         print(f"  Description: {gustos_dict[label][0]}")
         print(f"  Number of People: {gustos_dict[label][1]}")
@@ -293,7 +293,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         print(f"  Maximum Distance: {gustos_dict[label][4]}")
         print(f"  Cuisine Type: {gustos_dict[label][5]}")
         print(f"  Minimum Rating: {gustos_dict[label][6]}")
-        print("--------------------------------------------")
+        print("---------------------------------------------------")
         label = input(f"  Edit label: ").strip().upper()
         if "," in label:
             raise_er("Label cannot contain commas!")
@@ -401,9 +401,9 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     display_gustos_simple(gustos_dict)
 
     print(
-        f"--------------------------------------------\n",
-        f"               {c.YELLOW2}Delete Gusto{c.END}                 \n",
-        f"--------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                    {c.YELLOW2}Delete Gusto{c.END}                   \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -414,14 +414,14 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     else:
         clear_screen()
         print(
-            f"--------------------------------------------\n",
-            f"               {c.YELLOW2}Delete Gusto{c.END}                 \n",
-            f"--------------------------------------------\n",
+            f"---------------------------------------------------\n",
+            f"                    {c.YELLOW2}Delete Gusto{c.END}                   \n",
+            f"---------------------------------------------------\n",
             sep="",
             end="",
         )
         info(f"Fetched Gusto {label}!")
-        print("--------------------------------------------")
+        print("---------------------------------------------------")
         # Display Gusto Info
         print(f"  Label: {label}")
         print(f"  Description: {gustos_dict[label][0]}")
@@ -431,7 +431,7 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         print(f"  Maximum Distance: {gustos_dict[label][4]}")
         print(f"  Cuisine Type: {gustos_dict[label][5]}")
         print(f"  Minimum Rating: {gustos_dict[label][6]}")
-        print("--------------------------------------------")
+        print("---------------------------------------------------")
         # Delete Gusto
         print(f"  Are you sure you want to delete {label}?")
         print(f"{c.GREEN}  [Y] Yes{c.END}")
@@ -453,21 +453,22 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         raise_er("No gustos to display! Add a gusto!")
         return
     print(
-        f"---------------------------------------------\n",
-        f"                   {c.YELLOW2}Gustos{c.END}                    \n",
-        f"---------------------------------------------\n",
-        f"{c.CYAN2}    Label              Description           {c.END}\n",
+        f"---------------------------------------------------\n",
+        f"                       {c.YELLOW2}Gustos{c.END}                      \n",
+        f"---------------------------------------------------\n",
+        f"{c.CYAN2}    Label                 Description              {c.END}\n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
     for label, value in gustos_dict.items():
         desc = ""
-        if len(value[0]) > 29:
-            desc = value[0][:26] + "..."
+        if len(value[0]) > 35:
+            desc = value[0][:32] + "..."
         else:
             desc = value[0]
-        print(f"  {label:<9}   {desc:<29}  ")
-    print("---------------------------------------------")
+        print(f"  {label:^9}   {desc:<35}  ")
+    print("---------------------------------------------------")
 
 
 def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
@@ -479,6 +480,7 @@ def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
         f"                                                      {c.YELLOW2}Gustos{c.END}                                                       \n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
         f"{c.CYAN2}    Label          Description        #     Meal Type      Budget      Max Distance       Cuisine      Min Rating  {c.END}\n",
+        f"-------------------------------------------------------------------------------------------------------------------\n",
         sep="",
         end="",
     )

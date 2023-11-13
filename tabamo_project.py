@@ -14,7 +14,7 @@ import resto as r
 import reco as rc
 import colors as c
 import help as h
-from misc import clear_screen, continue_prompt, raise_er
+from misc import clear_screen, continue_prompt, raise_er, print_format_table
 
 # Global Variables
 restos: dict[str, list] = {}
@@ -23,16 +23,17 @@ gustos: dict[str, list] = {}
 
 def main_menu() -> str:
     print(
-        f"---------------------------------------------\n",
-        f"                 {c.YELLOW2}Main Menu{c.END}                   \n",
-        f"---------------------------------------------\n",
-        f"  1   Manage Gustos                          \n",
-        f"  2   Manage Restos                          \n",
-        f"  3   Get Recos                              \n",
-        f"  A   About                                  \n",
-        f"  H   Help                                   \n",
-        f"  0   Exit                                   \n",
-        f"---------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                     {c.YELLOW2}Main Menu{c.END}                     \n",
+        f"---------------------------------------------------\n",
+        f"  1   Manage Gustos                                \n",
+        f"  2   Manage Restos                                \n",
+        f"  3   Get Recos                                    \n",
+        f"  A   About                                        \n",
+        f"  H   Help                                         \n",
+        f"  0   Exit                                         \n",
+        f"---------------------------------------------------\n",
+        f"{c.END}",
         sep="",
         end="",
     )
@@ -43,31 +44,31 @@ def gusto_menu() -> str:
     clear_screen()
     print(
         f"{c.GRAY}",
-        f"---------------------------------------------\n",
-        f"                 Main Menu                   \n",
-        f"---------------------------------------------\n",
-        f"  {c.YELLOW2}1   Manage Gustos{c.GRAY}                          \n",
-        f"  2   Manage Restos                          \n",
-        f"  3   Get Recos                              \n",
-        f"  A   About                                  \n",
-        f"  H   Help                                   \n",
-        f"  0   Exit                                   \n",
-        f"---------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                     Main Menu                     \n",
+        f"---------------------------------------------------\n",
+        f"  {c.YELLOW2}1   Manage Gustos{c.END}                                \n",
+        f"  2   Manage Restos                                \n",
+        f"  3   Get Recos                                    \n",
+        f"  A   About                                        \n",
+        f"  H   Help                                         \n",
+        f"  0   Exit                                         \n",
+        f"---------------------------------------------------\n",
         f"{c.END}",
         sep="",
         end="",
     )
     print(
-        f"---------------------------------------------\n",
-        f"                {c.YELLOW2}Manage Gustos{c.END}                \n",
-        f"---------------------------------------------\n",
-        f"  1   Add Gusto                              \n",
-        f"  2   Edit Gusto                             \n",
-        f"  3   Delete Gusto                           \n",
-        f"  4   Display Gustos (Simple)                \n",
-        f"  5   Display Gustos (Detailed)              \n",
-        f"  0   Back to Main Menu                      \n",
-        f"---------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                   {c.YELLOW2}Manage Gustos{c.END}                   \n",
+        f"---------------------------------------------------\n",
+        f"  1   Add Gusto                                    \n",
+        f"  2   Edit Gusto                                   \n",
+        f"  3   Delete Gusto                                 \n",
+        f"  4   Display Gustos (Simple)                      \n",
+        f"  5   Display Gustos (Detailed)                    \n",
+        f"  0   Back to Main Menu                            \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -78,31 +79,31 @@ def resto_menu() -> str:
     clear_screen()
     print(
         f"{c.GRAY}",
-        f"---------------------------------------------\n",
-        f"                 Main Menu                   \n",
-        f"---------------------------------------------\n",
-        f"  1   Manage Gustos                          \n",
-        f"  {c.YELLOW2}2   Manage Restos{c.GRAY}                          \n",
-        f"  3   Get Recos                              \n",
-        f"  A   About                                  \n",
-        f"  H   Help                                   \n",
-        f"  0   Exit                                   \n",
-        f"---------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                     Main Menu                     \n",
+        f"---------------------------------------------------\n",
+        f"  1   Manage Gustos                                \n",
+        f"  {c.YELLOW2}2   Manage Restos{c.END}                                \n",
+        f"  3   Get Recos                                    \n",
+        f"  A   About                                        \n",
+        f"  H   Help                                         \n",
+        f"  0   Exit                                         \n",
+        f"---------------------------------------------------\n",
         f"{c.END}",
         sep="",
         end="",
     )
     print(
-        f"---------------------------------------------\n",
-        f"                {c.YELLOW2}Manage Restos{c.END}                \n",
-        f"---------------------------------------------\n",
-        f"  1   Add Resto                              \n",
-        f"  2   Edit Resto                             \n",
-        f"  3   Delete Resto                           \n",
-        f"  4   Display Restos (Simple)                \n",
-        f"  5   Display Restos (Detailed)              \n",
-        f"  0   Back to Main Menu                      \n",
-        f"---------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                   {c.YELLOW2}Manage Restos{c.END}                   \n",
+        f"---------------------------------------------------\n",
+        f"  1   Add Resto                                    \n",
+        f"  2   Edit Resto                                   \n",
+        f"  3   Delete Resto                                 \n",
+        f"  4   Display Restos (Simple)                      \n",
+        f"  5   Display Restos (Detailed)                    \n",
+        f"  0   Back to Main Menu                            \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -112,13 +113,13 @@ def resto_menu() -> str:
 def about() -> None:
     clear_screen()
     print(
-        f"--------------------------------------------\n",
-        f"                   {c.YELLOW2}About{c.END}                    \n",
-        f"--------------------------------------------\n",
-        f"          Euan's UPLB Resto Reco!           \n",
-        f"     Programmed by: Tabamo, Euan Jed S.     \n",
-        f"        Started on November 7, 2023         \n",
-        f"--------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                       About                       \n",
+        f"---------------------------------------------------\n",
+        f"             Euan's UPLB Resto Reco!               \n",
+        f"        Programmed by: Tabamo, Euan Jed S.         \n",
+        f"           Started on November 7, 2023             \n",
+        f"---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -129,29 +130,30 @@ def help() -> None:
     clear_screen()
     print(
         f"{c.GRAY}",
-        f"---------------------------------------------\n",
-        f"                 Main Menu                   \n",
-        f"---------------------------------------------\n",
-        f"  1   Manage Gustos                          \n",
-        f"  2   Manage Restos                          \n",
-        f"  3   Get Recos                              \n",
-        f"  A   About                                  \n",
-        f"  {c.YELLOW2}H   Help{c.GRAY}                                   \n",
-        f"  0   Exit                                   \n",
-        f"---------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                     Main Menu                     \n",
+        f"---------------------------------------------------\n",
+        f"  1   Manage Gustos                                \n",
+        f"  2   Manage Restos                                \n",
+        f"  3   Get Recos                                    \n",
+        f"  A   About                                        \n",
+        f"  {c.YELLOW2}H   Help{c.GRAY}                                         \n",
+        f"  0   Exit                                         \n",
+        f"---------------------------------------------------\n",
         f"{c.END}",
         sep="",
         end="",
     )
     print(
-        f"--------------------------------------------\n",
-        f"                    {c.YELLOW2}Help{c.END}                    \n",
-        f"--------------------------------------------\n",
-        f"  1   Gustos                                \n",
-        f"  2   Restos                                \n",
-        f"  3   Recos                                 \n",
-        f"  0   Back to Main Menu                     \n",
-        f"--------------------------------------------\n",
+        f"---------------------------------------------------\n",
+        f"                        {c.YELLOW2}Help{c.END}                       \n",
+        f"---------------------------------------------------\n",
+        f"  1   Gustos                                       \n",
+        f"  2   Restos                                       \n",
+        f"  3   Recos                                        \n",
+        f"  0   Back to Main Menu                            \n",
+        f"---------------------------------------------------\n",
+        f"{c.END}",
         sep="",
         end="",
     )
@@ -251,6 +253,8 @@ def main():
             help()
         elif choice.upper() == "C":
             clear_screen()
+        elif choice.upper() == "P":
+            print_format_table()
         else:
             raise_er("Invalid choice!")
             clear_screen()

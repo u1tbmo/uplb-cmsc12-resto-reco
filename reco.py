@@ -62,17 +62,16 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     clear_screen()
     print(
         f"{c.GRAY}",
-        f"---------------------------------------------\n",
-        f"                 Main Menu                   \n",
-        f"---------------------------------------------\n",
-        f"  1   Manage Gustos                          \n",
-        f"  2   Manage Restos                          \n",
-        f"  {c.YELLOW2}3   Get Recos{c.GRAY}                              \n",
-        f"  A   About                                  \n",
-        f"  H   Help                                   \n",
-        f"  0   Exit                                   \n",
-        f"---------------------------------------------\n",
-        f"{c.END}",
+        f"---------------------------------------------------\n",
+        f"                     Main Menu                     \n",
+        f"---------------------------------------------------\n",
+        f"  1   Manage Gustos                                \n",
+        f"  2   Manage Restos                                \n",
+        f"  {c.YELLOW2}3   Get Recos{c.GRAY}                                    \n",
+        f"  A   About                                        \n",
+        f"  H   Help                                         \n",
+        f"  0   Exit                                         \n",
+        f"---------------------------------------------------\n" f"{c.END}",
         sep="",
         end="",
     )
@@ -118,17 +117,21 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         return
 
     if not recos:
-        print("---------------------------------------------------")
-        print("  We cannot find a resto match for your gusto!     ")
-        print("  Want to find a match? Try:                       ")
-        print("  - Adding more Restos                             ")
-        print("  - A different Gusto                              ")
-        print("  - Increasing your Gusto's budget                 ")
-        print("  - Increasing your Gusto's max distance           ")
-        print("  - Changing your Gusto's cuisine type             ")
-        print("  - Decreasing your Gusto's group size             ")
-        print("  - Decreasing your Gusto's minimum rating         ")
-        print("---------------------------------------------------")
+        print(
+            "---------------------------------------------------\n",
+            "  We cannot find a resto match for your gusto!     \n",
+            "  Want to find a match? Try:                       \n",
+            "  - Adding more Restos                             \n",
+            "  - A different Gusto                              \n",
+            "  - Increasing your Gusto's budget                 \n",
+            "  - Increasing your Gusto's max distance           \n",
+            "  - Changing your Gusto's cuisine type             \n",
+            "  - Decreasing your Gusto's group size             \n",
+            "  - Decreasing your Gusto's minimum rating         \n",
+            "---------------------------------------------------\n",
+            sep="",
+            end="",
+        )
         continue_prompt()
         return
 
@@ -163,7 +166,8 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         f"-------------------------------------------------------------------------------------------------------------------\n",
         f"                                                       {c.YELLOW2}Recos{c.END}                                                       \n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
-        "        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    \n",
+        f"{c.CYAN2}        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    {c.END}\n",
+        f"-------------------------------------------------------------------------------------------------------------------\n",
         sep="",
         end="",
     )
