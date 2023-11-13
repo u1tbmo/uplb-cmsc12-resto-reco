@@ -114,7 +114,7 @@ def about() -> None:
     clear_screen()
     print(
         f"---------------------------------------------------\n",
-        f"                       About                       \n",
+        f"                       {C1}About{CE}                       \n",
         f"---------------------------------------------------\n",
         f"             Euan's UPLB Resto Reco!               \n",
         f"        Programmed by: Tabamo, Euan Jed S.         \n",
