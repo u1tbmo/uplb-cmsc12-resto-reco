@@ -44,6 +44,9 @@ def ad_hoc_gusto() -> tuple | None:
         raise_er("Invalid group size!")
         return None
     group_size = int(group_size)
+    if group_size <= 0:
+        raise_er("Group size must be greater than 0!")
+        return None
     # User Input: Meal Type
     meal_type = input("  Enter type of meal (Breakfast, Lunch, Dinner): ").upper()
     # Validation: Meal Type
@@ -60,6 +63,9 @@ def ad_hoc_gusto() -> tuple | None:
         raise_er("Invalid budget!")
         return None
     budget = float(budget)
+    if budget <= 0:
+        raise_er("Budget must be greater than 0!")
+        return None
     # User Input: Max Distance
     max_distance = input("  Enter maximum distance from UPLB (in meters): ")
     # Validation: Max Distance
@@ -70,6 +76,9 @@ def ad_hoc_gusto() -> tuple | None:
         raise_er("Invalid maximum distance!")
         return None
     max_distance = float(max_distance)
+    if max_distance <= 0:
+        raise_er("Maximum distance must be greater than 0!")
+        return None
     # User Input: Cuisine Type
     cuisine_type = (
         input('  Enter cuisine type ("ANY" for any cuisine): ').strip().upper()
@@ -159,6 +168,9 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Invalid group size!")
             return gustos_dict
         group_size = int(group_size)
+        if group_size <= 0:
+            raise_er("Group size must be greater than 0!")
+            return gustos_dict
 
         # User Input: Meal Type
         meal_type = input("  Enter type of meal (Breakfast, Lunch, Dinner): ").upper()
@@ -177,6 +189,9 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Invalid budget!")
             return gustos_dict
         budget = float(budget)
+        if budget <= 0:
+            raise_er("Budget must be greater than 0!")
+            return gustos_dict
 
         # User Input: Max Distance
         max_distance = input("  Enter maximum distance from UPLB (in meters): ")
@@ -188,6 +203,9 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Invalid maximum distance!")
             return gustos_dict
         max_distance = float(max_distance)
+        if max_distance <= 0:
+            raise_er("Maximum distance must be greater than 0!")
+            return gustos_dict
 
         # User Input: Cuisine Type
         cuisine_type = (
@@ -290,7 +308,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         if "," in description:
             raise_er("Description cannot contain commas!")
             return gustos_dict
-        if description == "":
+        elif description == "":
             raise_er("Description cannot be empty!")
             return gustos_dict
         group_size = input(f"  Edit number of people: ")
@@ -301,6 +319,9 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Invalid group size!")
             return gustos_dict
         group_size = int(group_size)
+        if group_size <= 0:
+            raise_er("Group size must be greater than 0!")
+            return gustos_dict
         meal_type = input("  Edit type of meal (Breakfast, Lunch, Dinner): ").upper()
         if meal_type.strip() not in ["BREAKFAST", "LUNCH", "DINNER"]:
             raise_er("Invalid meal type!")
@@ -316,8 +337,8 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Invalid budget!")
             return gustos_dict
         budget = float(budget)
-        if budget < 0:
-            raise_er("Invalid budget!")
+        if budget <= 0:
+            raise_er("Budget must be greater than 0!")
             return gustos_dict
         max_distance = input("  Edit maximum distance (in meters): ")
         if max_distance == "":
@@ -327,7 +348,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Invalid maximum distance!")
             return gustos_dict
         max_distance = float(max_distance)
-        if max_distance < 0:
+        if max_distance <= 0:
             raise_er("Invalid maximum distance!")
             return gustos_dict
         cuisine_type = (
