@@ -22,7 +22,7 @@ def continue_prompt() -> None:
 
 def info(message: str) -> None:
     """Prints an info message."""
-    print(f"{c.CYAN}  INFO: {message}{c.END}")
+    print(f"{c.GREEN}  INFO: {message}{c.END}")
 
 
 def raise_er(message: str) -> None:
