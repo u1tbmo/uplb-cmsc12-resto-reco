@@ -349,7 +349,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             return gustos_dict
         max_distance = float(max_distance)
         if max_distance <= 0:
-            raise_er("Invalid maximum distance!")
+            raise_er("Maximum distance must be greater than 0!")
             return gustos_dict
         cuisine_type = (
             input('  Edit cuisine type ("ANY" for any cuisine): ').strip().upper()
