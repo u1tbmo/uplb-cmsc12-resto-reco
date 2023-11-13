@@ -7,9 +7,12 @@ import os
 
 # Paths for the data files
 file_dir = os.path.dirname(__file__)
-RESTO_PATH = os.path.join(file_dir, "resto.dat")
-GUSTO_PATH = os.path.join(file_dir, "gusto.dat")
-# Add to a subdirectory called data
+DATA_PATH = os.path.join(file_dir, "data")
+RESTO_PATH = os.path.join(DATA_PATH, "resto.dat")
+GUSTO_PATH = os.path.join(DATA_PATH, "gusto.dat")
+
+if not os.path.exists(DATA_PATH):
+    os.mkdir(DATA_PATH)
 
 
 def load_restos(restos_dict: dict[str, list]) -> dict[str, list]:
