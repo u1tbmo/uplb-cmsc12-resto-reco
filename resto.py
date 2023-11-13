@@ -156,14 +156,11 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     previous_name = name
     print("--------------------------------------------")
     # Validation: Name
-    if "," in name:
-        raise_er("Name cannot contain commas.")
-        return restos_dict
-    elif name == "":
-        raise_er("Name cannot be empty.")
+    if "," in name or name == "":
+        raise_er("Invalid name!")
         return restos_dict
     elif name not in restos_dict:
-        raise_er(f"Resto {name} does not exist.")
+        raise_er(f"Resto {name} does not exist!")
         return restos_dict
     else:
         clear_screen()
@@ -304,8 +301,11 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     )
     name = input("  Enter name: ").strip().upper()
     print("--------------------------------------------")
-    if name not in restos_dict:
-        raise_er(f"Resto {name} does not exist.")
+    if "," in name or name == "":
+        raise_er("Invalid name!")
+        return restos_dict
+    elif name not in restos_dict:
+        raise_er(f"Resto {name} does not exist!")
         return restos_dict
     else:
         clear_screen()

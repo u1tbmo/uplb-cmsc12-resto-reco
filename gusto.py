@@ -266,11 +266,8 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     label = input("  Enter label: ").strip().upper()
     previous_label = label
     print("--------------------------------------------")
-    if "," in label:
-        raise_er("Label cannot contain commas!")
-        return gustos_dict
-    elif label == "":
-        raise_er("Label cannot be empty!")
+    if "," in label or label == "":
+        raise_er("Invalid label!")
         return gustos_dict
     elif label not in gustos_dict:
         raise_er(f'Gusto "{label}" does not exist!')
@@ -410,6 +407,9 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     )
     label = input("  Enter label: ").strip().upper()
     print("--------------------------------------------")
+    if "," in label or label == "":
+        raise_er("Invalid label!")
+        return gustos_dict
     if label not in gustos_dict:
         raise_er(f'Gusto "{label}" does not exist!')
     else:
