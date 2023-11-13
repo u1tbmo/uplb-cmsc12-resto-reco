@@ -2,6 +2,8 @@
 This file contains the color codes for the terminal output.
 """
 
+import random
+
 
 # Text Formatting
 END = "\33[0m"
@@ -41,8 +43,11 @@ BGVIOLET = "\33[45m"
 BGCYAN = "\33[46m"
 BGWHITE = "\33[47m"
 
-# "Brand" Colors
-C1 = YELLOW2
-C2 = CYAN2
+# Light Color List
+LIGHT_COLORS = [YELLOW2, BLUE2, VIOLET2, CYAN2]
+
+C1 = random.choice(LIGHT_COLORS)
+LIGHT_COLORS.remove(C1)
+C2 = random.choice(LIGHT_COLORS)
 CD = GRAY
 CE = END
