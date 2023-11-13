@@ -76,13 +76,13 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             return restos_dict
 
         # User Input: Meal Type
-        info('Press "Enter" if the resto serves that meal type. Otherwise, enter "N".')
+        info('Press "Enter" if the Resto serves that meal type. Otherwise, enter "N".')
         meal_type = ""
-        if input("  Does the resto serve breakfast?\n> ").strip().lower() == "n":
+        if input("  [Enter/N] This resto serves breakfast. > ").strip().lower() != "n":
             meal_type += "B"
-        if input("  Does the resto serve lunch?: \n> ").strip().lower() == "n":
+        if input("  [Enter/N] This resto serves lunch. > ").strip().lower() != "n":
             meal_type += "L"
-        if input("  Does the resto serve dinner?: \n> ").strip().lower() == "n":
+        if input("  [Enter/N] This resto serves dinner. > ").strip().lower() != "n":
             meal_type += "D"
         # Validation: Meal Type
         if meal_type == "":
@@ -221,13 +221,13 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             return restos_dict
 
         # User Input: Meal Type
-        info('Press "Enter" if the resto serves that meal type. Otherwise, enter "N".')
+        info('Press "Enter" if the Resto serves that meal type. Otherwise, enter "N".')
         meal_type = ""
-        if input("  Does the resto serve breakfast?\n> ").strip().lower() == "n":
+        if input("  [Enter/N] This resto serves breakfast. > ").strip().lower() != "n":
             meal_type += "B"
-        if input("  Does the resto serve lunch?: \n> ").strip().lower() == "n":
+        if input("  [Enter/N] This resto serves lunch. > ").strip().lower() != "n":
             meal_type += "L"
-        if input("  Does the resto serve dinner?: \n> ").strip().lower() == "n":
+        if input("  [Enter/N] This resto serves dinner. > ").strip().lower() != "n":
             meal_type += "D"
         # Validation: Meal Type
         if meal_type == "":
