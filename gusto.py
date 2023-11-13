@@ -20,9 +20,7 @@ Gusto: a gusto is a preference profile with the following attributes:
 LABEL_LENGTH = 9
 
 # File Imports
-import save_load as sl
 from misc import clear_screen, continue_prompt, info, raise_er
-import colors as c
 from colors import C1, C2, CE, CD
 
 
@@ -204,7 +202,6 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             cuisine_type,
             min_rating,
         ]
-        sl.save_gustos(gustos_dict)
         info(f'Added Gusto "{label}"')
         continue_prompt()
         return gustos_dict
@@ -340,7 +337,6 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             cuisine_type,
             min_rating,
         ]
-        sl.save_gustos(gustos_dict)
         if previous_label != label:
             info(f'Edited Gusto "{previous_label}" to "{label}"')
         else:
@@ -398,7 +394,6 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         choice = input("  Enter choice: ").upper()
         if choice == "Y":
             del gustos_dict[label]
-            sl.save_gustos(gustos_dict)
             info(f'Deleted Gusto "{label}"')
             continue_prompt()
         else:

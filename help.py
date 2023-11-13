@@ -4,7 +4,6 @@ This module contains the functions that display the help menu.
 
 # File Imports
 from misc import clear_screen, continue_prompt, raise_er
-import colors as c
 from colors import C1, C2, CE, CD
 
 

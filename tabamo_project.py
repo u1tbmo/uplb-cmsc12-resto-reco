@@ -256,6 +256,7 @@ def main():
         else:
             raise_er("Invalid choice!")
             clear_screen()
+    sl.save(restos, gustos)
 
 
 if __name__ == "__main__":

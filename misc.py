@@ -33,6 +33,7 @@ def raise_er(message: str) -> None:
 
 def print_format_table():
     """Prints table of formatted text format options."""
+    clear_screen()
     x = 0
     for i in range(24):
         colors = ""
@@ -41,6 +42,7 @@ def print_format_table():
             colors = colors + "\33[" + code + "m\\33[" + code + "m\033[0m "
         print(colors)
         x = x + 5
+    continue_prompt()
 
 
 if __name__ == "__main__":

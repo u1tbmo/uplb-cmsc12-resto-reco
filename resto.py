@@ -19,9 +19,7 @@ Restos Format:
 NAME_LENGTH = 16
 
 # File Imports
-import save_load as sl
 from misc import clear_screen, continue_prompt, info, raise_er
-import colors as c
 from colors import C1, C2, CE, CD
 
 
@@ -101,7 +99,6 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Rating must be between 0 and 5.")
             return restos_dict
         restos_dict[name] = [distance, cuisine_type, meal_type, cost, rating]
-        sl.save_restos(restos_dict)
         info(f'Added Resto "{name}"')
         continue_prompt()
         return restos_dict
@@ -221,7 +218,6 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         if previous_name != name:
             del restos_dict[previous_name]
         restos_dict[name] = [distance, cuisine_type, meal_type, cost, rating]
-        sl.save_restos(restos_dict)
         if previous_name != name:
             info(f'Edited Resto "{previous_name} to {name}"')
         else:
@@ -285,7 +281,6 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         choice = input("  Enter choice: ").upper()
         if choice == "Y":
             del restos_dict[name]
-            sl.save_gustos(restos_dict)
             info(f'Deleted Resto "{name}"')
             continue_prompt()
         else:

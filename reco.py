@@ -8,7 +8,6 @@ import random
 # File Imports
 from misc import clear_screen, continue_prompt, raise_er
 import gusto as g
-import colors as c
 from colors import C1, C2, CE, CD
 
 
