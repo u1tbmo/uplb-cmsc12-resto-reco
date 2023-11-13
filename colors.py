@@ -1,10 +1,6 @@
 """
 This file contains the color codes for the terminal output.
 """
-
-import random
-
-
 # Text Formatting
 END = "\33[0m"
 BOLD = "\33[1m"
@@ -43,10 +39,10 @@ BGVIOLET = "\33[45m"
 BGCYAN = "\33[46m"
 BGWHITE = "\33[47m"
 
-DARK_COLORS = [YELLOW, BLUE, VIOLET, CYAN]
-LIGHT_COLORS = [YELLOW2, BLUE2, VIOLET2, CYAN2]
+# DARK_COLORS = [YELLOW, BLUE, VIOLET, CYAN]
+# LIGHT_COLORS = [YELLOW2, BLUE2, VIOLET2, CYAN2]
 
-C1 = random.choice(DARK_COLORS)
-C2 = LIGHT_COLORS[DARK_COLORS.index(C1)]
+C1 = YELLOW2
+C2 = VIOLET2
 CD = GRAY
 CE = END
