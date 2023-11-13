@@ -64,6 +64,9 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Invalid distance.")
             return restos_dict
         distance = float(distance)
+        if distance <= 0:
+            raise_er("Distance must be greater than 0.")
+            return restos_dict
 
         # User Input: Cuisine Type
         cuisine_type = input("  Enter cuisine type: ").strip().upper()
@@ -99,6 +102,9 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Invalid cost.")
             return restos_dict
         cost = float(cost)
+        if cost <= 0:
+            raise_er("Cost must be greater than 0.")
+            return restos_dict
 
         # User Input: Rating
         rating = input("  Enter rating (out of 5): ").strip()
@@ -209,6 +215,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Invalid distance.")
             return restos_dict
         distance = float(distance)
+        if distance <= 0:
+            raise_er("Distance must be greater than 0.")
+            return restos_dict
 
         # User Input: Cuisine Type
         cuisine_type = input("  Edit cuisine type: ").strip().upper()
@@ -244,6 +253,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             raise_er("Invalid cost.")
             return restos_dict
         cost = float(cost)
+        if cost <= 0:
+            raise_er("Cost must be greater than 0.")
+            return restos_dict
 
         # User Input: Rating
         rating = input("  Edit rating (out of 5): ").strip()
