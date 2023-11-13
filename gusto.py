@@ -468,7 +468,7 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
             desc = value[0][:32] + "..."
         else:
             desc = value[0]
-        print(f"  {label:^9}   {desc:<35}  ")
+        print(f"  {label:>9}   {desc:<35}  ")
     print("---------------------------------------------------")
 
 

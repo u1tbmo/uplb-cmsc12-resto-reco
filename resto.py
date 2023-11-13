@@ -364,7 +364,7 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
         end="",
     )
     for name, value in restos_dict.items():
-        print(f"  {name:^16}   {value[1].capitalize():^28}  ")
+        print(f"  {name:>16}   {value[1].capitalize():<28}  ")
     print("---------------------------------------------------")
 
 
