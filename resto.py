@@ -330,10 +330,8 @@ def display_restos_detailed(restos_dict: dict[str, list]) -> None:
             elif choice == "D":
                 meal_types += "Dinner, "
         meal_types = meal_types.rstrip(", ")
-        if value[2] != "BLD":
-            meal_types = f" {meal_types} "
         print(
-            f"  {name:<16}   {value[0]:>22.2f}m   {value[1].capitalize():^13}   {meal_types:^24}   {value[3]:>10.2f}   {value[4]:^10.1f}  "
+            f"  {name:<16}   {value[0]:>22.2f}m   {value[1].capitalize():<13}   {meal_types:<24}   {value[3]:>10.2f}   {value[4]:^10.1f}  "
         )
     print(
         "-------------------------------------------------------------------------------------------------------------------"
