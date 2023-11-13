@@ -23,13 +23,14 @@ LABEL_LENGTH = 9
 import save_load as sl
 from misc import clear_screen, continue_prompt, info, raise_er
 import colors as c
+from colors import C1, C2, CE, CD
 
 
 def ad_hoc_gusto() -> tuple | None:
     clear_screen()
     print(
         f"---------------------------------------------------\n",
-        f"          {c.YELLOW2}Get Reco/s from an Ad Hoc Gusto{c.END}          \n",
+        f"          {C1}Get Reco/s from an Ad Hoc Gusto{CE}          \n",
         f"---------------------------------------------------\n",
         sep="",
         end="",
@@ -125,7 +126,7 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     # Print the header
     print(
         f"---------------------------------------------------\n",
-        f"                     {c.YELLOW2}Add Gusto{c.END}                     \n",
+        f"                     {C1}Add Gusto{CE}                     \n",
         f"---------------------------------------------------\n",
         sep="",
         end="",
@@ -257,7 +258,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     display_gustos_simple(gustos_dict)
     print(
         f"---------------------------------------------------\n",
-        f"                     {c.YELLOW2}Edit Gusto{c.END}                    \n",
+        f"                     {C1}Edit Gusto{CE}                    \n",
         f"---------------------------------------------------\n",
         sep="",
         end="",
@@ -278,7 +279,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         clear_screen()
         print(
             f"---------------------------------------------------\n",
-            f"                     {c.YELLOW2}Edit Gusto{c.END}                    \n",
+            f"                     {C1}Edit Gusto{CE}                    \n",
             f"---------------------------------------------------\n",
             sep="",
             end="",
@@ -402,7 +403,7 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
 
     print(
         f"---------------------------------------------------\n",
-        f"                    {c.YELLOW2}Delete Gusto{c.END}                   \n",
+        f"                    {C1}Delete Gusto{CE}                   \n",
         f"---------------------------------------------------\n",
         sep="",
         end="",
@@ -415,7 +416,7 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         clear_screen()
         print(
             f"---------------------------------------------------\n",
-            f"                    {c.YELLOW2}Delete Gusto{c.END}                   \n",
+            f"                    {C1}Delete Gusto{CE}                   \n",
             f"---------------------------------------------------\n",
             sep="",
             end="",
@@ -434,8 +435,8 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         print("---------------------------------------------------")
         # Delete Gusto
         print(f"  Are you sure you want to delete {label}?")
-        print(f"{c.GREEN}  [Y] Yes{c.END}")
-        print(f"{c.RED}  [Any Key] No{c.END}")
+        print(f"  [Y] Yes{CE}")
+        print(f"  [Any Key] No{CE}")
         choice = input("  Enter choice: ").upper()
         if choice == "Y":
             del gustos_dict[label]
@@ -454,9 +455,9 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         return
     print(
         f"---------------------------------------------------\n",
-        f"                       {c.YELLOW2}Gustos{c.END}                      \n",
+        f"                       {C1}Gustos{CE}                      \n",
         f"---------------------------------------------------\n",
-        f"{c.CYAN2}    Label                 Description              {c.END}\n",
+        f"{C2}    Label                 Description              {CE}\n",
         f"---------------------------------------------------\n",
         sep="",
         end="",
@@ -477,9 +478,9 @@ def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
         return
     print(
         f"-------------------------------------------------------------------------------------------------------------------\n",
-        f"                                                      {c.YELLOW2}Gustos{c.END}                                                       \n",
+        f"                                                      {C1}Gustos{CE}                                                       \n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
-        f"{c.CYAN2}    Label          Description        #     Meal Type      Budget      Max Distance       Cuisine      Min Rating  {c.END}\n",
+        f"{C2}    Label          Description        #     Meal Type      Budget      Max Distance       Cuisine      Min Rating  {CE}\n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
         sep="",
         end="",

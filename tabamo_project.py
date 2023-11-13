@@ -12,8 +12,8 @@ import save_load as sl
 import gusto as g
 import resto as r
 import reco as rc
-import colors as c
 import help as h
+from colors import C1, C2, CE, CD
 from misc import clear_screen, continue_prompt, raise_er, print_format_table
 
 # Global Variables
@@ -24,7 +24,7 @@ gustos: dict[str, list] = {}
 def main_menu() -> str:
     print(
         f"---------------------------------------------------\n",
-        f"                     {c.YELLOW2}Main Menu{c.END}                     \n",
+        f"                     {C1}Main Menu{CE}                     \n",
         f"---------------------------------------------------\n",
         f"  1   Manage Gustos                                \n",
         f"  2   Manage Restos                                \n",
@@ -33,7 +33,7 @@ def main_menu() -> str:
         f"  H   Help                                         \n",
         f"  0   Exit                                         \n",
         f"---------------------------------------------------\n",
-        f"{c.END}",
+        f"{CE}",
         sep="",
         end="",
     )
@@ -43,24 +43,24 @@ def main_menu() -> str:
 def gusto_menu() -> str:
     clear_screen()
     print(
-        f"{c.GRAY}",
+        f"{CD}",
         f"---------------------------------------------------\n",
         f"                     Main Menu                     \n",
         f"---------------------------------------------------\n",
-        f"  {c.YELLOW2}1   Manage Gustos{c.GRAY}                                \n",
+        f"  {C1}1   Manage Gustos{CD}                                \n",
         f"  2   Manage Restos                                \n",
         f"  3   Get Recos                                    \n",
         f"  A   About                                        \n",
         f"  H   Help                                         \n",
         f"  0   Exit                                         \n",
         f"---------------------------------------------------\n",
-        f"{c.END}",
+        f"{CE}",
         sep="",
         end="",
     )
     print(
         f"---------------------------------------------------\n",
-        f"                   {c.YELLOW2}Manage Gustos{c.END}                   \n",
+        f"                   {C1}Manage Gustos{CE}                   \n",
         f"---------------------------------------------------\n",
         f"  1   Add Gusto                                    \n",
         f"  2   Edit Gusto                                   \n",
@@ -78,24 +78,24 @@ def gusto_menu() -> str:
 def resto_menu() -> str:
     clear_screen()
     print(
-        f"{c.GRAY}",
+        f"{CD}",
         f"---------------------------------------------------\n",
         f"                     Main Menu                     \n",
         f"---------------------------------------------------\n",
         f"  1   Manage Gustos                                \n",
-        f"  {c.YELLOW2}2   Manage Restos{c.GRAY}                                \n",
+        f"  {C1}2   Manage Restos{CD}                                \n",
         f"  3   Get Recos                                    \n",
         f"  A   About                                        \n",
         f"  H   Help                                         \n",
         f"  0   Exit                                         \n",
         f"---------------------------------------------------\n",
-        f"{c.END}",
+        f"{CE}",
         sep="",
         end="",
     )
     print(
         f"---------------------------------------------------\n",
-        f"                   {c.YELLOW2}Manage Restos{c.END}                   \n",
+        f"                   {C1}Manage Restos{CE}                   \n",
         f"---------------------------------------------------\n",
         f"  1   Add Resto                                    \n",
         f"  2   Edit Resto                                   \n",
@@ -129,7 +129,7 @@ def about() -> None:
 def help() -> None:
     clear_screen()
     print(
-        f"{c.GRAY}",
+        f"{CD}",
         f"---------------------------------------------------\n",
         f"                     Main Menu                     \n",
         f"---------------------------------------------------\n",
@@ -137,23 +137,23 @@ def help() -> None:
         f"  2   Manage Restos                                \n",
         f"  3   Get Recos                                    \n",
         f"  A   About                                        \n",
-        f"  {c.YELLOW2}H   Help{c.GRAY}                                         \n",
+        f"  {C1}H   Help{CD}                                         \n",
         f"  0   Exit                                         \n",
         f"---------------------------------------------------\n",
-        f"{c.END}",
+        f"{CE}",
         sep="",
         end="",
     )
     print(
         f"---------------------------------------------------\n",
-        f"                        {c.YELLOW2}Help{c.END}                       \n",
+        f"                        {C1}Help{CE}                       \n",
         f"---------------------------------------------------\n",
         f"  1   Gustos                                       \n",
         f"  2   Restos                                       \n",
         f"  3   Recos                                        \n",
         f"  0   Back to Main Menu                            \n",
         f"---------------------------------------------------\n",
-        f"{c.END}",
+        f"{CE}",
         sep="",
         end="",
     )
@@ -228,7 +228,7 @@ def load_colors() -> None:
 
 def exit() -> None:
     clear_screen()
-    message = f"{c.ITALIC}{c.YELLOW2}See you next time!{c.END}"
+    message = f"{C1}See you next time!{CE}"
     print(f"{message}")
 
 

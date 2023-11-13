@@ -6,9 +6,10 @@ This module contains the functions for recommending restos.
 import random
 
 # File Imports
-import colors as c
 from misc import clear_screen, continue_prompt, raise_er
 import gusto as g
+import colors as c
+from colors import C1, C2, CE, CD
 
 
 def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
@@ -61,23 +62,24 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         return
     clear_screen()
     print(
-        f"{c.GRAY}",
+        f"{CD}",
         f"---------------------------------------------------\n",
         f"                     Main Menu                     \n",
         f"---------------------------------------------------\n",
         f"  1   Manage Gustos                                \n",
         f"  2   Manage Restos                                \n",
-        f"  {c.YELLOW2}3   Get Recos{c.GRAY}                                    \n",
+        f"  {C1}3   Get Recos{CD}                                    \n",
         f"  A   About                                        \n",
         f"  H   Help                                         \n",
         f"  0   Exit                                         \n",
-        f"---------------------------------------------------\n" f"{c.END}",
+        f"---------------------------------------------------\n",
+        f"{CE}",
         sep="",
         end="",
     )
     print(
         f"---------------------------------------------------\n",
-        f"                     {c.YELLOW2}Get Recos{c.END}                     \n",
+        f"                     {C1}Get Recos{CE}                     \n",
         f"---------------------------------------------------\n",
         f"  1   Get Reco/s from an Existing Gusto            \n",
         f"  2   Get Reco/s from an Ad Hoc Gusto              \n",
@@ -92,7 +94,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         clear_screen()
         print(
             f"---------------------------------------------------\n",
-            f"         {c.YELLOW2}Get Reco/s from an Existing Gusto{c.END}         \n",
+            f"         {C1}Get Reco/s from an Existing Gusto{CE}         \n",
             f"---------------------------------------------------\n",
             sep="",
             end="",
@@ -138,14 +140,14 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     clear_screen()
     print(
         f"-------------------------------------------------------------------------------------------------------------------\n",
-        f"                                 {c.YELLOW2}We Reco the Following Restos based on your Gusto!{c.END}                                 \n",
+        f"                                 {C1}We Reco the Following Restos based on your Gusto!{CE}                                 \n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
         sep="",
         end="",
     )
     print(
         f"-------------------------------------------------------------------------------------------------------------------\n",
-        f"                                                       {c.YELLOW2}Gusto{c.END}                                                       \n",
+        f"                                                       {C1}Gusto{CE}                                                       \n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
         sep="",
         end="",
@@ -164,9 +166,9 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     )
     print(
         f"-------------------------------------------------------------------------------------------------------------------\n",
-        f"                                                       {c.YELLOW2}Recos{c.END}                                                       \n",
+        f"                                                       {C1}Recos{CE}                                                       \n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
-        f"{c.CYAN2}        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    {c.END}\n",
+        f"{C2}        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    {CE}\n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
         sep="",
         end="",

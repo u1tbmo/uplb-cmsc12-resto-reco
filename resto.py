@@ -22,6 +22,7 @@ NAME_LENGTH = 16
 import save_load as sl
 from misc import clear_screen, continue_prompt, info, raise_er
 import colors as c
+from colors import C1, C2, CE, CD
 
 
 def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
@@ -31,7 +32,7 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     # Print the header
     print(
         f"---------------------------------------------------\n",
-        f"                     {c.YELLOW2}Add Resto{c.END}                     \n",
+        f"                     {C1}Add Resto{CE}                     \n",
         f"---------------------------------------------------\n",
         sep="",
         end="",
@@ -144,7 +145,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     # Print the header
     print(
         f"---------------------------------------------------\n",
-        f"                     {c.YELLOW2}Edit Resto{c.END}                    \n",
+        f"                     {C1}Edit Resto{CE}                    \n",
         f"---------------------------------------------------\n",
         sep="",
         end="",
@@ -168,7 +169,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         clear_screen()
         print(
             f"---------------------------------------------------\n",
-            f"                     {c.YELLOW2}Edit Resto{c.END}                    \n",
+            f"                     {C1}Edit Resto{CE}                    \n",
             f"---------------------------------------------------\n",
             sep="",
             end="",
@@ -296,7 +297,7 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     display_restos_simple(restos_dict)
     print(
         f"---------------------------------------------------\n",
-        f"                    {c.YELLOW2}Delete Resto{c.END}                   \n",
+        f"                    {C1}Delete Resto{CE}                   \n",
         f"---------------------------------------------------\n",
         sep="",
         end="",
@@ -310,7 +311,7 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         clear_screen()
         print(
             f"---------------------------------------------------\n",
-            f"                    {c.YELLOW2}Delete Resto{c.END}                   \n",
+            f"                    {C1}Delete Resto{CE}                   \n",
             f"---------------------------------------------------\n",
             sep="",
             end="",
@@ -355,9 +356,9 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
         return
     print(
         f"---------------------------------------------------\n",
-        f"                       {c.YELLOW2}Restos{c.END}                      \n",
+        f"                       {C1}Restos{CE}                      \n",
         f"---------------------------------------------------\n",
-        f"{c.CYAN2}        Name                    Cuisine            {c.END}\n",
+        f"{C2}        Name                    Cuisine            {CE}\n",
         f"---------------------------------------------------\n",
         sep="",
         end="",
@@ -373,9 +374,9 @@ def display_restos_detailed(restos_dict: dict[str, list]) -> None:
         return
     print(
         f"-------------------------------------------------------------------------------------------------------------------\n",
-        f"                                                      {c.YELLOW2}Restos{c.END}                                                       \n",
+        f"                                                      {C1}Restos{CE}                                                       \n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
-        f"{c.CYAN2}        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    {c.END}\n",
+        f"{C2}        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    {CE}\n",
         f"-------------------------------------------------------------------------------------------------------------------\n",
         sep="",
         end="",

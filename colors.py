@@ -2,6 +2,7 @@
 This file contains the color codes for the terminal output.
 """
 
+
 # Text Formatting
 END = "\33[0m"
 BOLD = "\33[1m"
@@ -39,3 +40,9 @@ BGBLUE = "\33[44m"
 BGVIOLET = "\33[45m"
 BGCYAN = "\33[46m"
 BGWHITE = "\33[47m"
+
+# "Brand" Colors
+C1 = YELLOW2
+C2 = CYAN2
+CD = GRAY
+CE = END
