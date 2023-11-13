@@ -35,9 +35,7 @@ def ad_hoc_gusto() -> tuple | None:
         sep="",
         end="",
     )
-    # User Input: Group Size
     group_size = input("  Enter number of people: ")
-    # Validation: Group Size
     if group_size == "":
         raise_er("Group size cannot be empty!")
         return None
@@ -48,15 +46,11 @@ def ad_hoc_gusto() -> tuple | None:
     if group_size <= 0:
         raise_er("Group size must be greater than 0!")
         return None
-    # User Input: Meal Type
     meal_type = input("  Enter type of meal (Breakfast, Lunch, Dinner): ").upper()
-    # Validation: Meal Type
     if meal_type.strip() not in ["BREAKFAST", "LUNCH", "DINNER"]:
         raise_er("Invalid meal type!")
         return None
-    # User Input: Budget
     budget = input("  Enter budget: ")
-    # Validation: Budget
     if budget == "":
         raise_er("Budget cannot be empty!")
         return None
@@ -67,9 +61,7 @@ def ad_hoc_gusto() -> tuple | None:
     if budget <= 0:
         raise_er("Budget must be greater than 0!")
         return None
-    # User Input: Max Distance
     max_distance = input("  Enter maximum distance from UPLB (in meters): ")
-    # Validation: Max Distance
     if max_distance == "":
         raise_er("Maximum distance cannot be empty!")
         return None
@@ -80,20 +72,16 @@ def ad_hoc_gusto() -> tuple | None:
     if max_distance <= 0:
         raise_er("Maximum distance must be greater than 0!")
         return None
-    # User Input: Cuisine Type
     cuisine_type = (
         input('  Enter cuisine type ("ANY" for any cuisine): ').strip().upper()
     )
-    # Validation: Cuisine Type
     if "," in cuisine_type:
         raise_er("Cuisine type cannot contain commas!")
         return None
     if cuisine_type == "":
         raise_er("Cuisine type cannot be empty!")
         return None
-    # User Input: Minimum Rating
     min_rating = input("  Enter minimum rating (out of 5): ")
-    # Validation: Minimum Rating
     if min_rating == "":
         raise_er("Minimum rating cannot be empty!")
         return None
@@ -106,7 +94,7 @@ def ad_hoc_gusto() -> tuple | None:
         return None
 
     return (
-        "AD,HOC",  # a clear indicator that this is an ad hoc gusto, the label is also impossible to be used by the user
+        "AD,HOC",
         [
             "AD,HOC",
             group_size,
@@ -120,10 +108,7 @@ def ad_hoc_gusto() -> tuple | None:
 
 
 def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
-    # Clear the screen
     clear_screen()
-
-    # Print the header
     print(
         f"---------------------------------------------------\n",
         f"                     {C1}Add Gusto{CE}                     \n",
@@ -131,11 +116,8 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-
-    # User Input: Label
     label = input("  Enter label: ").strip().upper()
     print("--------------------------------------------")
-    # Validation: Label
     if "," in label:
         raise_er("Label cannot contain commas!")
         return gustos_dict
@@ -149,19 +131,14 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         raise_er(f'Gusto "{label}" already exists!')
         return gustos_dict
     else:
-        # User Input: Description
         description = input("  Enter description: ").strip()
-        # Validation: Description
         if "," in description:
             raise_er("Description cannot contain commas!")
             return gustos_dict
         if description == "":
             raise_er("Description cannot be empty!")
             return gustos_dict
-
-        # User Input: Group Size
         group_size = input("  Enter number of people: ")
-        # Validation: Group Size
         if group_size == "":
             raise_er("Group size cannot be empty!")
             return gustos_dict
@@ -172,17 +149,11 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         if group_size <= 0:
             raise_er("Group size must be greater than 0!")
             return gustos_dict
-
-        # User Input: Meal Type
         meal_type = input("  Enter type of meal (Breakfast, Lunch, Dinner): ").upper()
-        # Validation: Meal Type
         if meal_type.strip() not in ["BREAKFAST", "LUNCH", "DINNER"]:
             raise_er("Invalid meal type!")
             return gustos_dict
-
-        # User Input: Budget
         budget = input("  Enter budget: ")
-        # Validation: Budget
         if budget == "":
             raise_er("Budget cannot be empty!")
             return gustos_dict
@@ -193,10 +164,7 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         if budget <= 0:
             raise_er("Budget must be greater than 0!")
             return gustos_dict
-
-        # User Input: Max Distance
         max_distance = input("  Enter maximum distance from UPLB (in meters): ")
-        # Validation: Max Distance
         if max_distance == "":
             raise_er("Maximum distance cannot be empty!")
             return gustos_dict
@@ -207,22 +175,16 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         if max_distance <= 0:
             raise_er("Maximum distance must be greater than 0!")
             return gustos_dict
-
-        # User Input: Cuisine Type
         cuisine_type = (
             input('  Enter cuisine type ("ANY" for any cuisine): ').strip().upper()
         )
-        # Validation: Cuisine Type
         if "," in cuisine_type:
             raise_er("Cuisine type cannot contain commas!")
             return gustos_dict
         if cuisine_type == "":
             raise_er("Cuisine type cannot be empty!")
             return gustos_dict
-
-        # User Input: Minimum Rating
         min_rating = input("  Enter minimum rating (out of 5): ")
-        # Validation: Minimum Rating
         if min_rating == "":
             raise_er("Minimum rating cannot be empty!")
             return gustos_dict
@@ -233,7 +195,6 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         if min_rating < 0 or min_rating > 5:
             raise_er("Minimum rating must be between 0 and 5!")
             return gustos_dict
-        # Add Gusto
         gustos_dict[label] = [
             description,
             group_size,
@@ -243,7 +204,6 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             cuisine_type,
             min_rating,
         ]
-        # Save Gustos and Print Success Message
         sl.save_gustos(gustos_dict)
         info(f'Added Gusto "{label}"')
         continue_prompt()
@@ -423,7 +383,6 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         )
         info(f"Fetched Gusto {label}!")
         print("---------------------------------------------------")
-        # Display Gusto Info
         print(f"  Label: {label}")
         print(f"  Description: {gustos_dict[label][0]}")
         print(f"  Number of People: {gustos_dict[label][1]}")
@@ -433,7 +392,6 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         print(f"  Cuisine Type: {gustos_dict[label][5]}")
         print(f"  Minimum Rating: {gustos_dict[label][6]}")
         print("---------------------------------------------------")
-        # Delete Gusto
         print(f"  Are you sure you want to delete {label}?")
         print(f"  [Y] Yes{CE}")
         print(f"  [Any Key] No{CE}")
@@ -499,7 +457,3 @@ def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
         sep="",
         end="",
     )
-
-
-if __name__ == "__main__":
-    raise_er("You are running a module: gusto.py")

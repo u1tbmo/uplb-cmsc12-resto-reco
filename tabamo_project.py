@@ -181,7 +181,6 @@ def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     elif choice == "4":
         clear_screen()
         g.display_gustos_simple(gustos_dict)
-        # Only display a continue prompt if there are gustos to display, since raise_er() already displays a continue prompt
         if gustos_dict:
             continue_prompt()
     elif choice == "5":
@@ -207,7 +206,6 @@ def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     elif choice == "4":
         clear_screen()
         r.display_restos_simple(restos_dict)
-        # Only display a continue prompt if there are restos to display, since raise_er() already displays a continue prompt
         if restos_dict:
             continue_prompt()
     elif choice == "5":

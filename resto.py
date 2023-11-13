@@ -26,10 +26,7 @@ from colors import C1, C2, CE, CD
 
 
 def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
-    # Clear the screen
     clear_screen()
-
-    # Print the header
     print(
         f"---------------------------------------------------\n",
         f"                     {C1}Add Resto{CE}                     \n",
@@ -37,11 +34,8 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-
-    # User Input: Name
     name = input("  Name: ").strip().upper()
     print("--------------------------------------------")
-    # Validation: Name
     if "," in name:
         raise_er("Name cannot contain commas.")
         return restos_dict
@@ -55,9 +49,7 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         raise_er(f"Name cannot exceed {NAME_LENGTH} characters.")
         return restos_dict
     else:
-        # User Input: Distance
         distance = input("  Enter distance from UPLB gate (in meters): ").strip()
-        # Validation: Distance
         if distance == "":
             raise_er("Distance cannot be empty.")
             return restos_dict
@@ -68,18 +60,13 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         if distance <= 0:
             raise_er("Distance must be greater than 0.")
             return restos_dict
-
-        # User Input: Cuisine Type
         cuisine_type = input("  Enter cuisine type: ").strip().upper()
-        # Validation: Cuisine Type
         if "," in cuisine_type:
             raise_er("Cuisine type cannot contain commas.")
             return restos_dict
         elif cuisine_type == "":
             raise_er("Cuisine type cannot be empty.")
             return restos_dict
-
-        # User Input: Meal Type
         info('Press "Enter" if the Resto serves that meal type. Otherwise, enter "N".')
         meal_type = ""
         if input("  [Enter/N] This resto serves breakfast. > ").strip().lower() != "n":
@@ -88,14 +75,10 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             meal_type += "L"
         if input("  [Enter/N] This resto serves dinner. > ").strip().lower() != "n":
             meal_type += "D"
-        # Validation: Meal Type
         if meal_type == "":
             raise_er("Resto must serve at least one meal type.")
             return restos_dict
-
-        # User Input: Cost
         cost = input("  Enter typical cost of a meal (in pesos): ").strip()
-        # Validation: Cost
         if cost == "":
             raise_er("Cost cannot be empty.")
             return restos_dict
@@ -106,10 +89,7 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         if cost <= 0:
             raise_er("Cost must be greater than 0.")
             return restos_dict
-
-        # User Input: Rating
         rating = input("  Enter rating (out of 5): ").strip()
-        # Validation: Rating
         if rating == "":
             raise_er("Rating cannot be empty.")
             return restos_dict
@@ -120,11 +100,7 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         if rating > 5 or rating < 0:
             raise_er("Rating must be between 0 and 5.")
             return restos_dict
-
-        # Add resto to restos_dict
         restos_dict[name] = [distance, cuisine_type, meal_type, cost, rating]
-
-        # Save restos and print success message
         sl.save_restos(restos_dict)
         info(f'Added Resto "{name}"')
         continue_prompt()
@@ -132,17 +108,11 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
-    # Check if there are restos to edit
     if not restos_dict:
         raise_er("No restos to edit. Add a resto!")
         return restos_dict
-    # Clear the screen
     clear_screen()
-
-    # Display restos
     display_restos_simple(restos_dict)
-
-    # Print the header
     print(
         f"---------------------------------------------------\n",
         f"                     {C1}Edit Resto{CE}                    \n",
@@ -150,12 +120,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-
-    # User Input: Name
     name = input("  Name: ").strip().upper()
     previous_name = name
     print("--------------------------------------------")
-    # Validation: Name
     if "," in name or name == "":
         raise_er("Invalid name!")
         return restos_dict
@@ -183,7 +150,6 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             elif char == "D":
                 meal_types += "Dinner, "
         meal_types = meal_types.rstrip(", ")
-        # Display Resto Info
         print(f"  Name: {name}")
         print(f"  Distance from UPLB gate: {restos_dict[name][0]} meters")
         print(f"  Cuisine Type: {restos_dict[name][1]}")
@@ -191,9 +157,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         print(f"  Cost: {restos_dict[name][3]} pesos")
         print(f"  Rating: {restos_dict[name][4]}")
         print("--------------------------------------------")
-        # User Input: Name
         name = input("  Edit name: ").strip().upper()
-        # Validation: Name
         if "," in name:
             raise_er("Name cannot contain commas.")
             return restos_dict
@@ -203,9 +167,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         elif name in restos_dict and previous_name != name:
             raise_er(f"Resto {name} already exists.")
             return restos_dict
-        # User Input: Distance
         distance = input("  Edit distance from UPLB gate (in meters): ").strip()
-        # Validation: Distance
         if distance == "":
             raise_er("Distance cannot be empty.")
             return restos_dict
@@ -216,18 +178,13 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         if distance <= 0:
             raise_er("Distance must be greater than 0.")
             return restos_dict
-
-        # User Input: Cuisine Type
         cuisine_type = input("  Edit cuisine type: ").strip().upper()
-        # Validation: Cuisine Type
         if "," in cuisine_type:
             raise_er("Cuisine type cannot contain commas.")
             return restos_dict
         elif cuisine_type == "":
             raise_er("Cuisine type cannot be empty.")
             return restos_dict
-
-        # User Input: Meal Type
         info('Press "Enter" if the Resto serves that meal type. Otherwise, enter "N".')
         meal_type = ""
         if input("  [Enter/N] This resto serves breakfast. > ").strip().lower() != "n":
@@ -236,14 +193,10 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             meal_type += "L"
         if input("  [Enter/N] This resto serves dinner. > ").strip().lower() != "n":
             meal_type += "D"
-        # Validation: Meal Type
         if meal_type == "":
             raise_er("Resto must serve at least one meal type.")
             return restos_dict
-
-        # User Input: Cost
         cost = input("  Edit typical cost of a meal (in pesos): ").strip()
-        # Validation: Cost
         if cost == "":
             raise_er("Cost cannot be empty.")
             return restos_dict
@@ -254,10 +207,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         if cost <= 0:
             raise_er("Cost must be greater than 0.")
             return restos_dict
-
-        # User Input: Rating
         rating = input("  Edit rating (out of 5): ").strip()
-        # Validation: Rating
         if rating == "":
             raise_er("Rating cannot be empty.")
             return restos_dict
@@ -268,15 +218,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         if rating > 5 or rating < 0:
             raise_er("Rating must be between 0 and 5.")
             return restos_dict
-
-        # Change name by deleting previous name if name is changed
         if previous_name != name:
             del restos_dict[previous_name]
-
-        # Add resto to restos_dict
         restos_dict[name] = [distance, cuisine_type, meal_type, cost, rating]
-
-        # Save restos and print success message
         sl.save_restos(restos_dict)
         if previous_name != name:
             info(f'Edited Resto "{previous_name} to {name}"')
@@ -399,7 +343,3 @@ def display_restos_detailed(restos_dict: dict[str, list]) -> None:
     print(
         "-------------------------------------------------------------------------------------------------------------------"
     )
-
-
-if __name__ == "__main__":
-    raise_er("You are running a module: resto.py")
