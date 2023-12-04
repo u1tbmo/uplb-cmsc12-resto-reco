@@ -16,6 +16,14 @@ if not os.path.exists(DATA_PATH):
 
 
 def load_restos(restos_dict: dict[str, list]) -> dict[str, list]:
+    """Loads the restos from resto.dat.
+
+    Args:
+        restos_dict (dict[str, list]): the dictionary of restos
+
+    Returns:
+        dict[str, list]: the dictionary of restos
+    """
     # Create resto.dat if it doesn't exist
     fh = open(RESTO_PATH, "a", encoding="utf-8")
     fh.close()
@@ -36,6 +44,14 @@ def load_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def load_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
+    """Loads the gustos from gusto.dat.
+
+    Args:
+        gustos_dict (dict[str, list]): the dictionary of gustos
+
+    Returns:
+        dict[str, list]: the dictionary of gustos
+    """
     # Create gusto.dat if it doesn't exist
     fh = open(GUSTO_PATH, "a", encoding="utf-8")
     # Read gusto.dat
@@ -66,12 +82,26 @@ def load_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def load(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> tuple:
+    """Loads the restos and gustos from their respective files.
+
+    Args:
+        restos_dict (dict[str, list]): the dictionary of restos
+        gustos_dict (dict[str, list]): the dictionary of gustos
+
+    Returns:
+        tuple: the dictionary of restos and gustos
+    """
     restos_dict = load_restos(restos_dict)
     gustos_dict = load_gustos(gustos_dict)
     return (restos_dict, gustos_dict)
 
 
 def save_restos(restos_dict: dict[str, list]) -> None:
+    """Saves the restos to resto.dat.
+
+    Args:
+        restos_dict (dict[str, list]): the dictionary of restos
+    """
     fh = open(RESTO_PATH, "w", encoding="utf-8")
     for name, value in restos_dict.items():
         fh.write(f"{name},{value[0]},{value[1]},{value[2]},{value[3]},{value[4]}\n")
@@ -79,6 +109,11 @@ def save_restos(restos_dict: dict[str, list]) -> None:
 
 
 def save_gustos(gustos_dict: dict[str, list]) -> None:
+    """Saves the gustos to gusto.dat.
+
+    Args:
+        gustos_dict (dict[str, list]): the dictionary of gustos
+    """
     fh = open(GUSTO_PATH, "w", encoding="utf-8")
     for label, value in gustos_dict.items():
         fh.write(

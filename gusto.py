@@ -2,34 +2,25 @@
 This module contains the functions for adding, editing, deleting, and displaying gustos.
 """
 
-"""
-Gusto: a gusto is a preference profile with the following attributes:
-    gustos = {
-        label: [description, group_size, meal_type, budget, max_distance, cuisine_type, min_rating]
-    }
-    label: str = the unique identifier of the gusto
-    description: str = the description of the gusto
-    group_size: int = the number of people the gusto is for
-    meal_type: str = the meal type the gusto is for (breakfast, lunch, dinner)
-    budget: float = the budget of the gusto (in pesos)
-    max_distance: float = the maximum distance of the resto from UPLB gate (in meters)
-    cuisine_type: str = the type of cuisine the resto serves
-    min_rating: float = the minimum rating of the resto (out of 5)
-"""
+# File Imports
+from misc import clear_screen, continue_prompt, info, raise_er
+from colors import C1, C2, CE
+
 # Global Variables / Constants
 LABEL_LENGTH = 9
 
-# File Imports
-from misc import clear_screen, continue_prompt, info, raise_er
-from colors import C1, C2, CE, CD
-
 
 def ad_hoc_gusto() -> tuple | None:
+    """Prompts the user to enter the attributes of a gusto.
+
+    Returns:
+        tuple | None: a tuple containing the label and attributes of the gusto
+    """
     clear_screen()
     print(
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"          {C1}Get Reco/s from an Ad Hoc Gusto{CE}          \n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -106,11 +97,19 @@ def ad_hoc_gusto() -> tuple | None:
 
 
 def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
+    """Adds a gusto to the gustos dictionary.
+
+    Args:
+        gustos_dict (dict[str, list]): the dictionary of gustos
+
+    Returns:
+        dict[str, list]: the updated dictionary of gustos that includes the new gusto
+    """
     clear_screen()
     print(
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"                     {C1}Add Gusto{CE}                     \n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -208,15 +207,23 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
+    """Edits a gusto in the gustos dictionary.
+
+    Args:
+        gustos_dict (dict[str, list]): the dictionary of gustos
+
+    Returns:
+        dict[str, list]: the updated dictionary of gustos which has the gusto edited
+    """
     if not gustos_dict:
         raise_er("No gustos to edit! Add a gusto!")
         return gustos_dict
     clear_screen()
     display_gustos_simple(gustos_dict)
     print(
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"                     {C1}Edit Gusto{CE}                    \n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -232,9 +239,9 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     else:
         clear_screen()
         print(
-            f"---------------------------------------------------\n",
+            "---------------------------------------------------\n",
             f"                     {C1}Edit Gusto{CE}                    \n",
-            f"---------------------------------------------------\n",
+            "---------------------------------------------------\n",
             sep="",
             end="",
         )
@@ -249,7 +256,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         print(f"  Cuisine Type: {gustos_dict[label][5]}")
         print(f"  Minimum Rating: {gustos_dict[label][6]}")
         print("---------------------------------------------------")
-        label = input(f"  Edit label: ").strip().upper()
+        label = input("  Edit label: ").strip().upper()
         if "," in label:
             raise_er("Label cannot contain commas!")
             return gustos_dict
@@ -259,14 +266,14 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         elif label in gustos_dict and previous_label != label:
             raise_er(f'Gusto "{label}" already exists!')
             return gustos_dict
-        description = input(f"  Edit description: ").strip()
+        description = input("  Edit description: ").strip()
         if "," in description:
             raise_er("Description cannot contain commas!")
             return gustos_dict
         elif description == "":
             raise_er("Description cannot be empty!")
             return gustos_dict
-        group_size = input(f"  Edit number of people: ")
+        group_size = input("  Edit number of people: ")
         if group_size == "":
             raise_er("Group size cannot be empty!")
             return gustos_dict
@@ -346,6 +353,14 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
+    """Deletes a gusto from the gustos dictionary.
+
+    Args:
+        gustos_dict (dict[str, list]): the dictionary of gustos
+
+    Returns:
+        dict[str, list]: the updated dictionary of gustos which has the gusto deleted
+    """
     if not gustos_dict:
         raise_er("No gustos to delete! Add a gusto!")
         return gustos_dict
@@ -355,9 +370,9 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     display_gustos_simple(gustos_dict)
 
     print(
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"                    {C1}Delete Gusto{CE}                   \n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -371,9 +386,9 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     else:
         clear_screen()
         print(
-            f"---------------------------------------------------\n",
+            "---------------------------------------------------\n",
             f"                    {C1}Delete Gusto{CE}                   \n",
-            f"---------------------------------------------------\n",
+            "---------------------------------------------------\n",
             sep="",
             end="",
         )
@@ -403,15 +418,20 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
+    """Displays the gustos in the gustos dictionary.
+
+    Args:
+        gustos_dict (dict[str, list]): the dictionary of gustos to display
+    """
     if not gustos_dict:
         raise_er("No gustos to display! Add a gusto!")
         return
     print(
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"                       {C1}Gustos{CE}                      \n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"{C2}    Label                 Description              {CE}\n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -426,15 +446,20 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
 
 
 def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
+    """Displays the gustos in the gustos dictionary with more detail.
+
+    Args:
+        gustos_dict (dict[str, list]): the dictionary of gustos to display
+    """
     if not gustos_dict:
         raise_er("No gustos to display! Add a gusto!")
         return
     print(
-        f"-------------------------------------------------------------------------------------------------------------------\n",
+        "-------------------------------------------------------------------------------------------------------------------\n",
         f"                                                      {C1}Gustos{CE}                                                       \n",
-        f"-------------------------------------------------------------------------------------------------------------------\n",
+        "-------------------------------------------------------------------------------------------------------------------\n",
         f"{C2}    Label          Description        #     Meal Type      Budget      Max Distance       Cuisine      Min Rating  {CE}\n",
-        f"-------------------------------------------------------------------------------------------------------------------\n",
+        "-------------------------------------------------------------------------------------------------------------------\n",
         sep="",
         end="",
     )

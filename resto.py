@@ -1,34 +1,28 @@
 """
 This module contains the functions for adding, editing, deleting, and displaying restos.
 """
+# File Imports
+from misc import clear_screen, continue_prompt, info, raise_er
+from colors import C1, C2, CE
 
-"""
-Resto: a resto is a dining place with the following attributes:
-Restos Format:
-    restos = {
-        name: [distance, cuisine_type, meal_type, cost, rating]
-    }
-    name: str = the unique identifier of the resto
-    distance: float = the distance from UPLB gate to the resto (in meters)
-    cuisine_type: str = the type of cuisine the resto serves
-    meal_type: str = the meal types the resto serves (breakfast, lunch, dinner)
-    cost: float = the average cost of a meal in the resto (in pesos)
-    rating: float = the average rating of the resto (out of 5)
-"""
 # Global Variables / Constants
 NAME_LENGTH = 16
 
-# File Imports
-from misc import clear_screen, continue_prompt, info, raise_er
-from colors import C1, C2, CE, CD
-
 
 def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
+    """Adds a resto to the restos dictionary.
+
+    Args:
+        restos_dict (dict[str, list]): the dictionary of restos
+
+    Returns:
+        dict[str, list]: the updated dictionary of restos that includes the new resto
+    """
     clear_screen()
     print(
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"                     {C1}Add Resto{CE}                     \n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -105,15 +99,23 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
+    """Edits a resto in the restos dictionary.
+
+    Args:
+        restos_dict (dict[str, list]): the dictionary of restos
+
+    Returns:
+        dict[str, list]: the updated dictionary of restos which has the resto edited
+    """
     if not restos_dict:
         raise_er("No restos to edit. Add a resto!")
         return restos_dict
     clear_screen()
     display_restos_simple(restos_dict)
     print(
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"                     {C1}Edit Resto{CE}                    \n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -129,9 +131,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     else:
         clear_screen()
         print(
-            f"---------------------------------------------------\n",
+            "---------------------------------------------------\n",
             f"                     {C1}Edit Resto{CE}                    \n",
-            f"---------------------------------------------------\n",
+            "---------------------------------------------------\n",
             sep="",
             end="",
         )
@@ -227,15 +229,23 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
+    """Deletes a resto from the restos dictionary.
+
+    Args:
+        restos_dict (dict[str, list]): the dictionary of restos
+
+    Returns:
+        dict[str, list]: the updated dictionary of restos which has the resto deleted
+    """
     if not restos_dict:
         raise_er("No restos to delete. Add a resto!")
         return restos_dict
     clear_screen()
     display_restos_simple(restos_dict)
     print(
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"                    {C1}Delete Resto{CE}                   \n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -250,9 +260,9 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     else:
         clear_screen()
         print(
-            f"---------------------------------------------------\n",
+            "---------------------------------------------------\n",
             f"                    {C1}Delete Resto{CE}                   \n",
-            f"---------------------------------------------------\n",
+            "---------------------------------------------------\n",
             sep="",
             end="",
         )
@@ -290,15 +300,20 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def display_restos_simple(restos_dict: dict[str, list]) -> None:
+    """Displays the restos in the restos dictionary.
+
+    Args:
+        restos_dict (dict[str, list]): the dictionary of restos
+    """
     if not restos_dict:
         raise_er("No restos to display. Add a resto!")
         return
     print(
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"                       {C1}Restos{CE}                      \n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         f"{C2}        Name                    Cuisine            {CE}\n",
-        f"---------------------------------------------------\n",
+        "---------------------------------------------------\n",
         sep="",
         end="",
     )
@@ -308,15 +323,20 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
 
 
 def display_restos_detailed(restos_dict: dict[str, list]) -> None:
+    """Displays the restos in the restos dictionary with more detail.
+
+    Args:
+        restos_dict (dict[str, list]): the dictionary of restos
+    """
     if not restos_dict:
         raise_er("No restos to display. Add a resto!")
         return
     print(
-        f"-------------------------------------------------------------------------------------------------------------------\n",
+        "-------------------------------------------------------------------------------------------------------------------\n",
         f"                                                      {C1}Restos{CE}                                                       \n",
-        f"-------------------------------------------------------------------------------------------------------------------\n",
+        "-------------------------------------------------------------------------------------------------------------------\n",
         f"{C2}        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    {CE}\n",
-        f"-------------------------------------------------------------------------------------------------------------------\n",
+        "-------------------------------------------------------------------------------------------------------------------\n",
         sep="",
         end="",
     )
