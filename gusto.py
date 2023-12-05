@@ -114,7 +114,7 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         end="",
     )
     label = input("  Enter label: ").strip().upper()
-    print("--------------------------------------------")
+    print("---------------------------------------------------")
     if "," in label:
         raise_er("Label cannot contain commas!")
         return gustos_dict

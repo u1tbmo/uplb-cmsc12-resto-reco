@@ -51,6 +51,7 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
                 meal_types.append("LUNCH")
             elif char == "D":
                 meal_types.append("DINNER")
+
         if g_meal_type not in meal_types:
             continue
         if group_size * cost > budget:
