@@ -284,7 +284,7 @@ def main():
         elif choice.upper() == "A":
             about()
         elif choice.upper() == "H":
-            help()
+            help_screen()
         elif choice.upper() == "C":
             clear_screen()
         elif choice.upper() == "P":
