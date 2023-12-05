@@ -3,8 +3,53 @@ This module contains the functions that display the help menu.
 """
 
 # File Imports
-from misc import clear_screen, continue_prompt
+from misc import clear_screen, continue_prompt, raise_er
 from colors import C1, CE, CD
+
+
+def help_screen() -> None:
+    """Prints the help menu, asks for a choice, and prints the corresponding help screen."""
+    clear_screen()
+    print(
+        f"{CD}",
+        "---------------------------------------------------\n",
+        "                     Main Menu                     \n",
+        "---------------------------------------------------\n",
+        "  1   Manage Gustos                                \n",
+        "  2   Manage Restos                                \n",
+        "  3   Get Recos                                    \n",
+        "  A   About                                        \n",
+        f"  {C1}H   Help{CD}                                         \n",
+        "  0   Exit                                         \n",
+        "---------------------------------------------------\n",
+        f"{CE}",
+        sep="",
+        end="",
+    )
+    print(
+        "---------------------------------------------------\n",
+        f"                        {C1}Help{CE}                       \n",
+        "---------------------------------------------------\n",
+        "  1   Gustos                                       \n",
+        "  2   Restos                                       \n",
+        "  3   Recos                                        \n",
+        "  0   Back to Main Menu                            \n",
+        "---------------------------------------------------\n",
+        f"{CE}",
+        sep="",
+        end="",
+    )
+    choice = input("  Enter choice: ")
+    if choice == "1":
+        help_gustos()
+    elif choice == "2":
+        help_restos()
+    elif choice == "3":
+        help_recos()
+    elif choice == "0":
+        clear_screen()
+    else:
+        raise_er("Invalid choice!")
 
 
 def help_gustos() -> None:

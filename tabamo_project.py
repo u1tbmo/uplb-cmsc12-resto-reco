@@ -142,51 +142,6 @@ def about() -> None:
     continue_prompt()
 
 
-def help_screen() -> None:
-    """Prints the help menu, asks for a choice, and prints the corresponding help screen."""
-    clear_screen()
-    print(
-        f"{CD}",
-        "---------------------------------------------------\n",
-        "                     Main Menu                     \n",
-        "---------------------------------------------------\n",
-        "  1   Manage Gustos                                \n",
-        "  2   Manage Restos                                \n",
-        "  3   Get Recos                                    \n",
-        "  A   About                                        \n",
-        f"  {C1}H   Help{CD}                                         \n",
-        "  0   Exit                                         \n",
-        "---------------------------------------------------\n",
-        f"{CE}",
-        sep="",
-        end="",
-    )
-    print(
-        "---------------------------------------------------\n",
-        f"                        {C1}Help{CE}                       \n",
-        "---------------------------------------------------\n",
-        "  1   Gustos                                       \n",
-        "  2   Restos                                       \n",
-        "  3   Recos                                        \n",
-        "  0   Back to Main Menu                            \n",
-        "---------------------------------------------------\n",
-        f"{CE}",
-        sep="",
-        end="",
-    )
-    choice = input("  Enter choice: ")
-    if choice == "1":
-        h.help_gustos()
-    elif choice == "2":
-        h.help_restos()
-    elif choice == "3":
-        h.help_recos()
-    elif choice == "0":
-        clear_screen()
-    else:
-        raise_er("Invalid choice!")
-
-
 def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     """Manages the gustos dictionary.
 
@@ -284,7 +239,7 @@ def main():
         elif choice.upper() == "A":
             about()
         elif choice.upper() == "H":
-            help_screen()
+            h.help_screen()
         elif choice.upper() == "C":
             clear_screen()
         elif choice.upper() == "P":
