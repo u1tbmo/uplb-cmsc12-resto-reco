@@ -5,7 +5,7 @@ This module contains miscellaneous functions.
 # Standard Library Imports
 import os
 
-# File Imports
+# Local Module Imports
 import colors as c
 
 
@@ -31,15 +31,6 @@ def raise_er(message: str) -> None:
     continue_prompt()
 
 
-def print_format_table() -> None:
-    """Prints table of formatted text format options."""
-    clear_screen()
-    x = 0
-    for _ in range(24):
-        colors = ""
-        for j in range(5):
-            code = str(x + j)
-            colors = colors + "\33[" + code + "m\\33[" + code + "m\033[0m "
-        print(colors)
-        x = x + 5
-    continue_prompt()
+def load_colors() -> None:
+    """Ensures that the terminal supports ANSI escape sequences."""
+    os.system("")

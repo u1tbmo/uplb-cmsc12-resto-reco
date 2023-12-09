@@ -5,7 +5,7 @@ This module contains the functions for recommending restos.
 # Standard Library Imports
 import random
 
-# File Imports
+# Local Module Imports
 from misc import clear_screen, continue_prompt, raise_er
 import gusto as g
 from colors import C1, C2, CE, CD

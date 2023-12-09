@@ -2,7 +2,7 @@
 This module contains the functions that display the help menu.
 """
 
-# File Imports
+# Local Module Imports
 from misc import clear_screen, continue_prompt, raise_er
 from colors import C1, CE, CD
 

@@ -2,7 +2,7 @@
 This module contains the functions for adding, editing, deleting, and displaying gustos.
 """
 
-# File Imports
+# Local Module Imports
 from misc import clear_screen, continue_prompt, info, raise_er
 from colors import C1, C2, CE
 
@@ -114,7 +114,6 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         end="",
     )
     label = input("  Enter label: ").strip().upper()
-    print("---------------------------------------------------")
     if "," in label:
         raise_er("Label cannot contain commas!")
         return gustos_dict

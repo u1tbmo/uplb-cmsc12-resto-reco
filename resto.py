@@ -27,7 +27,6 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         end="",
     )
     name = input("  Name: ").strip().upper()
-    print("--------------------------------------------")
     if "," in name:
         raise_er("Name cannot contain commas.")
         return restos_dict
