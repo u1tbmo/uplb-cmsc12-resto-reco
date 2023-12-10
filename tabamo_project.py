@@ -7,7 +7,7 @@ This program recommends dining place/s based on the preferences of the user.
 # Standard Library Imports
 import os
 
-# File Imports
+# Local Module Imports
 import save_load as sl
 import gusto as g
 import resto as r
