@@ -19,6 +19,7 @@ def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
     """
     distance = restos_dict[resto][0]
     cuisine_type = restos_dict[resto][1]
+    meal_type = restos_dict[resto][2]
     meal_types = ""
     for char in meal_type:
         if char == "B":
@@ -28,7 +29,6 @@ def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
         elif char == "D":
             meal_types += "Dinner, "
     meal_types = meal_types.rstrip(", ")
-    meal_type = restos_dict[resto][2]
     cost = restos_dict[resto][3]
     rating = restos_dict[resto][4]
 
@@ -38,6 +38,46 @@ def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
     print(f"  Meal Types: {meal_types}")
     print(f"  Cost: {cost} pesos")
     print(f"  Rating: {rating}")
+
+
+def view_resto(restos_dict: dict[str, list]) -> None:
+    """Displays the details of a resto.
+
+    Args:
+        restos_dict (dict[str, list]): the dictionary of restos
+    """
+    if not restos_dict:
+        raise_err("No restos to view. Add a resto!")
+        return
+    clear_screen()
+    display_restos_simple(restos_dict)
+    print(
+        "---------------------------------------------------\n",
+        f"                     {C1}View Resto{CE}                    \n",
+        "---------------------------------------------------\n",
+        sep="",
+        end="",
+    )
+    success, name = ui.get_string("  Enter name: ")
+    name = name.upper()
+    print("---------------------------------------------------")
+
+    if not success:
+        return
+    if name not in restos_dict:
+        raise_err(f"Resto {name} does not exist!")
+        return
+    clear_screen()
+    print(
+        "---------------------------------------------------\n",
+        f"                     {C1}View Resto{CE}                    \n",
+        "---------------------------------------------------\n",
+        sep="",
+        end="",
+    )
+    display_resto_details(name, restos_dict)
+    print("---------------------------------------------------")
+    continue_prompt()
 
 
 def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:

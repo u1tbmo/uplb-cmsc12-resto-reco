@@ -35,6 +35,44 @@ def display_gusto_details(gusto: str, gustos_dict: dict[str, list]) -> None:
     print(f"  Minimum Rating: {min_rating}")
 
 
+def view_gusto(gustos_dict: dict[str, list]) -> None:
+    """Displays the details of a gusto.
+
+    Args:
+        gustos_dict (dict[str, list]): the dictionary of gustos
+    """
+    if not gustos_dict:
+        raise_err("No gustos to view! Add a gusto!")
+        return
+    clear_screen()
+    display_gustos_simple(gustos_dict)
+    print(
+        "---------------------------------------------------\n",
+        f"                     {C1}View Gusto{CE}                     \n",
+        "---------------------------------------------------\n",
+        sep="",
+        end="",
+    )
+    success, gusto = ui.get_string("  Enter label: ")
+    gusto = gusto.upper()
+    if not success:
+        return
+    if gusto not in gustos_dict:
+        raise_err(f'Gusto "{gusto}" does not exist!')
+        return
+    clear_screen()
+    print(
+        "---------------------------------------------------\n",
+        f"                     {C1}View Gusto{CE}                     \n",
+        "---------------------------------------------------\n",
+        sep="",
+        end="",
+    )
+    display_gusto_details(gusto, gustos_dict)
+    print("---------------------------------------------------")
+    continue_prompt()
+
+
 def ad_hoc_gusto() -> tuple[str, list] | None:
     """Prompts the user to enter the attributes of a gusto.
 

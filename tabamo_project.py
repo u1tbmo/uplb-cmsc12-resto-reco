@@ -86,6 +86,7 @@ def print_gusto_menu() -> str:
         "  3   Delete Gusto                                 \n",
         "  4   Display Gustos (Simple)                      \n",
         "  5   Display Gustos (Detailed)                    \n",
+        "  6   View a Gusto                                 \n",
         "  0   Back to Main Menu                            \n",
         "---------------------------------------------------\n",
         sep="",
@@ -126,6 +127,7 @@ def print_resto_menu() -> str:
         "  3   Delete Resto                                 \n",
         "  4   Display Restos (Simple)                      \n",
         "  5   Display Restos (Detailed)                    \n",
+        "  6   View a Resto                                 \n",
         "  0   Back to Main Menu                            \n",
         "---------------------------------------------------\n",
         sep="",
@@ -178,6 +180,9 @@ def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             g.display_gustos_detailed(gustos_dict)
             if gustos_dict:
                 continue_prompt()
+        case "6":
+            clear_screen()
+            g.view_gusto(gustos_dict)
         case "0":
             clear_screen()
         case _:
@@ -212,6 +217,9 @@ def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             r.display_restos_detailed(restos_dict)
             if restos_dict:
                 continue_prompt()
+        case "6":
+            clear_screen()
+            r.view_resto(restos_dict)
         case "0":
             clear_screen()
         case _:
