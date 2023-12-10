@@ -18,7 +18,7 @@ def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
         restos_dict (dict[str, list]): the dictionary of restos
     """
     distance = restos_dict[resto][0]
-    cuisine_type = restos_dict[resto][1]
+    cuisine_type = restos_dict[resto][1].capitalize()
     meal_type = restos_dict[resto][2]
     meal_types = ""
     for char in meal_type:

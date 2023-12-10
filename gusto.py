@@ -20,15 +20,17 @@ def display_gusto_details(gusto: str, gustos_dict: dict[str, list]) -> None:
     """
     description = gustos_dict[gusto][0]
     group_size = gustos_dict[gusto][1]
-    meal_type = gustos_dict[gusto][2]
+    meal_type = gustos_dict[gusto][2].capitalize()
     budget = gustos_dict[gusto][3] if gustos_dict[gusto][3] != -1 else "Any"
     max_distance = gustos_dict[gusto][4] if gustos_dict[gusto][4] != -1 else "Any"
-    cuisine_type = gustos_dict[gusto][5] if gustos_dict[gusto][5] != "ANY" else "Any"
+    cuisine_type = (
+        gustos_dict[gusto][5].capitalize() if gustos_dict[gusto][5] != "ANY" else "Any"
+    )
     min_rating = gustos_dict[gusto][6] if gustos_dict[gusto][6] != -1 else "Any"
     print(f"  Gusto Label: {gusto}")
     print(f"  Description: {description}")
     print(f"  Number of People: {group_size}")
-    print(f"  Meal Type: {meal_type.capitalize()}")
+    print(f"  Meal Type: {meal_type}")
     print(f"  Budget: {budget}")
     print(f"  Maximum Distance: {max_distance}")
     print(f"  Cuisine Type: {cuisine_type}")
