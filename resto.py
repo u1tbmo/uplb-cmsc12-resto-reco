@@ -148,22 +148,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
     distance, cuisine_type, meal_type, cost, rating = restos_dict[name]
 
-    meal_types = ""
-    for char in meal_type:
-        if char == "B":
-            meal_types += "Breakfast, "
-        elif char == "L":
-            meal_types += "Lunch, "
-        elif char == "D":
-            meal_types += "Dinner, "
-    meal_types = meal_types.rstrip(", ")
-
-    print(f"  Name: {name}")
-    print(f"  Distance from UPLB gate: {distance} meters")
-    print(f"  Cuisine Type: {cuisine_type}")
-    print(f"  Meal Types: {meal_types}")
-    print(f"  Cost: {cost} pesos")
-    print(f"  Rating: {rating}")
+    display_resto_details(name, restos_dict)
     print("---------------------------------------------------")
     info(f"Press [ENTER] to keep current value.")
     info(f'Type "REMOVE" to remove a value.')
@@ -256,45 +241,27 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     if name not in restos_dict:
         raise_err(f"Resto {name} does not exist!")
         return restos_dict
+    clear_screen()
+    print(
+        "---------------------------------------------------\n",
+        f"                    {C1}Delete Resto{CE}                   \n",
+        "---------------------------------------------------\n",
+        sep="",
+        end="",
+    )
+    display_resto_details(name, restos_dict)
+    print("---------------------------------------------------")
+    print(f'  Are you sure you want to delete "{name}"?')
+    print("  [Y] Yes")
+    print("  [Any Key] No")
+    choice = input("  Enter choice: ").upper()
+    if choice == "Y":
+        del restos_dict[name]
+        info(f'Deleted Resto "{name}"')
+        continue_prompt()
     else:
-        clear_screen()
-        print(
-            "---------------------------------------------------\n",
-            f"                    {C1}Delete Resto{CE}                   \n",
-            "---------------------------------------------------\n",
-            sep="",
-            end="",
-        )
-        info(f"Fetched Resto {name}!")
-        print("---------------------------------------------------")
-        value = restos_dict[name]
-        meal_types = ""
-        for char in value[2]:
-            if char == "B":
-                meal_types += "Breakfast, "
-            elif char == "L":
-                meal_types += "Lunch, "
-            elif char == "D":
-                meal_types += "Dinner, "
-        meal_types = meal_types.rstrip(", ")
-        print(f"  Name: {name}")
-        print(f"  Distance from UPLB gate: {restos_dict[name][0]} meters")
-        print(f"  Cuisine Type: {restos_dict[name][1]}")
-        print(f"  Meal Types: {meal_types}")
-        print(f"  Cost: {restos_dict[name][3]} pesos")
-        print(f"  Rating: {restos_dict[name][4]}")
-        print("---------------------------------------------------")
-        print(f'  Are you sure you want to delete "{name}"?')
-        print("  [Y] Yes")
-        print("  [Any Key] No")
-        choice = input("  Enter choice: ").upper()
-        if choice == "Y":
-            del restos_dict[name]
-            info(f'Deleted Resto "{name}"')
-            continue_prompt()
-        else:
-            info(f'Canceled. Expected "Y", got "{choice}"')
-            continue_prompt()
+        info(f'Canceled. Expected "Y", got "{choice}"')
+        continue_prompt()
     return restos_dict
 
 
