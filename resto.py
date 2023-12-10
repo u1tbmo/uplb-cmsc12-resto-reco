@@ -10,6 +10,36 @@ from colors import C1, C2, CE
 NAME_LENGTH = 16
 
 
+def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
+    """Displays the details of a resto
+
+    Args:
+        resto (str): the resto
+        restos_dict (dict[str, list]): the dictionary of restos
+    """
+    distance = restos_dict[resto][0]
+    cuisine_type = restos_dict[resto][1]
+    meal_types = ""
+    for char in meal_type:
+        if char == "B":
+            meal_types += "Breakfast, "
+        elif char == "L":
+            meal_types += "Lunch, "
+        elif char == "D":
+            meal_types += "Dinner, "
+    meal_types = meal_types.rstrip(", ")
+    meal_type = restos_dict[resto][2]
+    cost = restos_dict[resto][3]
+    rating = restos_dict[resto][4]
+
+    print(f"  Name: {resto}")
+    print(f"  Distance from UPLB gate: {distance} meters")
+    print(f"  Cuisine Type: {cuisine_type}")
+    print(f"  Meal Types: {meal_types}")
+    print(f"  Cost: {cost} pesos")
+    print(f"  Rating: {rating}")
+
+
 def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     """Adds a resto to the restos dictionary.
 

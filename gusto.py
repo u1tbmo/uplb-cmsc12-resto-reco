@@ -16,6 +16,7 @@ def display_gusto_details(gusto: str, gustos_dict: dict[str, list]) -> None:
 
     Args:
         gusto (str): the gusto to display
+        gustos_dict (dict[str, list]): the dictionary of gustos
     """
     description = gustos_dict[gusto][0]
     group_size = gustos_dict[gusto][1]

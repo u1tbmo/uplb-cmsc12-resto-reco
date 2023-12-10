@@ -165,15 +165,24 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         sep="",
         end="",
     )
+    label = gusto[0]
+    description = gusto[1][0]
+    group_size = gusto[1][1]
+    meal_type = gusto[1][2].capitalize()
+    budget = gusto[1][3] if gusto[1][3] != -1 else "Any"
+    max_distance = gusto[1][4] if gusto[1][4] != -1 else "Any"
+    cuisine_type = gusto[1][5] if gusto[1][5] != "ANY" else "Any"
+    min_rating = gusto[1][6] if gusto[1][6] != -1 else "Any"
+
     if gusto[0] != "AD,HOC":
-        print(f"  Label: {gusto[0]}")
-        print(f"  Description: {gusto[1][0]}")
-    print(f"  Group Size: {gusto[1][1]}")
-    print(f"  Meal Type: {gusto[1][2].capitalize()}")
-    print(f"  Budget: {gusto[1][3]}")
-    print(f"  Max Distance: {gusto[1][4]}")
-    print(f"  Cuisine Type: {gusto[1][5]}")
-    print(f"  Min Rating: {gusto[1][6]}")
+        print(f"  Gusto Label: {label}")
+        print(f"  Description: {description}")
+    print(f"  Number of People: {group_size}")
+    print(f"  Meal Type: {meal_type}")
+    print(f"  Budget: {budget}")
+    print(f"  Maximum Distance: {max_distance}")
+    print(f"  Cuisine Type: {cuisine_type}")
+    print(f"  Minimum Rating: {min_rating}")
     print(
         "-------------------------------------------------------------------------------------------------------------------"
     )
