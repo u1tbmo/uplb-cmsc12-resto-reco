@@ -38,11 +38,10 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
         cost,
         rating,
     ] in restos_dict.items():
-        if distance > max_distance:
+        if distance > max_distance and max_distance != -1:
             continue
-        if g_cuisine_type != "ANY" and r_cuisine_type != g_cuisine_type:
+        if r_cuisine_type != g_cuisine_type and g_cuisine_type != "ANY":
             continue
-
         meal_types = []
         for char in r_meal_type:
             if char == "B":
@@ -51,12 +50,11 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
                 meal_types.append("LUNCH")
             elif char == "D":
                 meal_types.append("DINNER")
-
         if g_meal_type not in meal_types:
             continue
-        if group_size * cost > budget:
+        if group_size * cost > budget and budget != -1:
             continue
-        if rating < min_rating:
+        if rating < min_rating and min_rating != -1:
             continue
         recos.append(name)
 
@@ -201,8 +199,9 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         meal_types = meal_types.rstrip(", ")
         if value[2] != "BLD":
             meal_types = f" {meal_types} "
+        rating = f"{value[4]} / 5"
         print(
-            f"  {name:<16}   {value[0]:>22.2f}m   {value[1]:^13}   {meal_types:^24}   {value[3]:>10.2f}   {value[4]:^10.1f}  "
+            f"  {name:<16}   {value[0]:>22.2f}m   {value[1]:^13}   {meal_types:^24}   {value[3]:>10.2f}   {rating:^10}  "
         )
     print(
         "-------------------------------------------------------------------------------------------------------------------"

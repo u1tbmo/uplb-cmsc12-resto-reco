@@ -37,7 +37,7 @@ def load_restos(restos_dict: dict[str, list]) -> dict[str, list]:
             cuisine_type,
             meal_type,
             float(cost),
-            float(rating),
+            int(rating),
         ]
     fh.close()
     return restos_dict
@@ -75,7 +75,7 @@ def load_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             float(budget),
             float(max_distance),
             cuisine_type,
-            float(min_rating),
+            int(min_rating),
         ]
     fh.close()
     return gustos_dict

@@ -11,6 +11,29 @@ from colors import C1, C2, CE
 LABEL_LENGTH = 9
 
 
+def display_gusto_details(gusto: str, gustos_dict: dict[str, list]) -> None:
+    """Displays the details of a gusto.
+
+    Args:
+        gusto (str): the gusto to display
+    """
+    description = gustos_dict[gusto][0]
+    group_size = gustos_dict[gusto][1]
+    meal_type = gustos_dict[gusto][2]
+    budget = gustos_dict[gusto][3] if gustos_dict[gusto][3] != -1 else "Any"
+    max_distance = gustos_dict[gusto][4] if gustos_dict[gusto][4] != -1 else "Any"
+    cuisine_type = gustos_dict[gusto][5] if gustos_dict[gusto][5] != "ANY" else "Any"
+    min_rating = gustos_dict[gusto][6] if gustos_dict[gusto][6] != -1 else "Any"
+    print(f"  Gusto Label: {gusto}")
+    print(f"  Description: {description}")
+    print(f"  Number of People: {group_size}")
+    print(f"  Meal Type: {meal_type.capitalize()}")
+    print(f"  Budget: {budget}")
+    print(f"  Maximum Distance: {max_distance}")
+    print(f"  Cuisine Type: {cuisine_type}")
+    print(f"  Minimum Rating: {min_rating}")
+
+
 def ad_hoc_gusto() -> tuple[str, list] | None:
     """Prompts the user to enter the attributes of a gusto.
 
@@ -25,6 +48,7 @@ def ad_hoc_gusto() -> tuple[str, list] | None:
         sep="",
         end="",
     )
+    info("* indicates optional fields")
     success, group_size = ui.get_positive_int("  Enter number of people: ")
     if not success:
         return None
@@ -35,23 +59,21 @@ def ad_hoc_gusto() -> tuple[str, list] | None:
     if not success:
         return None
 
-    success, budget = ui.get_positive_float("  Enter budget: ")
+    success, budget = ui.get_positive_float("  Enter budget*: ", True)
     if not success:
         return None
 
     success, max_distance = ui.get_positive_float(
-        "  Enter maximum distance from UPLB (in meters): "
+        "  Enter maximum distance from UPLB (in meters)*: ", True
     )
     if not success:
         return None
 
-    success, cuisine_type = ui.get_string(
-        '  Enter cuisine type ("ANY" for any cuisine): '
-    )
+    success, cuisine_type = ui.get_string("  Enter cuisine type*: ", True)
     if not success:
         return None
 
-    success, min_rating = ui.get_valid_rating("  Enter minimum rating (1-5): ")
+    success, min_rating = ui.get_valid_rating("  Enter minimum rating (1-5)*: ", True)
     if not success:
         return None
 
@@ -86,7 +108,7 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-
+    info("* indicates optional fields")
     success, label = ui.get_string("  Enter label: ")
     label = label.upper()
     if not success:
@@ -112,24 +134,22 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     if not success:
         return gustos_dict
 
-    success, budget = ui.get_positive_float("  Enter budget: ")
+    success, budget = ui.get_positive_float("  Enter budget*: ", True)
     if not success:
         return gustos_dict
 
     success, max_distance = ui.get_positive_float(
-        "  Enter maximum distance from UPLB (in meters): "
+        "  Enter maximum distance from UPLB (in meters)*: ", True
     )
     if not success:
         return gustos_dict
 
-    success, cuisine_type = ui.get_string(
-        '  Enter cuisine type ("ANY" for any cuisine): '
-    )
+    success, cuisine_type = ui.get_string("  Enter cuisine type*: ", True)
     cuisine_type = cuisine_type.upper()
     if not success:
         return gustos_dict
 
-    success, min_rating = ui.get_valid_rating("  Enter minimum rating (1-5): ")
+    success, min_rating = ui.get_valid_rating("  Enter minimum rating (1-5)*: ", True)
     if not success:
         return gustos_dict
 
@@ -169,7 +189,6 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-
     success, label = ui.get_string("  Enter label: ")
     label = label.upper()
     if not success:
@@ -197,16 +216,12 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-    print(f"  Gusto Label: {label}")
-    print(f"  Description: {description}")
-    print(f"  Number of People: {group_size}")
-    print(f"  Meal Type: {meal_type.capitalize()}")
-    print(f"  Budget: {budget}")
-    print(f"  Maximum Distance: {max_distance}")
-    print(f"  Cuisine Type: {cuisine_type}")
-    print(f"  Minimum Rating: {min_rating}")
+    display_gusto_details(label, gustos_dict)
     print("---------------------------------------------------")
     info(f"Press [ENTER] to keep current value.")
+    info(f'Type "REMOVE" to remove an optional value.')
+    info("* indicates optional fields")
+    print("---------------------------------------------------")
 
     success, label = ui.edit_string("  Edit label: ", label)
     if not success:
@@ -232,24 +247,22 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     if not success:
         return gustos_dict
 
-    success, budget = ui.edit_positive_float("  Edit budget: ", budget)
+    success, budget = ui.edit_positive_float("  Edit budget: ", budget, True)
     if not success:
         return gustos_dict
 
     success, max_distance = ui.edit_positive_float(
-        "  Edit maximum distance from UPLB (in meters): ", max_distance
+        "  Edit maximum distance from UPLB (in meters): ", max_distance, True
     )
     if not success:
         return gustos_dict
 
-    success, cuisine_type = ui.edit_string(
-        '  Edit cuisine type ("ANY" for any cuisine): ', cuisine_type
-    )
+    success, cuisine_type = ui.edit_string("  Edit cuisine type: ", cuisine_type, True)
     if not success:
         return gustos_dict
 
     success, min_rating = ui.edit_valid_rating(
-        "  Edit minimum rating (1-5): ", min_rating
+        "  Edit minimum rating (1-5): ", min_rating, True
     )
     if not success:
         return gustos_dict
@@ -302,7 +315,6 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     label = label.upper()
     print("---------------------------------------------------")
     if not success:
-        raise_err("Invalid label!")
         return gustos_dict
     if label not in gustos_dict:
         raise_err(f'Gusto "{label}" does not exist!')
@@ -315,14 +327,7 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-    print(f"  Label: {label}")
-    print(f"  Description: {gustos_dict[label][0]}")
-    print(f"  Number of People: {gustos_dict[label][1]}")
-    print(f"  Meal Type: {gustos_dict[label][2].capitalize()}")
-    print(f"  Budget: {gustos_dict[label][3]}")
-    print(f"  Maximum Distance: {gustos_dict[label][4]}")
-    print(f"  Cuisine Type: {gustos_dict[label][5]}")
-    print(f"  Minimum Rating: {gustos_dict[label][6]}")
+    display_gusto_details(label, gustos_dict)
     print("---------------------------------------------------")
     print(f"  Are you sure you want to delete {label}?")
     print(f"  [Y] Yes{CE}")
@@ -358,11 +363,7 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         end="",
     )
     for label, value in gustos_dict.items():
-        desc = ""
-        if len(value[0]) > 35:
-            desc = value[0][:32] + "..."
-        else:
-            desc = value[0]
+        desc = value[0][:32] + "..." if len(value[0]) > 35 else value[0]
         print(f"  {label:>9}   {desc:<35}  ")
     print("---------------------------------------------------")
 
@@ -386,13 +387,13 @@ def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
         end="",
     )
     for label, value in gustos_dict.items():
-        desc = ""
-        if len(value[0]) > 20:
-            desc = value[0][:17] + "..."
-        else:
-            desc = value[0]
+        desc = value[0][:17] + "..." if len(value[0]) > 20 else value[0]
+        budget = "Any" if value[3] == -1 else f"₱{value[3]:.2f}"
+        max_distance = "Any" if value[4] == -1 else f"{value[4]:.2f}m"
+        min_rating = "Any" if value[6] == -1 else f"{value[6]} / 5"
+
         print(
-            f"  {label:<9}   {desc:<20}   {value[1]:>3}   {value[2].capitalize():<11}   P{value[3]:>9.2f}   {value[4]:>13.2f}m   {value[5].capitalize():^13}   {value[6]:^10.1f}  "
+            f"  {label:<9}   {desc:<20}   {value[1]:^3}   {value[2].capitalize():<11}   {budget:>10}   {max_distance:>15}   {value[5].capitalize():<13}   {min_rating:^10}  "
         )
     print(
         "-------------------------------------------------------------------------------------------------------------------\n",

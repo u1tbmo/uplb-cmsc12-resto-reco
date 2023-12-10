@@ -27,7 +27,7 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-    success, name = ui.get_string("  Enter name: ")
+    success, name = ui.get_string("  Enter name: ", False)
     name = name.upper()
     if not success:
         return restos_dict
@@ -51,11 +51,11 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
     info("Press [ENTER] if the Resto serves that meal type. Otherwise, enter [N].")
     meal_type = ""
-    if input("  This resto serves breakfast [Enter/N]:").strip().upper() != "N":
+    if input("  This resto serves breakfast [Enter/N]: ").strip().upper() != "N":
         meal_type += "B"
-    if input("  This resto serves lunch [Enter/N]:").strip().upper() != "N":
+    if input("  This resto serves lunch [Enter/N]: ").strip().upper() != "N":
         meal_type += "L"
-    if input("  This resto serves dinner [Enter/N]:").strip().upper() != "N":
+    if input("  This resto serves dinner [Enter/N]: ").strip().upper() != "N":
         meal_type += "D"
     if meal_type == "":
         raise_err("Resto must serve at least one meal type.")
@@ -65,7 +65,7 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     if not success:
         return restos_dict
 
-    success, rating = ui.get_positive_float("  Enter rating (1-5): ")
+    success, rating = ui.get_valid_rating("  Enter rating (1-5): ")
     if not success:
         return restos_dict
 
@@ -135,6 +135,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     print(f"  Cost: {cost} pesos")
     print(f"  Rating: {rating}")
     print("---------------------------------------------------")
+    info(f"Press [ENTER] to keep current value.")
+    info(f'Type "REMOVE" to remove a value.')
+    print("---------------------------------------------------")
 
     success, name = ui.edit_string("  Edit name: ", name)
     name = name.upper()
@@ -157,11 +160,11 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
     info('Press "Enter" if the Resto serves that meal type. Otherwise, enter "N".')
     meal_type = ""
-    if input("  This resto serves breakfast [Enter/N]:").strip().upper() != "N":
+    if input("  This resto serves breakfast [Enter/N]: ").strip().upper() != "N":
         meal_type += "B"
-    if input("  This resto serves lunch [Enter/N]:").strip().upper() != "N":
+    if input("  This resto serves lunch [Enter/N]: ").strip().upper() != "N":
         meal_type += "L"
-    if input("  This resto serves dinner [Enter/N]:").strip().upper() != "N":
+    if input("  This resto serves dinner [Enter/N]: ").strip().upper() != "N":
         meal_type += "D"
     if meal_type == "":
         raise_err("Resto must serve at least one meal type.")
@@ -173,7 +176,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     if not success:
         return restos_dict
 
-    success, rating = ui.edit_positive_float("  Edit rating (1-5): ", rating)
+    success, rating = ui.edit_valid_rating("  Edit rating (1-5): ", rating)
     if not success:
         return restos_dict
 
@@ -214,7 +217,7 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         end="",
     )
 
-    success, name = input("  Enter name: ")
+    success, name = ui.get_string("  Enter name: ")
     name = name.upper()
     print("---------------------------------------------------")
 
@@ -316,8 +319,10 @@ def display_restos_detailed(restos_dict: dict[str, list]) -> None:
             elif choice == "D":
                 meal_types += "Dinner, "
         meal_types = meal_types.rstrip(", ")
+        cost = f"₱{value[3]:.2f}"
+        rating = f"{value[4]} / 5"
         print(
-            f"  {name:<16}   {value[0]:>22.2f}m   {value[1].capitalize():<13}   {meal_types:<24}   {value[3]:>10.2f}   {value[4]:^10.1f}  "
+            f"  {name:<16}   {value[0]:>22.2f}m   {value[1].capitalize():^13}   {meal_types:<24}   {cost:>10}   {rating:^10}  "
         )
     print(
         "-------------------------------------------------------------------------------------------------------------------"

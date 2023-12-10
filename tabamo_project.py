@@ -245,6 +245,7 @@ def main() -> None:
             case _:
                 raise_err("Invalid choice!")
                 clear_screen()
+        sl.save(restos, gustos)
 
 
 if __name__ == "__main__":
