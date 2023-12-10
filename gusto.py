@@ -225,6 +225,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     print("---------------------------------------------------")
 
     success, label = ui.edit_string("  Edit label: ", label)
+    label = label.upper()
     if not success:
         return gustos_dict
     if label in gustos_dict and previous_label != label:
@@ -259,6 +260,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         return gustos_dict
 
     success, cuisine_type = ui.edit_string("  Edit cuisine type: ", cuisine_type, True)
+    cuisine_type = cuisine_type.upper()
     if not success:
         return gustos_dict
 
