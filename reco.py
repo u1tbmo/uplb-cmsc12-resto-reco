@@ -6,7 +6,7 @@ This module contains the functions for recommending restos.
 import random
 
 # Local Module Imports
-from misc import clear_screen, continue_prompt, raise_er
+from misc import clear_screen, continue_prompt, raise_err
 import gusto as g
 from colors import C1, C2, CE, CD
 
@@ -73,7 +73,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         gustos_dict (dict[str, list]): the dictionary of gustos
     """
     if not restos_dict:
-        raise_er("No Restos to Reco! Add some Restos first!")
+        raise_err("No Restos to Reco! Add some Restos first!")
         return
     clear_screen()
     print(
@@ -117,7 +117,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         g.display_gustos_simple(gustos_dict)
         label = input("  Enter gusto label: ").strip().upper()
         if label not in gustos_dict:
-            raise_er("Invalid gusto label!")
+            raise_err("Invalid gusto label!")
             return
         gusto = (label, gustos_dict[label])
         recos = recommend_restos(restos_dict, gusto)
@@ -130,7 +130,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         clear_screen()
         return
     else:
-        raise_er("Invalid choice!")
+        raise_err("Invalid choice!")
         return
 
     if not recos:

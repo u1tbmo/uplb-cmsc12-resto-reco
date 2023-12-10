@@ -3,7 +3,7 @@ This module contains the functions that display the help menu.
 """
 
 # Local Module Imports
-from misc import clear_screen, continue_prompt, raise_er
+from misc import clear_screen, continue_prompt, raise_err
 from colors import C1, CE, CD
 
 
@@ -49,7 +49,7 @@ def help_screen() -> None:
     elif choice == "0":
         clear_screen()
     else:
-        raise_er("Invalid choice!")
+        raise_err("Invalid choice!")
 
 
 def help_gustos() -> None:

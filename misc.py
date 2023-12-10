@@ -25,10 +25,15 @@ def info(message: str) -> None:
     print(f"{c.GREEN}  INFO: {message}{c.END}")
 
 
-def raise_er(message: str) -> None:
+def raise_err(message: str) -> None:
     """Prints an error message and prompts the user to press enter to continue."""
     print(f"{c.RED}  ERROR: {message}{c.END}")
     continue_prompt()
+
+
+def print_err(message: str) -> None:
+    """Prints an error message."""
+    print(f"{c.RED}  ERROR: {message}{c.END}")
 
 
 def load_colors() -> None:

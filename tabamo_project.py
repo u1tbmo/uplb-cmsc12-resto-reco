@@ -14,7 +14,7 @@ import resto as r
 import reco as rc
 import help as h
 from colors import C1, CE, CD
-from misc import clear_screen, continue_prompt, raise_er, load_colors
+from misc import clear_screen, continue_prompt, raise_err, load_colors
 
 # Global Variables
 restos: dict[str, list] = {}
@@ -26,6 +26,7 @@ def exit_program() -> None:
     clear_screen()
     message = f"{C1}See you next time!{CE}"
     print(f"{message}")
+    sl.save(restos, gustos)
     exit()
 
 
@@ -180,7 +181,7 @@ def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         case "0":
             clear_screen()
         case _:
-            raise_er("Invalid choice!")
+            raise_err("Invalid choice!")
     return gustos_dict
 
 
@@ -214,7 +215,7 @@ def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         case "0":
             clear_screen()
         case _:
-            raise_er("Invalid choice!")
+            raise_err("Invalid choice!")
     return restos_dict
 
 
@@ -242,9 +243,8 @@ def main() -> None:
             case "C" | "c":
                 clear_screen()
             case _:
-                raise_er("Invalid choice!")
+                raise_err("Invalid choice!")
                 clear_screen()
-    sl.save(restos, gustos)
 
 
 if __name__ == "__main__":
