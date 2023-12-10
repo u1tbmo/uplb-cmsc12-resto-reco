@@ -187,10 +187,10 @@ def edit_positive_float(
     if not user_input:
         info(f'Keeping value: {existing_value if existing_value != -1 else "ANY"}')
         return True, existing_value
-    elif user_input == "REMOVE" and optional:
+    elif user_input.upper() == "ANY" and optional:
         info(f'Removing value: {existing_value if existing_value != -1 else "ANY"}')
         return True, -1
-    elif user_input == "REMOVE" and not optional:
+    elif user_input.upper() == "ANY" and not optional:
         raise_err("You cannot remove a required input!")
         return False, 0.0
     elif float(user_input) <= 0:
@@ -241,10 +241,10 @@ def edit_valid_rating(
     if not user_input:
         info(f'Keeping value: {existing_value if existing_value != -1 else "ANY"}')
         return True, existing_value
-    elif user_input == "REMOVE" and optional:
+    elif user_input.upper() == "ANY" and optional:
         info(f'Removing value: {existing_value if existing_value != -1 else "ANY"}')
         return True, -1
-    elif user_input == "REMOVE" and not optional:
+    elif user_input.upper() == "ANY" and not optional:
         raise_err("You cannot remove a required input!")
         return False, 0.0
     elif not user_input.replace(".", "", 1).isdigit():

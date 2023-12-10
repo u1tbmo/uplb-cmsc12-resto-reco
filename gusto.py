@@ -260,7 +260,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     display_gusto_details(label, gustos_dict)
     print("---------------------------------------------------")
     info(f"Press [ENTER] to keep current value.")
-    info(f'Type "REMOVE" to remove an optional value.')
+    info(f'Type "ANY" to set a field to "ANY"')
     info("* indicates optional fields")
     print("---------------------------------------------------")
 
