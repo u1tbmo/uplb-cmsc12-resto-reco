@@ -191,7 +191,6 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     display_resto_details(name, restos_dict)
     print("---------------------------------------------------")
     info(f"Press [ENTER] to keep current value.")
-    info(f'Type "REMOVE" to remove a value.')
     print("---------------------------------------------------")
 
     success, name = ui.edit_string("  Edit name: ", name)
