@@ -4,6 +4,7 @@ This module contains miscellaneous functions.
 
 # Standard Library Imports
 import os
+import getpass
 
 # Local Module Imports
 import colors as c
@@ -16,7 +17,7 @@ def clear_screen() -> None:
 
 def continue_prompt() -> None:
     """Prompts the user to press enter to continue."""
-    input(f"{c.BLINK2}  Press Enter to continue...{c.END}")
+    getpass.getpass(f"{c.BLINK2}  Press Enter to continue...{c.END}")
     clear_screen()
 
 
