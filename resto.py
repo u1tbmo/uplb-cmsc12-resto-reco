@@ -121,12 +121,15 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
     info("Press [ENTER] if the Resto serves that meal type. Otherwise, enter [N].")
     meal_type = ""
-    if input("  This resto serves breakfast [Enter/N]: ").strip().upper() != "N":
-        meal_type += "B"
-    if input("  This resto serves lunch [Enter/N]: ").strip().upper() != "N":
-        meal_type += "L"
-    if input("  This resto serves dinner [Enter/N]: ").strip().upper() != "N":
-        meal_type += "D"
+    meal_types = ["breakfast", "lunch", "dinner"]
+    for meal in meal_types:
+        response = (
+            input(f"  This resto serves {meal.capitalize()} [Enter/N]: ")
+            .strip()
+            .upper()
+        )
+        if response != "N":
+            meal_type += meal[0].upper()  # Only gets the first letter
     if meal_type == "":
         raise_err("Resto must serve at least one meal type.")
         return restos_dict
@@ -193,7 +196,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     info(f"Press [ENTER] to keep current value.")
     print("---------------------------------------------------")
 
-    success, name = ui.edit_string("  Edit name: ", name)
+    success, name = ui.edit_string(f"  Edit name [{name}]: ", name)
     name = name.upper()
     if not success:
         return restos_dict
@@ -202,7 +205,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         return restos_dict
 
     success, distance = ui.edit_positive_float(
-        "  Edit distance from UPLB gate (in meters): ", distance
+        f"  Edit distance from UPLB gate (in meters) [{distance}]: ", distance
     )
     if not success:
         return restos_dict
@@ -212,25 +215,27 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     if not success:
         return restos_dict
 
-    info('Press "Enter" if the Resto serves that meal type. Otherwise, enter "N".')
     meal_type = ""
-    if input("  This resto serves breakfast [Enter/N]: ").strip().upper() != "N":
-        meal_type += "B"
-    if input("  This resto serves lunch [Enter/N]: ").strip().upper() != "N":
-        meal_type += "L"
-    if input("  This resto serves dinner [Enter/N]: ").strip().upper() != "N":
-        meal_type += "D"
+    meal_types = ["breakfast", "lunch", "dinner"]
+    for meal in meal_types:
+        response = (
+            input(f"  This resto serves {meal.capitalize()} [Enter/N]: ")
+            .strip()
+            .upper()
+        )
+        if response != "N":
+            meal_type += meal[0].upper()  # Only gets the first letter
     if meal_type == "":
         raise_err("Resto must serve at least one meal type.")
         return restos_dict
 
     success, cost = ui.edit_positive_float(
-        "  Edit typical cost of a meal (in pesos): ", cost
+        f"  Edit typical cost of a meal (in pesos)[{cost}]: ", cost
     )
     if not success:
         return restos_dict
 
-    success, rating = ui.edit_valid_rating("  Edit rating (1-5): ", rating)
+    success, rating = ui.edit_valid_rating(f"  Edit rating (1-5) [{cost}]: ", rating)
     if not success:
         return restos_dict
 

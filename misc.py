@@ -32,11 +32,6 @@ def raise_err(message: str) -> None:
     continue_prompt()
 
 
-def print_err(message: str) -> None:
-    """Prints an error message."""
-    print(f"{c.RED}  ERROR: {message}{c.END}")
-
-
 def load_colors() -> None:
     """Ensures that the terminal supports ANSI escape sequences."""
     os.system("")

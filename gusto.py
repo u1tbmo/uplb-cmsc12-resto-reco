@@ -100,21 +100,21 @@ def ad_hoc_gusto() -> tuple[str, list] | None:
     if not success:
         return None
 
-    success, budget = ui.get_positive_float("  Enter budget*: ", True)
+    success, budget = ui.get_positive_float("  *Enter budget: ", True)
     if not success:
         return None
 
     success, max_distance = ui.get_positive_float(
-        "  Enter maximum distance from UPLB (in meters)*: ", True
+        "  *Enter maximum distance from UPLB (in meters): ", True
     )
     if not success:
         return None
 
-    success, cuisine_type = ui.get_string("  Enter cuisine type*: ", True)
+    success, cuisine_type = ui.get_string("  *Enter cuisine type: ", True)
     if not success:
         return None
 
-    success, min_rating = ui.get_valid_rating("  Enter minimum rating (1-5)*: ", True)
+    success, min_rating = ui.get_valid_rating("  *Enter minimum rating (1-5): ", True)
     if not success:
         return None
 
@@ -175,22 +175,22 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     if not success:
         return gustos_dict
 
-    success, budget = ui.get_positive_float("  Enter budget*: ", True)
+    success, budget = ui.get_positive_float("  *Enter budget: ", True)
     if not success:
         return gustos_dict
 
     success, max_distance = ui.get_positive_float(
-        "  Enter maximum distance from UPLB (in meters)*: ", True
+        "  *Enter maximum distance from UPLB (in meters): ", True
     )
     if not success:
         return gustos_dict
 
-    success, cuisine_type = ui.get_string("  Enter cuisine type*: ", True)
+    success, cuisine_type = ui.get_string("  *Enter cuisine type: ", True)
     cuisine_type = cuisine_type.upper()
     if not success:
         return gustos_dict
 
-    success, min_rating = ui.get_valid_rating("  Enter minimum rating (1-5)*: ", True)
+    success, min_rating = ui.get_valid_rating("  *Enter minimum rating (1-5): ", True)
     if not success:
         return gustos_dict
 
@@ -264,7 +264,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     info("* indicates optional fields")
     print("---------------------------------------------------")
 
-    success, label = ui.edit_string("  Edit label: ", label)
+    success, label = ui.edit_string(f"  Enter label [{label}]: ", label)
     label = label.upper()
     if not success:
         return gustos_dict
@@ -275,37 +275,45 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         raise_err(f"Label must be {LABEL_LENGTH} characters or less!")
         return gustos_dict
 
-    success, description = ui.edit_string("  Edit description: ", description)
+    success, description = ui.edit_string(
+        f"  Enter description [{description}]: ", description
+    )
     if not success:
         return gustos_dict
 
-    success, group_size = ui.edit_positive_int("  Edit number of people: ", group_size)
+    success, group_size = ui.edit_positive_int(
+        f"  Enter group size [{group_size}]: ", group_size
+    )
     if not success:
         return gustos_dict
 
     success, meal_type = ui.edit_valid_meal_type(
-        "  Edit type of meal (Breakfast, Lunch, or Dinner): ", meal_type
+        f"  Enter meal type [{meal_type}]: ", meal_type
     )
     if not success:
         return gustos_dict
 
-    success, budget = ui.edit_positive_float("  Edit budget: ", budget, True)
+    success, budget = ui.edit_positive_float(
+        f"  *Enter budget [{budget if budget != -1 else "Any"}]: ", budget, True
+    )
     if not success:
         return gustos_dict
 
     success, max_distance = ui.edit_positive_float(
-        "  Edit maximum distance from UPLB (in meters): ", max_distance, True
+        f"  *Enter max distance [{max_distance if max_distance != -1 else "Any"}]: ", max_distance, True
     )
     if not success:
         return gustos_dict
 
-    success, cuisine_type = ui.edit_string("  Edit cuisine type: ", cuisine_type, True)
+    success, cuisine_type = ui.edit_string(
+        f"  *Enter cuisine type [{cuisine_type if cuisine_type != "ANY" else "Any"}]: ", cuisine_type, True
+    )
     cuisine_type = cuisine_type.upper()
     if not success:
         return gustos_dict
 
     success, min_rating = ui.edit_valid_rating(
-        "  Edit minimum rating (1-5): ", min_rating, True
+        f"  *Enter min rating [{min_rating if min_rating != -1 else "Any"}]: ", min_rating, True
     )
     if not success:
         return gustos_dict

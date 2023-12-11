@@ -19,9 +19,11 @@ def get_string(prompt: str, optional: bool = False) -> tuple[bool, str]:
     user_input = input(prompt).strip()
     if user_input:
         return True, user_input
-    elif optional:
-        info("Set to ANY!")
-        return True, "ANY"
+    elif not user_input and optional:
+        return True, "Any"
+    elif not user_input and not optional:
+        raise_err("Input cannot be empty!")
+        return False, ""
     elif "," in user_input:
         raise_err("Input cannot contain commas!")
         return False, ""
@@ -65,7 +67,6 @@ def get_positive_float(prompt: str, optional: bool = False) -> tuple[bool, float
     if user_input:
         return True, float(user_input)
     if not user_input and optional:
-        info("Set to ANY!")
         return True, -1
     if not user_input.replace(".", "", 1).isdigit():
         raise_err("Input must be a positive number!")
@@ -106,7 +107,6 @@ def get_valid_rating(prompt: str, optional: bool = False) -> tuple[bool, int]:
     if user_input:
         return True, int(user_input)
     elif not user_input and optional:
-        info("Set to ANY!")
         return True, -1
     if not user_input.isdigit():
         raise_err("Input must be an integer between 1 and 5!")
@@ -133,14 +133,12 @@ def edit_string(
     if "," in user_input:
         raise_err("Input cannot contain commas!")
         return False, ""
-    elif user_input.upper() == "REMOVE" and optional:
-        info(f'Removing value: {existing_value if existing_value != "ANY" else "ANY"}')
-        return True, "ANY"
-    elif user_input.upper() == "REMOVE" and not optional:
+    elif user_input.upper() == "ANY" and optional:
+        return True, "Any"
+    elif user_input.upper() == "ANY" and not optional:
         raise_err("You cannot remove a required input!")
         return False, ""
     elif not user_input:
-        info(f'Keeping value: {existing_value if existing_value != "ANY" else "ANY"}')
         return True, existing_value
     elif user_input:
         return True, user_input
@@ -157,8 +155,7 @@ def edit_positive_int(prompt: str, existing_value: int) -> tuple[bool, int]:
         tuple[bool, int]: the success state and the input or the existing value
     """
     user_input = input(prompt)
-    if not user_input:
-        info(f'Keeping value: {existing_value if existing_value != -1 else "ANY"}')
+    if not user_input and user_input.upper() != "ANY":
         return True, existing_value
     elif not user_input.isdigit():
         raise_err("Input must be a positive number!")
@@ -184,11 +181,9 @@ def edit_positive_float(
         tuple[bool, float]: the success state and the input or the existing value
     """
     user_input = input(prompt)
-    if not user_input:
-        info(f'Keeping value: {existing_value if existing_value != -1 else "ANY"}')
+    if not user_input and user_input.upper() != "ANY":
         return True, existing_value
     elif user_input.upper() == "ANY" and optional:
-        info(f'Removing value: {existing_value if existing_value != -1 else "ANY"}')
         return True, -1
     elif user_input.upper() == "ANY" and not optional:
         raise_err("You cannot remove a required input!")
@@ -214,8 +209,7 @@ def edit_valid_meal_type(prompt: str, existing_value: str) -> tuple[bool, str]:
         tuple[bool, str]: the success state and the input or the existing value
     """
     user_input = input(prompt).strip()
-    if not user_input:
-        info(f'Keeping value: {existing_value if existing_value != -1 else "ANY"}')
+    if not user_input and user_input.upper() != "ANY":
         return True, existing_value
     elif user_input.upper().strip() in ["BREAKFAST", "LUNCH", "DINNER"]:
         return True, user_input.upper()
@@ -238,11 +232,9 @@ def edit_valid_rating(
         tuple[bool, int]: the success state and the input or the existing value
     """
     user_input = input(prompt)
-    if not user_input:
-        info(f'Keeping value: {existing_value if existing_value != -1 else "ANY"}')
+    if not user_input and user_input.upper() != "ANY":
         return True, existing_value
     elif user_input.upper() == "ANY" and optional:
-        info(f'Removing value: {existing_value if existing_value != -1 else "ANY"}')
         return True, -1
     elif user_input.upper() == "ANY" and not optional:
         raise_err("You cannot remove a required input!")
