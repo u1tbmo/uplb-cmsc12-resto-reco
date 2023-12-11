@@ -188,11 +188,11 @@ def edit_positive_float(
     elif user_input.upper() == "ANY" and not optional:
         raise_err("You cannot remove a required input!")
         return False, 0.0
-    elif float(user_input) <= 0:
-        raise_err("Input must be greater than 0!")
-        return False, 0.0
     elif not user_input.replace(".", "", 1).isdigit():
         raise_err("Input must be a positive number!")
+        return False, 0.0
+    elif float(user_input) <= 0:
+        raise_err("Input must be greater than 0!")
         return False, 0.0
     elif user_input:
         return True, float(user_input)
