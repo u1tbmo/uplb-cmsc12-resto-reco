@@ -206,11 +206,10 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
             elif char == "D":
                 meal_types += "Dinner, "
         meal_types = meal_types.rstrip(", ")
-        if value[2] != "BLD":
-            meal_types = f" {meal_types} "
         rating = f"{value[4]} / 5"
+        cost = f"{value[3]:.2f}"
         print(
-            f"  {name:<16}   {value[0]:>22.2f}m   {value[1]:^13}   {meal_types:^24}   {value[3]:>10.2f}   {rating:^10}  "
+            f"  {name:<16}   {value[0]:>22.2f}m   {value[1].capitalize():^13}   {meal_types:<24}   {cost:>10}   {rating:^10}  "
         )
     print(
         "-------------------------------------------------------------------------------------------------------------------"
