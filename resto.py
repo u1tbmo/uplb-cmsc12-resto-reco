@@ -210,7 +210,9 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     if not success:
         return restos_dict
 
-    success, cuisine_type = ui.edit_string("  Edit cuisine type: ", cuisine_type)
+    success, cuisine_type = ui.edit_string(
+        f"  Edit cuisine type [{cuisine_type}]: ", cuisine_type
+    )
     cuisine_type = cuisine_type.upper()
     if not success:
         return restos_dict
