@@ -3,7 +3,14 @@ This module contains functions for getting user inputs and validating them.
 """
 
 # Local Module Imports
-from misc import raise_err, info
+from misc import raise_err
+
+# Global Variable
+cuisines_list = [
+    "African", "American", "Filipino", "Korean", "Indian", "Chinese",
+    "Middle Eastern", "Thai", "Japanese", "Mediterranean", "Italian",
+    "French", "British", "Spanish", "Malaysian", "Mixed"
+]
 
 
 def get_string(prompt: str, optional: bool = False) -> tuple[bool, str]:
@@ -17,16 +24,44 @@ def get_string(prompt: str, optional: bool = False) -> tuple[bool, str]:
         tuple[bool, str]: the success state and the input
     """
     user_input = input(prompt).strip()
-    if user_input:
-        return True, user_input
+    if "," in user_input:
+        raise_err("Input cannot contain commas!")
+        return False, ""
     elif not user_input and optional:
         return True, "Any"
     elif not user_input and not optional:
         raise_err("Input cannot be empty!")
         return False, ""
-    elif "," in user_input:
+    elif user_input:
+        return True, user_input
+    else:
+        raise_err("Input cannot be empty!")
+        return False, ""
+
+
+def get_cuisine(prompt: str, optional) -> tuple[bool, str]:
+    """Gets a string (cuisine) from the user.
+
+    Args:
+        prompt (str): the prompt to be displayed
+
+    Returns:
+        tuple[bool, str]: the success state and the input
+    """
+    user_input = input(prompt).strip()
+    if "," in user_input:
         raise_err("Input cannot contain commas!")
         return False, ""
+    elif user_input.capitalize() not in cuisines_list:
+        raise_err("Input is not a valid cuisine!")
+        return False, ""
+    elif not user_input and optional:
+        return True, "Any"
+    elif not user_input and not optional:
+        raise_err("Input cannot be empty!")
+        return False, ""
+    elif user_input:
+        return True, user_input
     else:
         raise_err("Input cannot be empty!")
         return False, ""
