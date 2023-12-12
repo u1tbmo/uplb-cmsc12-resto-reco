@@ -134,7 +134,8 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         raise_err("Resto must serve at least one meal type.")
         return restos_dict
 
-    success, cost = ui.get_positive_float("  Enter typical cost of a meal (in pesos): ")
+    success, cost = ui.get_positive_float(
+        "  Enter typical cost of a meal (in pesos): ")
     if not success:
         return restos_dict
 
@@ -193,7 +194,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
     display_resto_details(name, restos_dict)
     print("---------------------------------------------------")
-    info(f"Press [ENTER] to keep current value.")
+    info("Press [ENTER] to keep current value.")
     print("---------------------------------------------------")
 
     success, name = ui.edit_string(f"  Edit name [{name}]: ", name)
@@ -237,7 +238,8 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     if not success:
         return restos_dict
 
-    success, rating = ui.edit_valid_rating(f"  Edit rating (1-5) [{cost}]: ", rating)
+    success, rating = ui.edit_valid_rating(
+        f"  Edit rating (1-5) [{cost}]: ", rating)
     if not success:
         return restos_dict
 
@@ -365,7 +367,7 @@ def display_restos_detailed(restos_dict: dict[str, list]) -> None:
         cost = f"₱{value[3]:.2f}"
         rating = f"{value[4]} / 5"
         print(
-            f"  {name:<16}   {value[0]:>22.2f}m   {value[1].capitalize():^13}   {meal_types:<24}   {cost:>10}   {rating:^10}  "
+            f"  {name:<16}   {value[0]:>22.2f}m   {value[1].capitalize():^13}   {meal_types:^24}   {cost:>10}   {rating:^10}  "
         )
     print(
         "-------------------------------------------------------------------------------------------------------------------"

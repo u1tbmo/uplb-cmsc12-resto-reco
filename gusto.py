@@ -262,8 +262,8 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     )
     display_gusto_details(label, gustos_dict)
     print("---------------------------------------------------")
-    info(f"Press [ENTER] to keep current value.")
-    info(f'Type "ANY" to set a field to "ANY"')
+    info("Press [ENTER] to keep current value.")
+    info('Type "ANY" to set a field to "ANY"')
     info("* indicates optional fields")
     print("---------------------------------------------------")
 
@@ -447,7 +447,7 @@ def display_gustos_detailed(gustos_dict: dict[str, list]) -> None:
         min_rating = "Any" if value[6] == -1 else f"{value[6]} / 5"
 
         print(
-            f"  {label:<9}   {desc:<20}   {value[1]:^3}   {value[2].capitalize():<11}   {budget:>10}   {max_distance:>15}   {value[5].capitalize():<13}   {min_rating:^10}  "
+            f"  {label:<9}   {desc:<20}   {value[1]:^3}   {value[2].capitalize():^11}   {budget:^10}   {max_distance:^15}   {value[5].capitalize():^13}   {min_rating:^10}  "
         )
     print(
         "-------------------------------------------------------------------------------------------------------------------\n",
