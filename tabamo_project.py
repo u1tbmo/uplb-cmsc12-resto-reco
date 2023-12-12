@@ -4,9 +4,6 @@ This program recommends dining place/s based on the preferences of the user.
 # Tabamo, Euan Jed S.   B-1L
 # Project
 
-# Standard Library Imports
-import os
-
 # Local Module Imports
 import save_load as sl
 import gusto as g
