@@ -186,7 +186,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     if label not in gustos_dict:
         raise_err(f'Gusto "{label}" does not exist!')
         return gustos_dict
-    previous_label = label.upper()
+    previous_label = label.capitalize()
     (
         description,
         group_size,
