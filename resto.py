@@ -293,7 +293,7 @@ def display_restos(restos_dict: dict[str, list]) -> None:
         end="",
     )
     for resto in restos_dict:
-        label = resto
+        name = resto
         distance = f"{restos_dict[resto][0]:.2f}m"
         list_of_cuisines = restos_dict[resto][1]
         meal_type = restos_dict[resto][2]
@@ -309,7 +309,7 @@ def display_restos(restos_dict: dict[str, list]) -> None:
         cost = f"₱{restos_dict[resto][3]:.2f}"
         rating = f"{restos_dict[resto][4]:.1f}"
         print(
-            f"  {label:<16}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
+            f"  {name:<16}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
         )
         for idx, cuisine in enumerate(list_of_cuisines[1:]):
             cuisine = f"├ {cuisine}" if idx != len(list_of_cuisines[1:]) - 1 else f"└ {cuisine}"
