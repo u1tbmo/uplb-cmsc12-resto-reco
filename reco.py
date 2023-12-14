@@ -114,7 +114,8 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
                 sep="",
                 end="",
             )
-            g.display_gustos(gustos_dict)
+            g.display_gustos_simple(gustos_dict)
+            print("═══════════════════════════════════════════════════")
             label = input("  Enter gusto label: ").strip().capitalize()
             if label not in gustos_dict:
                 raise_err("Invalid gusto label!")
@@ -162,7 +163,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     )
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-       f"{C2}                                                  Gusto                                                  {CE}\n",
+       f"{C1}                                                  Gusto                                                  {CE}\n",
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         sep="",
         end="",
@@ -190,9 +191,9 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     )
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{C2}                                                  Restos                                                {CE}\n",
+        f"{C1}                                                  Restos                                                {CE}\n",
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{c.ITALIC}        Name           Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
+        f"{C2}{c.ITALIC}        Name           Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         sep="",
         end="",
