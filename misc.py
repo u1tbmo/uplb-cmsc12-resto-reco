@@ -17,7 +17,7 @@ def clear_screen() -> None:
 
 def continue_prompt() -> None:
     """Prompts the user to press enter to continue."""
-    getpass.getpass(f"{c.BLINK2}  Press Enter to continue...{c.END}")
+    getpass.getpass(f"{c.BOLD}{c.BLINK2}  Press Enter to continue...{c.END}")
     clear_screen()
 
 

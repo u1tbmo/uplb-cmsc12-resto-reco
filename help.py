@@ -4,7 +4,7 @@ This module contains the functions that display the help menu.
 
 # Local Module Imports
 from misc import clear_screen, continue_prompt, raise_err
-from colors import C1, CE, CD
+from colors import C1, C2, CE, CD
 
 
 def help_screen() -> None:
@@ -20,7 +20,7 @@ def help_screen() -> None:
         "  3   Get Recos                                    \n",
         "  A   About                                        \n",
         f"  {C1}H   Help{CD}                                         \n",
-        "  0   Exit                                         \n",
+        "  X   Exit                                         \n",
         "═══════════════════════════════════════════════════\n",
         f"{CE}",
         sep="",
@@ -30,26 +30,27 @@ def help_screen() -> None:
         "═══════════════════════════════════════════════════\n",
         f"                        {C1}Help{CE}                       \n",
         "═══════════════════════════════════════════════════\n",
-        "  1   Gustos                                       \n",
-        "  2   Restos                                       \n",
-        "  3   Recos                                        \n",
-        "  0   Back to Main Menu                            \n",
+        f"  {C2}1{CE}   Gustos                                       \n",
+        f"  {C2}2{CE}   Restos                                       \n",
+        f"  {C2}3{CE}   Recos                                        \n",
+        f"  {C2}B{CE}   Back to Main Menu                            \n",
         "═══════════════════════════════════════════════════\n",
         f"{CE}",
         sep="",
         end="",
     )
     choice = input("  Enter choice: ")
-    if choice == "1":
-        help_gustos()
-    elif choice == "2":
-        help_restos()
-    elif choice == "3":
-        help_recos()
-    elif choice == "0":
-        clear_screen()
-    else:
-        raise_err("Invalid choice!")
+    match choice:
+        case "1":
+            help_gustos()
+        case "2":
+            help_restos()
+        case "3":
+            help_recos()
+        case "B" | "b":
+            clear_screen()
+        case _:
+            raise_err("Invalid choice!")
 
 
 def help_gustos() -> None:
@@ -65,7 +66,7 @@ def help_gustos() -> None:
         "  3   Get Recos                                    \n",
         "  A   About                                        \n",
         f"  {C1}H   Help{CD}                                         \n",
-        "  0   Exit                                         \n",
+        "  X   Exit                                         \n",
         "═══════════════════════════════════════════════════\n",
         f"{CE}",
         sep="",
@@ -79,7 +80,7 @@ def help_gustos() -> None:
         f"  {C1}1   Gustos{CD}                                       \n",
         "  2   Restos                                       \n",
         "  3   Recos                                        \n",
-        "  0   Back to Main Menu                            \n",
+        "  B   Back to Main Menu                            \n",
         "═══════════════════════════════════════════════════\n",
         f"{CE}",
         sep="",
@@ -117,7 +118,7 @@ def help_restos() -> None:
         "  3   Get Recos                                    \n",
         "  A   About                                        \n",
         f"  {C1}H   Help{CD}                                         \n",
-        "  0   Exit                                         \n",
+        "  X   Exit                                         \n",
         "═══════════════════════════════════════════════════\n",
         f"{CE}",
         sep="",
@@ -131,7 +132,7 @@ def help_restos() -> None:
         "  1   Gustos                                       \n",
         f"  {C1}2   Restos{CD}                                       \n",
         "  3   Recos                                        \n",
-        "  0   Back to Main Menu                            \n",
+        "  B   Back to Main Menu                            \n",
         "═══════════════════════════════════════════════════\n",
         f"{CE}",
         sep="",
@@ -167,7 +168,7 @@ def help_recos() -> None:
         "  3   Get Recos                                    \n",
         "  A   About                                        \n",
         f"  {C1}H   Help{CD}                                         \n",
-        "  0   Exit                                         \n",
+        "  X   Exit                                         \n",
         "═══════════════════════════════════════════════════\n",
         f"{CE}",
         sep="",
@@ -181,7 +182,7 @@ def help_recos() -> None:
         "  1   Gustos                                       \n",
         "  2   Restos                                       \n",
         f"  {C1}3   Recos{CD}                                        \n",
-        "  0   Back to Main Menu                            \n",
+        "  B   Back to Main Menu                            \n",
         "═══════════════════════════════════════════════════\n",
         f"{CE}",
         sep="",

@@ -84,7 +84,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         f"  {C1}3   Get Recos{CD}                                    \n",
         "  A   About                                        \n",
         "  H   Help                                         \n",
-        "  0   Exit                                         \n",
+        "  X   Exit                                         \n",
         "═══════════════════════════════════════════════════\n",
         f"{CE}",
         sep="",
@@ -94,42 +94,43 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         "═══════════════════════════════════════════════════\n",
         f"                     {C1}Get Recos{CE}                     \n",
         "═══════════════════════════════════════════════════\n",
-        "  1   Get Reco/s from an Existing Gusto            \n",
-        "  2   Get Reco/s from an Ad Hoc Gusto              \n",
-        "  0   Back to Main Menu                            \n",
+        f"  {C2}1{CE}   Get Reco/s from an Existing Gusto            \n",
+        f"  {C2}2{CE}   Get Reco/s from an Ad Hoc Gusto              \n",
+        f"  {C2}B{CE}   Back to Main Menu                            \n",
         "═══════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
 
     choice = input("  Enter choice: ")
-    if choice == "1":
-        clear_screen()
-        print(
-            "═══════════════════════════════════════════════════\n",
-            f"         {C1}Get Reco/s from an Existing Gusto{CE}         \n",
-            "═══════════════════════════════════════════════════\n",
-            sep="",
-            end="",
-        )
-        g.display_gustos(gustos_dict)
-        label = input("  Enter gusto label: ").strip().upper()
-        if label not in gustos_dict:
-            raise_err("Invalid gusto label!")
+    match choice:
+        case "1":
+            clear_screen()
+            print(
+                "═══════════════════════════════════════════════════\n",
+                f"         {C1}Get Reco/s from an Existing Gusto{CE}         \n",
+                "═══════════════════════════════════════════════════\n",
+                sep="",
+                end="",
+            )
+            g.display_gustos(gustos_dict)
+            label = input("  Enter gusto label: ").strip().upper()
+            if label not in gustos_dict:
+                raise_err("Invalid gusto label!")
+                return
+            gusto = (label, gustos_dict[label])
+            recos = recommend_restos(restos_dict, gusto)
+        case "2":
+            gusto = g.ad_hoc_gusto()
+            if gusto is None:
+                return
+            recos = recommend_restos(restos_dict, gusto)
+        case "B" | "b":
+            clear_screen()
             return
-        gusto = (label, gustos_dict[label])
-        recos = recommend_restos(restos_dict, gusto)
-    elif choice == "2":
-        gusto = g.ad_hoc_gusto()
-        if gusto is None:
+        case _:
+            raise_err("Invalid choice!")
             return
-        recos = recommend_restos(restos_dict, gusto)
-    elif choice == "0":
-        clear_screen()
-        return
-    else:
-        raise_err("Invalid choice!")
-        return
 
     if not recos:
         print(
