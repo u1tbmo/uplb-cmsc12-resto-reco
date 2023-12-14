@@ -104,7 +104,9 @@ def save_restos(restos_dict: dict[str, list]) -> None:
     """
     fh = open(RESTO_PATH, "w", encoding="utf-8")
     for name, value in restos_dict.items():
-        fh.write(f"{name}~{value[0]}~{",".join(value[1])}~{value[2]}~{value[3]}~{value[4]}\n")
+        fh.write(
+            f"{name}~{value[0]}~{','.join(value[1])}~{value[2]}~{value[3]}~{value[4]}\n"
+        )
     fh.close()
 
 
