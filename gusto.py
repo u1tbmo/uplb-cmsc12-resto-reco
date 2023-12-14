@@ -22,9 +22,11 @@ def display_gusto_details(gusto: str, gustos_dict: dict[str, list]) -> None:
     description = gustos_dict[gusto][0]
     group_size = gustos_dict[gusto][1]
     meal_type = gustos_dict[gusto][2].capitalize()
-    budget = f"₱{gustos_dict[gusto][3]}" if gustos_dict[gusto][3] != None else "Any"
+    budget = f"₱{gustos_dict[gusto][3]:.2f}" if gustos_dict[gusto][3] != None else "Any"
     max_distance = (
-        f"{gustos_dict[gusto][4]} meters" if gustos_dict[gusto][4] != None else "Any"
+        f"{gustos_dict[gusto][4]:.2f} meters"
+        if gustos_dict[gusto][4] != None
+        else "Any"
     )
     cuisine_type = (
         gustos_dict[gusto][5].capitalize() if gustos_dict[gusto][5] != None else "Any"

@@ -35,6 +35,7 @@ meal_types_sorter = {
 
 
 def print_valid_cuisines() -> None:
+    """Prints the valid cuisines from the list of valid cuisines."""
     print(
         "═══════════════════════════════════════════════════\n",
         f"{c.C1}                   Valid Cuisines                  {c.CE}\n",
@@ -65,6 +66,15 @@ def print_valid_cuisines() -> None:
 
 
 def get_string(prompt: str, required: bool = True) -> str:
+    """Gets a string from the user.
+
+    Args:
+        prompt (str): The prompt the user is asked
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        str: The string from the user
+    """
     while True:
         string = input(prompt).strip()
         if required and string == "":
@@ -75,6 +85,15 @@ def get_string(prompt: str, required: bool = True) -> str:
 
 
 def get_integer(prompt: str, required: bool = True) -> int:
+    """Gets a positive integer from a user.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        int: The integer from the user.
+    """
     while True:
         integer = input(prompt).strip()
         if required and integer == "":
@@ -95,6 +114,15 @@ def get_integer(prompt: str, required: bool = True) -> int:
 
 
 def get_float(prompt: str, required: bool = True) -> float:
+    """Gets a positive float from the user.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        float: The float from the user.
+    """
     while True:
         float_num = input(prompt).strip()
         if required and float_num == "":
@@ -115,6 +143,15 @@ def get_float(prompt: str, required: bool = True) -> float:
 
 
 def get_meal_type(prompt: str, required: bool = True) -> str:
+    """Gets a meal type from the user.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        str: The meal type string from the user.
+    """
     while True:
         meal_type = input(prompt).strip().capitalize()
         if required and meal_type == "":
@@ -130,6 +167,15 @@ def get_meal_type(prompt: str, required: bool = True) -> str:
 
 
 def get_list_of_meal_types(prompt: str, required: bool = True) -> str:
+    """Gets multiple meal types from the user.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        str: The Literal str representing the multiple meal types from the user.
+    """
     while True:
         meal_types = input(prompt).strip()
         if required and meal_types == "":
@@ -152,6 +198,15 @@ def get_list_of_meal_types(prompt: str, required: bool = True) -> str:
 
 
 def get_cuisine_type(prompt: str, required: bool = True) -> str:
+    """Gets a cuisine from the user.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        str: The cuisine from the user.
+    """
     while True:
         cuisine_type = input(prompt).strip().capitalize()
         if required and cuisine_type == "":
@@ -166,7 +221,16 @@ def get_cuisine_type(prompt: str, required: bool = True) -> str:
             return cuisine_type
 
 
-def get_list_of_cuisine_types(prompt: str, required: bool = True) -> str:
+def get_list_of_cuisine_types(prompt: str, required: bool = True) -> list:
+    """Gets multiple cuisines from the user.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        required (bool, optional): Whether the input is required. Defaults to True.
+
+    Returns:
+        list: The list containing the cuisines from the user.
+    """
     while True:
         cuisine_types = input(prompt).strip()
         if required and cuisine_types == "":
@@ -188,6 +252,15 @@ def get_list_of_cuisine_types(prompt: str, required: bool = True) -> str:
 
 
 def get_rating(prompt: str, required: bool = True) -> float:
+    """Gets a rating from the user.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        float: The rating from the user.
+    """
     while True:
         rating = input(prompt).strip()
         if required and rating == "":
@@ -207,7 +280,17 @@ def get_rating(prompt: str, required: bool = True) -> float:
             continue
 
 
-def edit_string(prompt: str, old_value: str, required: bool = True) -> str:
+def edit_string(prompt: str, old_value: str, required: bool = True) -> str | None:
+    """Edits a string.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        old_value (str): The old string.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        str | None: The edited string or None.
+    """
     while True:
         string = input(prompt).strip()
         if string == "":
@@ -221,7 +304,17 @@ def edit_string(prompt: str, old_value: str, required: bool = True) -> str:
             return string
 
 
-def edit_integer(prompt: str, old_value: int, required: bool = True) -> int:
+def edit_integer(prompt: str, old_value: int, required: bool = True) -> int | None:
+    """Edits an integer.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        old_value (int): The old integer.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        int | None: The edited integer or None.
+    """
     while True:
         integer = input(prompt).strip()
         if integer == "":
@@ -243,7 +336,17 @@ def edit_integer(prompt: str, old_value: int, required: bool = True) -> int:
             continue
 
 
-def edit_float(prompt: str, old_value: float, required: bool = True) -> float:
+def edit_float(prompt: str, old_value: float, required: bool = True) -> float | None:
+    """Edits a float.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        old_value (float): The old float.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        float | None: The edited float or None.
+    """
     while True:
         float_num = input(prompt).strip()
         if float_num == "":
@@ -265,7 +368,17 @@ def edit_float(prompt: str, old_value: float, required: bool = True) -> float:
             continue
 
 
-def edit_meal_type(prompt: str, old_value: str, required: bool = True) -> str:
+def edit_meal_type(prompt: str, old_value: str, required: bool = True) -> str | None:
+    """Edits a meal type.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        old_value (str): The old meal type.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        str | None: The edited meal type or None.
+    """
     while True:
         meal_type = input(prompt).strip().capitalize()
         if meal_type == "":
@@ -283,6 +396,15 @@ def edit_meal_type(prompt: str, old_value: str, required: bool = True) -> str:
 
 
 def edit_list_of_meal_types(prompt: str, old_value: str) -> str:
+    """Edits multiple meal types.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        old_value (str): The old meal type Literal.
+
+    Returns:
+        str: The edited Literal.
+    """
     while True:
         meal_types = input(prompt).strip()
         if meal_types == "":
@@ -301,7 +423,17 @@ def edit_list_of_meal_types(prompt: str, old_value: str) -> str:
     return "".join(meal_type_lst)
 
 
-def edit_cuisine_type(prompt: str, old_value: str, required: bool = True) -> str:
+def edit_cuisine_type(prompt: str, old_value: str, required: bool = True) -> str | None:
+    """Edits a cuisine.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        old_value (str): The old cuisine.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        str | None: The edited cuisine or None.
+    """
     while True:
         cuisine_type = input(prompt).strip().capitalize()
         if cuisine_type == "":
@@ -318,7 +450,16 @@ def edit_cuisine_type(prompt: str, old_value: str, required: bool = True) -> str
             return cuisine_type
 
 
-def edit_list_of_cuisine_types(prompt: str, old_value: str) -> str:
+def edit_list_of_cuisine_types(prompt: str, old_value: list) -> list:
+    """Edits a list of cuisines.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        old_value (list): The old list of cuisines.
+
+    Returns:
+        list: The edited list of cuisines.
+    """
     while True:
         cuisine_types = input(prompt).strip()
         if cuisine_types == "":
@@ -336,7 +477,17 @@ def edit_list_of_cuisine_types(prompt: str, old_value: str) -> str:
     return cuisine_type_list
 
 
-def edit_rating(prompt: str, old_value: float, required: bool = True) -> float:
+def edit_rating(prompt: str, old_value: float, required: bool = True) -> float | None:
+    """Edits a rating.
+
+    Args:
+        prompt (str): The prompt the user is asked.
+        old_value (float): The old rating.
+        required (bool, optional): Whether the input is required or not. Defaults to True.
+
+    Returns:
+        float | None: The edited float or None.
+    """
     while True:
         rating = input(prompt).strip()
         if rating == "":

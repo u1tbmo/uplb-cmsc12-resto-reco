@@ -64,3 +64,15 @@ def check_window_size() -> None:
             continue_prompt()
         else:
             break
+
+
+def capitalize_words(string: str) -> None:
+    """Capitalizes words in a string.
+
+    Args:
+        string (str): The capitalized string.
+    """
+    words = string.split(" ")
+    for idx, word in enumerate(words):
+        words[idx] = word[0].upper() + word[1:]
+    return " ".join(words)

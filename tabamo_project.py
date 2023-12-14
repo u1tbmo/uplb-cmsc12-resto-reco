@@ -25,7 +25,7 @@ gustos: dict[str, list] = {}
 
 
 def exit_program() -> None:
-    """Prints an exit message."""
+    """Prints an exit message and exits the program."""
     clear_screen()
     message = (
         "═══════════════════════════════════════════════════\n"

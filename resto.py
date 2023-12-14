@@ -6,6 +6,7 @@ import user_inputs as ui
 from misc import clear_screen, continue_prompt, info, raise_err
 from colors import C1, C2, CE
 import colors as c
+import misc as m
 
 # Global Variables / Constants
 NAME_LENGTH = 16
@@ -34,10 +35,10 @@ def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
     rating = restos_dict[resto][4]
 
     print(f"  Name: {resto}")
-    print(f"  Distance from UPLB gate: {distance} meters")
+    print(f"  Distance from UPLB gate: {distance:.2f} meters")
     print(f"  Cuisine Type: {cuisine_type}")
     print(f"  Meal Types: {meal_types}")
-    print(f"  Cost per Person: ₱{cost}")
+    print(f"  Cost per Person: ₱{cost:.2f}")
     print(f"  Rating: {rating}")
 
 
@@ -59,7 +60,7 @@ def view_resto(restos_dict: dict[str, list]) -> None:
         sep="",
         end="",
     )
-    name = input("  Enter resto name: ").strip().upper()
+    name = m.capitalize_words(input("  Enter resto name: ").strip())
     print("═══════════════════════════════════════════════════")
     if name not in restos_dict:
         raise_err(f"Resto {name} does not exist!")
@@ -94,7 +95,7 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-    name = ui.get_string("  Enter name: ").upper()
+    name = m.capitalize_words(ui.get_string("  Enter name: "))
 
     if name in restos_dict:
         raise_err(f"Resto {name} already exists.")
@@ -141,7 +142,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         end="",
     )
 
-    name = input("  Enter resto name: ").strip().upper()
+    name = m.capitalize_words(input("  Enter resto name: ").strip())
     previous_name = name
 
     if name not in restos_dict:
@@ -164,8 +165,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     info(f"Press [ENTER] to keep current value.")
     print("═══════════════════════════════════════════════════")
 
-    name = ui.edit_string("  Enter name: ", name)
-    name = name.upper()
+    name = m.capitalize_words(ui.edit_string("  Enter name: ", name))
     if name in restos_dict and previous_name != name:
         raise_err(f"Resto {name} already exists.")
         return restos_dict
@@ -216,7 +216,7 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         end="",
     )
 
-    name = input("  Enter resto name: ").strip().upper()
+    name = m.capitalize_words(input("  Enter resto name: ").strip())
     print("═══════════════════════════════════════════════════")
     if name not in restos_dict:
         raise_err(f'Resto "{name}" does not exist!')
