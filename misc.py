@@ -49,7 +49,7 @@ def check_window_size() -> None:
         clear_screen()
         current_size_cols = os.get_terminal_size().columns
         current_size_rows = os.get_terminal_size().lines
-        if current_size_cols < 128 or current_size_rows < 22:
+        if current_size_cols < 128 or current_size_rows < 25:
             message = (
                 f"{c.C1}═══════════════════════════════════════════════════\n"
                 "        Please resize your window to ensure        \n"
@@ -58,8 +58,8 @@ def check_window_size() -> None:
             )
             if current_size_cols < 128:
                 message += f"{c.RED}  Columns: {current_size_cols} < 128 {c.CE}\n"
-            if current_size_rows < 22:
-                message += f"{c.RED}  Rows: {current_size_rows} < 22 {c.CE}\n"
+            if current_size_rows < 25:
+                message += f"{c.RED}  Rows: {current_size_rows} < 25 {c.CE}\n"
             print("".join(message), end="")
             continue_prompt()
         else:

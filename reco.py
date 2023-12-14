@@ -9,6 +9,7 @@ import random
 from misc import clear_screen, continue_prompt, raise_err
 import gusto as g
 from colors import C1, C2, CE, CD
+import colors as c
 
 
 def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
@@ -58,8 +59,8 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
             continue
         recos.append(name)
 
-    # while len(recos) > 3:
-    #     recos.pop(random.randint(0, len(recos) - 1))
+    while len(recos) > 3:
+        recos.pop(random.randint(0, len(recos) - 1))
     return recos
 
 
@@ -134,17 +135,17 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
 
     if not recos:
         print(
-            "═══════════════════════════════════════════════════\n",
-            "  We cannot find a resto match for your gusto!     \n",
-            "  Want to find a match? Try:                       \n",
-            "  - Adding more Restos                             \n",
-            "  - A different Gusto                              \n",
-            "  - Increasing your Gusto's budget                 \n",
-            "  - Increasing your Gusto's max distance           \n",
-            "  - Changing your Gusto's cuisine type             \n",
-            "  - Decreasing your Gusto's group size             \n",
-            "  - Decreasing your Gusto's minimum rating         \n",
-            "═══════════════════════════════════════════════════\n",
+            "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+            "  We cannot find a resto match for your gusto!                                                           \n",
+            "  Want to find a match? Try:                                                                             \n",
+            "  - Adding more Restos                                                                                   \n",
+            "  - A different Gusto                                                                                    \n",
+            "  - Increasing your Gusto's budget                                                                       \n",
+            "  - Increasing your Gusto's max distance                                                                 \n",
+            "  - Changing your Gusto's cuisine type                                                                   \n",
+            "  - Decreasing your Gusto's group size                                                                   \n",
+            "  - Decreasing your Gusto's minimum rating                                                               \n",
+            "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
             sep="",
             end="",
         )
@@ -153,16 +154,16 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
 
     clear_screen()
     print(
-        "═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"                                 {C1}We Reco the Following Restos based on your Gusto!{CE}                                 \n",
-        "═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+       f"{C1}                                                  Recos                                                  {CE}\n",
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
     print(
-        "═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"                                                       {C1}Gusto{CE}                                                       \n",
-        "═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+       f"{C2}                                                  Gusto                                                  {CE}\n",
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
@@ -185,13 +186,13 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     print(f"  Cuisine Type: {cuisine_type}")
     print(f"  Minimum Rating: {min_rating}")
     print(
-        "═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════"
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════"
     )
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{C1}                                                  Restos                                                {CE}\n",
+        f"{C2}                                                  Restos                                                {CE}\n",
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{C2}        Name           Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
+        f"{c.ITALIC}        Name           Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         sep="",
         end="",
