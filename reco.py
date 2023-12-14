@@ -115,7 +115,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
                 end="",
             )
             g.display_gustos(gustos_dict)
-            label = input("  Enter gusto label: ").strip().upper()
+            label = input("  Enter gusto label: ").strip().capitalize()
             if label not in gustos_dict:
                 raise_err("Invalid gusto label!")
                 return

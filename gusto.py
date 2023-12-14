@@ -60,7 +60,7 @@ def view_gusto(gustos_dict: dict[str, list]) -> None:
         sep="",
         end="",
     )
-    gusto = input("  Enter gusto label: ").strip().upper()
+    gusto = input("  Enter gusto label: ").strip().capitalize()
     if gusto not in gustos_dict:
         raise_err(f'Gusto "{gusto}" does not exist!')
         return
@@ -107,7 +107,7 @@ def ad_hoc_gusto() -> tuple[str, list] | None:
             meal_type,
             budget,
             max_distance,
-            cuisine_type.upper(),
+            cuisine_type,
             min_rating,
         ],
     )
@@ -131,8 +131,7 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         end="",
     )
     info("* indicates optional fields")
-    label = ui.get_string("  Enter label: ")
-    label = label.upper()
+    label = ui.get_string("  Enter label: ").capitalize()
     if len(label) > LABEL_LENGTH:
         raise_err(f"Label must be {LABEL_LENGTH} characters or less!")
         return gustos_dict
@@ -183,7 +182,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-    label = input("  Enter gusto label: ").upper()
+    label = input("  Enter gusto label: ").capitalize()
     if label not in gustos_dict:
         raise_err(f'Gusto "{label}" does not exist!')
         return gustos_dict
@@ -211,15 +210,13 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     info('Type "Any" to set a field to "Any"')
     info("* indicates optional fields")
     print("═══════════════════════════════════════════════════")
-    label = ui.edit_string("  Enter label: ", label)
-    label = label.upper()
+    label = ui.edit_string("  Enter label: ", label).capitalize()
     if label in gustos_dict and previous_label != label:
         raise_err(f'Gusto "{label}" already exists!')
         return gustos_dict
     if len(label) > LABEL_LENGTH:
         raise_err(f"Label must be {LABEL_LENGTH} characters or less!")
         return gustos_dict
-
     description = ui.edit_string("  Enter description: ", description)
     group_size = ui.edit_integer("  Enter group size: ", group_size)
     meal_type = ui.edit_meal_type(
@@ -283,7 +280,7 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-    label = input("  Enter gusto label: ").upper()
+    label = input("  Enter gusto label: ").capitalize()
     print("═══════════════════════════════════════════════════")
     if label not in gustos_dict:
         raise_err(f'Gusto "{label}" does not exist!')
@@ -301,7 +298,7 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     print(f"{c.RED}  Are you sure you want to delete {label}?{c.END}")
     print(f"  [Y] Yes")
     print(f"  [Any Key] No")
-    choice = input("  Enter choice: ").upper()
+    choice = input("  Enter choice: ").capitalize()
     if choice == "Y":
         del gustos_dict[label]
         info(f'Deleted Gusto "{label}"')
