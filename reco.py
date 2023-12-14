@@ -118,7 +118,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
             print("═══════════════════════════════════════════════════")
             label = input("  Enter gusto label: ").strip().capitalize()
             if label not in gustos_dict:
-                raise_err("Invalid gusto label!")
+                raise_err(f'Gusto \"{label}\" does not exist!')
                 return
             gusto = (label, gustos_dict[label])
             recos = recommend_restos(restos_dict, gusto)
@@ -133,34 +133,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         case _:
             raise_err("Invalid choice!")
             return
-
-    if not recos:
-        print(
-            "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-            "  We cannot find a resto match for your gusto!                                                           \n",
-            "  Want to find a match? Try:                                                                             \n",
-            "  - Adding more Restos                                                                                   \n",
-            "  - A different Gusto                                                                                    \n",
-            "  - Increasing your Gusto's budget                                                                       \n",
-            "  - Increasing your Gusto's max distance                                                                 \n",
-            "  - Changing your Gusto's cuisine type                                                                   \n",
-            "  - Decreasing your Gusto's group size                                                                   \n",
-            "  - Decreasing your Gusto's minimum rating                                                               \n",
-            "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-            sep="",
-            end="",
-        )
-        continue_prompt()
-        return
-
     clear_screen()
-    print(
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-       f"{C1}                                                  Recos                                                  {CE}\n",
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        sep="",
-        end="",
-    )
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
        f"{C1}                                                  Gusto                                                  {CE}\n",
@@ -189,12 +162,31 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════"
     )
+    if not recos:
+        print(
+            "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+            "  We cannot find a resto match for your gusto!                                                           \n",
+            "  Want to find a match? Try:                                                                             \n",
+            "  - Adding more Restos                                                                                   \n",
+            "  - A different Gusto                                                                                    \n",
+            "  - Increasing your Gusto's budget                                                                       \n",
+            "  - Increasing your Gusto's max distance                                                                 \n",
+            "  - Changing your Gusto's cuisine type                                                                   \n",
+            "  - Decreasing your Gusto's group size                                                                   \n",
+            "  - Decreasing your Gusto's minimum rating                                                               \n",
+            "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+            sep="",
+            end="",
+        )
+        continue_prompt()
+        return
+    
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{C1}                                                  Restos                                                {CE}\n",
+        f"{C1}                                                  Recos                                                 {CE}\n",
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         f"{C2}{c.ITALIC}        Name           Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        "─────────────────────────────────────────────────────────────────────────────────────────────────────────\n",
         sep="",
         end="",
     )

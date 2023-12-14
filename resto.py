@@ -253,14 +253,13 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
     """
     if not restos_dict:
         raise_err("No restos to display! Add a resto!")
-        clear_screen()
         return
     print(
         "═══════════════════════════════════════════════════\n",
         f"{C1}                       Restos                      {CE}\n",
         "═══════════════════════════════════════════════════\n",
         f"{C2}{c.ITALIC}        Name                   Cuisines            {CE}\n",
-        "═══════════════════════════════════════════════════\n",
+        "───────────────────────────────────────────────────\n",
         sep="",
         end="",
     )
@@ -281,14 +280,14 @@ def display_restos(restos_dict: dict[str, list]) -> None:
     """
     if not restos_dict:
         raise_err("No restos to display! Add a resto!")
-        clear_screen()
         return
+    clear_screen()
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         f"{C1}                                                  Restos                                                {CE}\n",
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         f"{C2}{c.ITALIC}        Name           Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        "─────────────────────────────────────────────────────────────────────────────────────────────────────────\n",
         sep="",
         end="",
     )

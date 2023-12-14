@@ -8,7 +8,6 @@ import colors as c
 
 # Global Variable
 cuisines_list = [
-    "None",
     "Filipino",
     "American",
     "Japanese",

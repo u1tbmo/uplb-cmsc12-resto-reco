@@ -9,7 +9,7 @@ from colors import C1, C2, CE
 import colors as c
 
 # Global Variables / Constants
-LABEL_LENGTH = 10
+LABEL_LENGTH = 16
 
 
 def display_gusto_details(gusto: str, gustos_dict: dict[str, list]) -> None:
@@ -91,12 +91,12 @@ def ad_hoc_gusto() -> tuple[str, list] | None:
         sep="",
         end="",
     )
-    info("* indicates optional fields")
+    info("* indicates optional fields, press [ENTER] to skip")
     group_size = ui.get_integer("  Enter number of people: ")
     meal_type = ui.get_meal_type("  Enter meal type (Breakfast, Lunch, or Dinner): ")
     budget = ui.get_float("  *Enter budget: ", False)
     max_distance = ui.get_float("  *Enter maximum distance from UPLB: ", False)
-    cuisine_type = ui.get_string("  *Enter cuisine type: ", False)
+    cuisine_type = ui.get_cuisine_type("  *Enter cuisine type: ", False)
     min_rating = ui.get_rating("  *Enter minimum rating (1-5): ", False)
 
     return (
@@ -130,7 +130,7 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-    info("* indicates optional fields")
+    info("* indicates optional fields, press [ENTER] to skip")
     label = ui.get_string("  Enter label: ").capitalize()
     if len(label) > LABEL_LENGTH:
         raise_err(f"Label must be {LABEL_LENGTH} characters or less!")
@@ -207,8 +207,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     display_gusto_details(label, gustos_dict)
     print("═══════════════════════════════════════════════════")
     info("Press [ENTER] to keep current value.")
-    info('Type "Any" to set a field to "Any"')
-    info("* indicates optional fields")
+    info('* indicates optional fields, type "Any" to skip')
     print("═══════════════════════════════════════════════════")
     label = ui.edit_string("  Enter label: ", label).capitalize()
     if label in gustos_dict and previous_label != label:
@@ -318,14 +317,13 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
     """
     if not gustos_dict:
         raise_err("No gustos to display! Add a gusto!")
-        clear_screen()
         return
     print(
         "═══════════════════════════════════════════════════\n",
         f"{C1}                       Gustos                      {CE}\n",
         "═══════════════════════════════════════════════════\n",
-        f"{C2}{c.ITALIC}     Label                 Description             {CE}\n",
-        "═══════════════════════════════════════════════════\n",
+        f"       Label                 Description          \n",
+        "───────────────────────────────────────────────────\n",
         sep="",
         end="",
     )
@@ -333,10 +331,10 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         label = gusto
         description = (
             gustos_dict[gusto][0]
-            if len(gustos_dict[gusto][0]) <= 33
-            else gustos_dict[gusto][0][:30] + "..."
+            if len(gustos_dict[gusto][0]) <= 27
+            else gustos_dict[gusto][0][:24] + "..."
         )
-        print(f"  {label:<10}   {description}  ")
+        print(f"  {label:<16}   {description}  ")
 
 
 def display_gustos(gustos_dict: dict[str, list]) -> None:
@@ -347,14 +345,14 @@ def display_gustos(gustos_dict: dict[str, list]) -> None:
     """
     if not gustos_dict:
         raise_err("No gustos to display! Add a gusto!")
-        clear_screen()
         return
+    clear_screen()
     print(
         "════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         f"{C1}                                                             Gustos                                                            {CE}\n",
         "════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{C2}{c.ITALIC}    Label                   Description                 #     Meal Type      Budget      Distance         Cuisine       Rating  {CE}\n",
-        "════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        f"{C2}{c.ITALIC}       Label                   Description              #     Meal Type      Budget      Distance         Cuisine       Rating  {CE}\n",
+        "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n",
         sep="",
         end="",
     )
@@ -362,8 +360,8 @@ def display_gustos(gustos_dict: dict[str, list]) -> None:
         label = gusto
         description = (
             gustos_dict[gusto][0]
-            if len(gustos_dict[gusto][0]) <= 37
-            else gustos_dict[gusto][0][:34] + "..."
+            if len(gustos_dict[gusto][0]) <= 31
+            else gustos_dict[gusto][0][:29] + "..."
         )
         group_size = gustos_dict[gusto][1]
         meal_type = gustos_dict[gusto][2].capitalize()
@@ -383,7 +381,7 @@ def display_gustos(gustos_dict: dict[str, list]) -> None:
         )
 
         print(
-            f"  {label:<10}   {description:<37}   {group_size:^3}   {meal_type:^11}   {budget:>10}   {max_distance:>10}   {cuisine_type:^16}   {min_rating:^6}  "
+            f"  {label:<16}   {description:<31}   {group_size:^3}   {meal_type:^11}   {budget:>10}   {max_distance:>10}   {cuisine_type:^16}   {min_rating:^6}  "
         )
     print(
         "════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"

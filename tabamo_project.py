@@ -181,7 +181,6 @@ def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
                 g.delete_gustos(gustos_dict)
                 break
             case "4":
-                clear_screen()
                 g.display_gustos(gustos_dict)
                 if gustos_dict:
                     continue_prompt()
@@ -219,7 +218,6 @@ def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
                 r.delete_restos(restos_dict)
                 break
             case "4":
-                clear_screen()
                 r.display_restos(restos_dict)
                 if restos_dict:
                     continue_prompt()
