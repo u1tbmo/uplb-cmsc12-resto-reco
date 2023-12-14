@@ -31,13 +31,13 @@ def load_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     # Read resto.dat
     fh = open(RESTO_PATH, "r", encoding="utf-8")
     for line in fh:
-        name, distance, cuisine_type, meal_type, cost, rating = line.split(",")
+        name, distance, cuisine_type, meal_type, cost, rating = line.split("~")
         restos_dict[name] = [
             float(distance),
-            cuisine_type,
+            cuisine_type.split(","),
             meal_type,
             float(cost),
-            int(rating),
+            float(rating),
         ]
     fh.close()
     return restos_dict
@@ -66,16 +66,16 @@ def load_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
             max_distance,
             cuisine_type,
             min_rating,
-        ) = line.split(",")
+        ) = line.split("~")
 
         gustos_dict[label] = [
             description,
             int(group_size),
             meal_type,
-            float(budget),
-            float(max_distance),
-            cuisine_type,
-            int(min_rating),
+            float(budget) if budget != "None" else None,
+            float(max_distance) if max_distance != "None" else None,
+            cuisine_type if cuisine_type != "None" else None,
+            float(min_rating) if min_rating != "None\n" else None,
         ]
     fh.close()
     return gustos_dict
@@ -104,7 +104,7 @@ def save_restos(restos_dict: dict[str, list]) -> None:
     """
     fh = open(RESTO_PATH, "w", encoding="utf-8")
     for name, value in restos_dict.items():
-        fh.write(f"{name},{value[0]},{value[1]},{value[2]},{value[3]},{value[4]}\n")
+        fh.write(f"{name}~{value[0]}~{",".join(value[1])}~{value[2]}~{value[3]}~{value[4]}\n")
     fh.close()
 
 
@@ -117,7 +117,7 @@ def save_gustos(gustos_dict: dict[str, list]) -> None:
     fh = open(GUSTO_PATH, "w", encoding="utf-8")
     for label, value in gustos_dict.items():
         fh.write(
-            f"{label},{value[0]},{value[1]},{value[2]},{value[3]},{value[4]},{value[5]},{value[6]}\n"
+            f"{label}~{value[0]}~{value[1]}~{value[2]}~{value[3]}~{value[4]}~{value[5]}~{value[6]}\n"
         )
     fh.close()
 

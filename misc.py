@@ -32,6 +32,35 @@ def raise_err(message: str) -> None:
     continue_prompt()
 
 
+def print_err(message: str) -> None:
+    """Prints an error message."""
+    print(f"{c.RED}  ERROR: {message}{c.END}")
+
+
 def load_colors() -> None:
     """Ensures that the terminal supports ANSI escape sequences."""
     os.system("")
+
+
+def check_window_size() -> None:
+    """Checks if the window size is at least 128 columns."""
+
+    while True:
+        clear_screen()
+        current_size_cols = os.get_terminal_size().columns
+        current_size_rows = os.get_terminal_size().lines
+        if current_size_cols < 128 or current_size_rows < 22:
+            message = (
+                f"{c.C1}═══════════════════════════════════════════════════\n"
+                "        Please resize your window to ensure        \n"
+                "          you get the intended experience          \n"
+                f"═══════════════════════════════════════════════════{c.CE}\n"
+            )
+            if current_size_cols < 128:
+                message += f"{c.RED}  Columns: {current_size_cols} < 128 {c.CE}\n"
+            if current_size_rows < 22:
+                message += f"{c.RED}  Rows: {current_size_rows} < 22 {c.CE}\n"
+            print("".join(message), end="")
+            continue_prompt()
+        else:
+            break

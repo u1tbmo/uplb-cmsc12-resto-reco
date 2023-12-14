@@ -3,282 +3,356 @@ This module contains functions for getting user inputs and validating them.
 """
 
 # Local Module Imports
-from misc import raise_err
+from misc import print_err
+import colors as c
 
 # Global Variable
 cuisines_list = [
-    "African", "American", "Filipino", "Korean", "Indian", "Chinese",
-    "Middle Eastern", "Thai", "Japanese", "Mediterranean", "Italian",
-    "French", "British", "Spanish", "Malaysian", "Mixed"
+    "None",
+    "Filipino",
+    "American",
+    "Japanese",
+    "Korean",
+    "Indian",
+    "Thai",
+    "Chinese",
+    "Malaysian",
+    "Mediterranean",
+    "Middle Eastern",
+    "Italian",
+    "French",
+    "German",
+    "British",
+    "Spanish",
+    "African",
 ]
 
-
-def get_string(prompt: str, optional: bool = False) -> tuple[bool, str]:
-    """Gets a string input from the user.
-
-    Args:
-        prompt (str): the prompt to be displayed
-        optional (bool): specifies if the input is optional
-
-    Returns:
-        tuple[bool, str]: the success state and the input
-    """
-    user_input = input(prompt).strip()
-    if "," in user_input:
-        raise_err("Input cannot contain commas!")
-        return False, ""
-    elif not user_input and optional:
-        return True, "Any"
-    elif not user_input and not optional:
-        raise_err("Input cannot be empty!")
-        return False, ""
-    elif user_input:
-        return True, user_input
-    else:
-        raise_err("Input cannot be empty!")
-        return False, ""
+meal_types_sorter = {
+    "B": 0,
+    "L": 1,
+    "D": 2,
+}
 
 
-def get_cuisine(prompt: str, optional) -> tuple[bool, str]:
-    """Gets a string (cuisine) from the user.
-
-    Args:
-        prompt (str): the prompt to be displayed
-
-    Returns:
-        tuple[bool, str]: the success state and the input
-    """
-    user_input = input(prompt).strip()
-    if "," in user_input:
-        raise_err("Input cannot contain commas!")
-        return False, ""
-    elif user_input.capitalize() not in cuisines_list:
-        raise_err("Input is not a valid cuisine!")
-        return False, ""
-    elif not user_input and optional:
-        return True, "Any"
-    elif not user_input and not optional:
-        raise_err("Input cannot be empty!")
-        return False, ""
-    elif user_input:
-        return True, user_input
-    else:
-        raise_err("Input cannot be empty!")
-        return False, ""
-
-
-def get_positive_int(prompt: str) -> tuple[bool, int]:
-    """Gets a positive integer input from the user.
-
-    Args:
-        prompt (str): the prompt to be displayed
-        optional (bool): specifies if the input is optional
-
-    Returns:
-        tuple[bool, int]: the success state and the input
-    """
-    user_input = input(prompt)
-    if not user_input.isdigit():
-        raise_err("Input must be a positive number!")
-        return False, 0
-    elif int(user_input) <= 0:
-        raise_err("Input must be greater than 0!")
-        return False, 0
-    else:
-        return True, int(user_input)
+def print_valid_cuisines() -> None:
+    print(
+        "═══════════════════════════════════════════════════\n",
+        f"{c.C1}                   Valid Cuisines                  {c.CE}\n",
+        "═══════════════════════════════════════════════════\n",
+        sep="",
+        end="",
+    )
+    for i in range(0, len(cuisines_list), 3):
+        try:
+            cuisine1 = cuisines_list[i]
+            cuisine2 = cuisines_list[i + 1]
+            cuisine3 = cuisines_list[i + 2]
+        except IndexError:
+            try:
+                cuisine1 = cuisines_list[i]
+                cuisine2 = cuisines_list[i + 1]
+                cuisine3 = ""
+            except IndexError:
+                cuisine1 = cuisines_list[i]
+                cuisine2 = ""
+                cuisine3 = ""
+        print(
+            f"  {cuisine1:<14} {cuisine2:<14} {cuisine3:<14}  \n",
+            sep="",
+            end="",
+        )
+    print("═══════════════════════════════════════════════════")
 
 
-def get_positive_float(prompt: str, optional: bool = False) -> tuple[bool, float]:
-    """Gets a positive float input from the user.
-
-    Args:
-        prompt (str): the prompt to be displayed
-        optional (bool): specifies if the input is optional
-
-    Returns:
-        tuple[bool, float]: the success state and the input
-    """
-    user_input = input(prompt)
-    if user_input:
-        return True, float(user_input)
-    if not user_input and optional:
-        return True, -1
-    if not user_input.replace(".", "", 1).isdigit():
-        raise_err("Input must be a positive number!")
-        return False, 0.0
-    elif float(user_input) <= 0:
-        raise_err("Input must be greater than 0!")
-        return False, 0.0
+def get_string(prompt: str, required: bool = True) -> str:
+    while True:
+        string = input(prompt).strip()
+        if required and string == "":
+            print_err("Input cannot be blank.")
+            continue
+        else:
+            return string
 
 
-def get_valid_meal_type(prompt: str) -> tuple[bool, str]:
-    """Gets a valid meal type input from the user.
-
-    Args:
-        prompt (str): the prompt to be displayed
-
-    Returns:
-        tuple[bool, str]: the success state and the input
-    """
-    user_input = input(prompt)
-    if user_input.upper().strip() in ["BREAKFAST", "LUNCH", "DINNER"]:
-        return True, user_input.upper().strip()
-    else:
-        raise_err("Input must be Breakfast, Lunch, or Dinner!")
-        return False, ""
-
-
-def get_valid_rating(prompt: str, optional: bool = False) -> tuple[bool, int]:
-    """Gets a valid rating input from the user.
-
-    Args:
-        prompt (str): the prompt to be displayed
-        optional (bool): specifies if the input is optional
-
-    Returns:
-        tuple[bool, int]: the success state and the input
-    """
-    user_input = input(prompt)
-    if user_input:
-        return True, int(user_input)
-    elif not user_input and optional:
-        return True, -1
-    if not user_input.isdigit():
-        raise_err("Input must be an integer between 1 and 5!")
-        return False, 0
-    elif int(user_input) < 1 or int(user_input) > 5:
-        raise_err("Input must be an integer between 1 and 5!")
-        return False, 0
+def get_integer(prompt: str, required: bool = True) -> int:
+    while True:
+        integer = input(prompt).strip()
+        if required and integer == "":
+            print_err("Input cannot be blank.")
+            continue
+        elif not required and integer == "":
+            return None
+        try:
+            integer = int(integer)
+            if integer <= 0:
+                print_err("Input must be greater than 0.")
+                continue
+            else:
+                return integer
+        except ValueError:
+            print_err("Input must be an integer.")
+            continue
 
 
-def edit_string(
-    prompt: str, existing_value: str, optional: bool = False
-) -> tuple[bool, str]:
-    """Edits a string input from the user.
-
-    Args:
-        prompt (str): the prompt to be displayed
-        existing_value (str): the existing value to return if the input is empty
-        optional (bool): specifies if the input is optional
-
-    Returns:
-        tuple[bool, str]: the success state and the input or the existing value
-    """
-    user_input = input(prompt).strip()
-    if "," in user_input:
-        raise_err("Input cannot contain commas!")
-        return False, ""
-    elif user_input.upper() == "ANY" and optional:
-        return True, "Any"
-    elif user_input.upper() == "ANY" and not optional:
-        raise_err("You cannot remove a required input!")
-        return False, ""
-    elif not user_input:
-        return True, existing_value
-    elif user_input:
-        return True, user_input
+def get_float(prompt: str, required: bool = True) -> float:
+    while True:
+        float_num = input(prompt).strip()
+        if required and float_num == "":
+            print_err("Input cannot be blank.")
+            continue
+        elif not required and float_num == "":
+            return None
+        try:
+            float_num = float(float_num)
+            if float_num <= 0:
+                print_err("Input must be greater than 0.")
+                continue
+            else:
+                return float_num
+        except ValueError:
+            print_err("Input must be a float.")
+            continue
 
 
-def edit_positive_int(prompt: str, existing_value: int) -> tuple[bool, int]:
-    """Edits a positive integer input from the user.
-
-    Args:
-        prompt (str): the prompt to be displayed
-        existing_value (int): the existing value to return if the input is empty
-
-    Returns:
-        tuple[bool, int]: the success state and the input or the existing value
-    """
-    user_input = input(prompt)
-    if not user_input and user_input.upper() != "ANY":
-        return True, existing_value
-    elif not user_input.isdigit():
-        raise_err("Input must be a positive number!")
-        return False, 0
-    elif int(user_input) <= 0:
-        raise_err("Input must be greater than 0!")
-        return False, 0
-    else:
-        return True, int(user_input)
+def get_meal_type(prompt: str, required: bool = True) -> str:
+    while True:
+        meal_type = input(prompt).strip().capitalize()
+        if required and meal_type == "":
+            print_err("Input cannot be blank.")
+            continue
+        elif not required and meal_type == "":
+            return None
+        elif meal_type not in ["Breakfast", "Lunch", "Dinner"]:
+            print_err("Input must be either Breakfast, Lunch, or Dinner.")
+            continue
+        else:
+            return meal_type
 
 
-def edit_positive_float(
-    prompt: str, existing_value: float, optional: bool = False
-) -> tuple[bool, float] | str:
-    """Edits a positive float input from the user.
-
-    Args:
-        prompt (str): the prompt to be displayed
-        existing_value (float): the existing value to return if the input is empty
-        optional (bool): specifies if the input is optional
-
-    Returns:
-        tuple[bool, float]: the success state and the input or the existing value
-    """
-    user_input = input(prompt)
-    if not user_input and user_input.upper() != "ANY":
-        return True, existing_value
-    elif user_input.upper() == "ANY" and optional:
-        return True, -1
-    elif user_input.upper() == "ANY" and not optional:
-        raise_err("You cannot remove a required input!")
-        return False, 0.0
-    elif not user_input.replace(".", "", 1).isdigit():
-        raise_err("Input must be a positive number!")
-        return False, 0.0
-    elif float(user_input) <= 0:
-        raise_err("Input must be greater than 0!")
-        return False, 0.0
-    elif user_input:
-        return True, float(user_input)
+def get_list_of_meal_types(prompt: str, required: bool = True) -> str:
+    while True:
+        meal_types = input(prompt).strip()
+        if required and meal_types == "":
+            print_err("Input cannot be blank.")
+            continue
+        elif not required and meal_types == "":
+            return None
+        meal_type_lst = []
+        for meal_type in meal_types.split(","):
+            meal_type = meal_type.strip().capitalize()
+            if meal_type in ["Breakfast", "Lunch", "Dinner"]:
+                meal_type_lst.append(meal_type[0])
+        if len(meal_type_lst) == 0:
+            print_err("Input must have at least one valid meal type.")
+            continue
+        else:
+            break
+    meal_type_lst.sort(key=lambda x: meal_types_sorter[x])
+    return "".join(meal_type_lst)
 
 
-def edit_valid_meal_type(prompt: str, existing_value: str) -> tuple[bool, str]:
-    """Edits a valid meal type input from the user.
-
-    Args:
-        prompt (str): the prompt to be displayed
-        existing_value (str): the existing value to return if the input is empty
-
-    Returns:
-        tuple[bool, str]: the success state and the input or the existing value
-    """
-    user_input = input(prompt).strip()
-    if not user_input and user_input.upper() != "ANY":
-        return True, existing_value
-    elif user_input.upper().strip() in ["BREAKFAST", "LUNCH", "DINNER"]:
-        return True, user_input.upper()
-    else:
-        raise_err("Input must be Breakfast, Lunch, or Dinner!")
-        return False, ""
+def get_cuisine_type(prompt: str, required: bool = True) -> str:
+    while True:
+        cuisine_type = input(prompt).strip().capitalize()
+        if required and cuisine_type == "":
+            print_err("Input cannot be blank.")
+            continue
+        elif not required and cuisine_type == "":
+            return None
+        elif cuisine_type not in cuisines_list:
+            print_err("Input must be a valid cuisine type.")
+            continue
+        else:
+            return cuisine_type
 
 
-def edit_valid_rating(
-    prompt: str, existing_value: float, optional: bool = False
-) -> tuple[bool, int | str]:
-    """Edits a valid rating input from the user.
+def get_list_of_cuisine_types(prompt: str, required: bool = True) -> str:
+    while True:
+        cuisine_types = input(prompt).strip()
+        if required and cuisine_types == "":
+            print_err("Input cannot be blank.")
+            continue
+        elif not required and cuisine_types == "":
+            return None
+        cuisine_type_list = []
+        for cuisine_type in cuisine_types.split(","):
+            cuisine_type = cuisine_type.strip().capitalize()
+            if cuisine_type in cuisines_list:
+                cuisine_type_list.append(cuisine_type)
+        if len(cuisine_type_list) == 0:
+            print_err("Input must have at least one valid cuisine type.")
+            continue
+        else:
+            break
+    return cuisine_type_list
 
-    Args:
-        prompt (str): the prompt to be displayed
-        existing_value (int): the existing value to return if the input is empty
-        optional (bool): specifies if the input is optional
 
-    Returns:
-        tuple[bool, int]: the success state and the input or the existing value
-    """
-    user_input = input(prompt)
-    if not user_input and user_input.upper() != "ANY":
-        return True, existing_value
-    elif user_input.upper() == "ANY" and optional:
-        return True, -1
-    elif user_input.upper() == "ANY" and not optional:
-        raise_err("You cannot remove a required input!")
-        return False, 0.0
-    elif not user_input.replace(".", "", 1).isdigit():
-        raise_err("Input must be a positive number!")
-        return False, 0.0
-    elif int(user_input) < 1 or int(user_input) > 5:
-        raise_err("Input must be between 1 and 5!")
-        return False, 0.0
-    elif user_input:
-        return True, int(user_input)
+def get_rating(prompt: str, required: bool = True) -> float:
+    while True:
+        rating = input(prompt).strip()
+        if required and rating == "":
+            print_err("Input cannot be blank.")
+            continue
+        elif not required and rating == "":
+            return None
+        try:
+            rating = float(rating)
+            if rating < 1 or rating > 5:
+                print_err("Input must be between 1 and 5.")
+                continue
+            else:
+                return rating
+        except ValueError:
+            print_err("Input must be a float.")
+            continue
+
+
+def edit_string(prompt: str, old_value: str, required: bool = True) -> str:
+    while True:
+        string = input(prompt).strip()
+        if string == "":
+            return old_value
+        elif string.capitalize() == "Any" and not required:
+            return None
+        elif string.capitalize() == "Any" and required:
+            print_err("Input is required.")
+            continue
+        else:
+            return string
+
+
+def edit_integer(prompt: str, old_value: int, required: bool = True) -> int:
+    while True:
+        integer = input(prompt).strip()
+        if integer == "":
+            return old_value
+        elif integer.capitalize() == "Any" and not required:
+            return None
+        elif integer.capitalize() == "Any" and required:
+            print_err("Input is required.")
+            continue
+        try:
+            integer = int(integer)
+            if integer <= 0:
+                print_err("Input must be greater than 0.")
+                continue
+            else:
+                return integer
+        except ValueError:
+            print_err("Input must be an integer.")
+            continue
+
+
+def edit_float(prompt: str, old_value: float, required: bool = True) -> float:
+    while True:
+        float_num = input(prompt).strip()
+        if float_num == "":
+            return old_value
+        elif float_num.capitalize() == "Any" and not required:
+            return None
+        elif float_num.capitalize() == "Any" and required:
+            print_err("Input is required.")
+            continue
+        try:
+            float_num = float(float_num)
+            if float_num <= 0:
+                print_err("Input must be greater than 0.")
+                continue
+            else:
+                return float_num
+        except ValueError:
+            print_err("Input must be a float.")
+            continue
+
+
+def edit_meal_type(prompt: str, old_value: str, required: bool = True) -> str:
+    while True:
+        meal_type = input(prompt).strip().capitalize()
+        if meal_type == "":
+            return old_value
+        elif meal_type.capitalize() == "Any" and not required:
+            return None
+        elif meal_type.capitalize() == "Any" and required:
+            print_err("Input is required.")
+            continue
+        elif meal_type not in ["Breakfast", "Lunch", "Dinner"]:
+            print_err("Input must be either Breakfast, Lunch, or Dinner.")
+            continue
+        else:
+            return meal_type
+
+
+def edit_list_of_meal_types(prompt: str, old_value: str) -> str:
+    while True:
+        meal_types = input(prompt).strip()
+        if meal_types == "":
+            return old_value
+        meal_type_lst = []
+        for meal_type in meal_types.split(","):
+            meal_type = meal_type.strip().capitalize()
+            if meal_type in ["Breakfast", "Lunch", "Dinner"]:
+                meal_type_lst.append(meal_type[0])
+        if len(meal_type_lst) == 0:
+            print_err("Input must have at least one valid meal type.")
+            continue
+        else:
+            break
+    meal_type_lst.sort(key=lambda x: meal_types_sorter[x])
+    return "".join(meal_type_lst)
+
+
+def edit_cuisine_type(prompt: str, old_value: str, required: bool = True) -> str:
+    while True:
+        cuisine_type = input(prompt).strip().capitalize()
+        if cuisine_type == "":
+            return old_value
+        elif cuisine_type.capitalize() == "Any" and not required:
+            return None
+        elif cuisine_type.capitalize() == "Any" and required:
+            print_err("Input is required.")
+            continue
+        elif cuisine_type not in cuisines_list:
+            print_err("Input must be a valid cuisine type.")
+            continue
+        else:
+            return cuisine_type
+
+
+def edit_list_of_cuisine_types(prompt: str, old_value: str) -> str:
+    while True:
+        cuisine_types = input(prompt).strip()
+        if cuisine_types == "":
+            return old_value
+        cuisine_type_list = []
+        for cuisine_type in cuisine_types.split(","):
+            cuisine_type = cuisine_type.strip().capitalize()
+            if cuisine_type in cuisines_list:
+                cuisine_type_list.append(cuisine_type)
+        if len(cuisine_type_list) == 0:
+            print_err("Input must have at least one valid cuisine type.")
+            continue
+        else:
+            break
+    return cuisine_type_list
+
+
+def edit_rating(prompt: str, old_value: float, required: bool = True) -> float:
+    while True:
+        rating = input(prompt).strip()
+        if rating == "":
+            return old_value
+        elif rating.capitalize() == "Any" and not required:
+            return None
+        elif rating.capitalize() == "Any" and required:
+            print_err("Input is required.")
+            continue
+        try:
+            rating = float(rating)
+            if rating < 1 or rating > 5:
+                print_err("Input must be between 1 and 5.")
+                continue
+            else:
+                return rating
+        except ValueError:
+            print_err("Input must be a float.")
+            continue

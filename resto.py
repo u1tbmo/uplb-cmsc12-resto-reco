@@ -5,6 +5,7 @@ This module contains the functions for adding, editing, deleting, and displaying
 import user_inputs as ui
 from misc import clear_screen, continue_prompt, info, raise_err
 from colors import C1, C2, CE
+import colors as c
 
 # Global Variables / Constants
 NAME_LENGTH = 16
@@ -18,7 +19,7 @@ def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
         restos_dict (dict[str, list]): the dictionary of restos
     """
     distance = restos_dict[resto][0]
-    cuisine_type = restos_dict[resto][1].capitalize()
+    cuisine_type = ", ".join(restos_dict[resto][1])
     meal_type = restos_dict[resto][2]
     meal_types = ""
     for char in meal_type:
@@ -36,7 +37,7 @@ def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
     print(f"  Distance from UPLB gate: {distance} meters")
     print(f"  Cuisine Type: {cuisine_type}")
     print(f"  Meal Types: {meal_types}")
-    print(f"  Cost: {cost} pesos")
+    print(f"  Cost per Person: ₱{cost}")
     print(f"  Rating: {rating}")
 
 
@@ -52,31 +53,27 @@ def view_resto(restos_dict: dict[str, list]) -> None:
     clear_screen()
     display_restos_simple(restos_dict)
     print(
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         f"                     {C1}View Resto{CE}                    \n",
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
-    success, name = ui.get_string("  Enter name: ")
-    name = name.upper()
-    print("---------------------------------------------------")
-
-    if not success:
-        return
+    name = input("  Enter resto name: ").strip().upper()
+    print("═══════════════════════════════════════════════════")
     if name not in restos_dict:
         raise_err(f"Resto {name} does not exist!")
         return
     clear_screen()
     print(
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         f"                     {C1}View Resto{CE}                    \n",
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
     display_resto_details(name, restos_dict)
-    print("---------------------------------------------------")
+    print("═══════════════════════════════════════════════════")
     continue_prompt()
 
 
@@ -91,58 +88,30 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     """
     clear_screen()
     print(
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         f"                     {C1}Add Resto{CE}                     \n",
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
-    success, name = ui.get_string("  Enter name: ", False)
-    name = name.upper()
-    if not success:
-        return restos_dict
-    elif name in restos_dict:
+    name = ui.get_string("  Enter name: ").upper()
+
+    if name in restos_dict:
         raise_err(f"Resto {name} already exists.")
         return restos_dict
     elif len(name) > NAME_LENGTH:
         raise_err(f"Name cannot exceed {NAME_LENGTH} characters.")
         return restos_dict
 
-    success, distance = ui.get_positive_float(
-        "  Enter distance from UPLB gate (in meters): "
+    distance = ui.get_float("  Enter distance from UPLB gate (in meters): ")
+    info("For cuisine/s and meal types, enter a comma-separated list of values.")
+    ui.print_valid_cuisines()
+    cuisine_type = ui.get_list_of_cuisine_types(
+        "  Enter cuisine/s: "
     )
-    if not success:
-        return restos_dict
-
-    success, cuisine_type = ui.get_string("  Enter cuisine type: ")
-    cuisine_type = cuisine_type.upper()
-    if not success:
-        return restos_dict
-
-    info("Press [ENTER] if the Resto serves that meal type. Otherwise, enter [N].")
-    meal_type = ""
-    meal_types = ["breakfast", "lunch", "dinner"]
-    for meal in meal_types:
-        response = (
-            input(f"  This resto serves {meal.capitalize()} [Enter/N]: ")
-            .strip()
-            .upper()
-        )
-        if response != "N":
-            meal_type += meal[0].upper()  # Only gets the first letter
-    if meal_type == "":
-        raise_err("Resto must serve at least one meal type.")
-        return restos_dict
-
-    success, cost = ui.get_positive_float(
-        "  Enter typical cost of a meal (in pesos): ")
-    if not success:
-        return restos_dict
-
-    success, rating = ui.get_valid_rating("  Enter rating (1-5): ")
-    if not success:
-        return restos_dict
-
+    meal_type = ui.get_list_of_meal_types("  Enter meal type/s (Breakfast, Lunch, and/or Dinner): ")
+    cost = ui.get_float("  Enter typical cost of a meal (in pesos): ")
+    rating = ui.get_rating("  Enter rating (1-5): ")
     restos_dict[name] = [distance, cuisine_type, meal_type, cost, rating]
     info(f'Added Resto "{name}"')
     continue_prompt()
@@ -165,27 +134,25 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     display_restos_simple(restos_dict)
 
     print(
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         f"                     {C1}Edit Resto{CE}                    \n",
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
 
-    success, name = ui.get_string("  Enter name: ")
-    name = name.upper()
+    name = input("  Enter resto name: ").strip().upper()
     previous_name = name
-    if not success:
-        return restos_dict
-    elif name not in restos_dict:
-        raise_err(f"Resto {name} does not exist!")
+
+    if name not in restos_dict:
+        raise_err(f'Resto "{name}" does not exist!')
         return restos_dict
 
     clear_screen()
     print(
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         f"                     {C1}Edit Resto{CE}                    \n",
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
@@ -193,66 +160,35 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     distance, cuisine_type, meal_type, cost, rating = restos_dict[name]
 
     display_resto_details(name, restos_dict)
-    print("---------------------------------------------------")
-    info("Press [ENTER] to keep current value.")
-    print("---------------------------------------------------")
+    print("═══════════════════════════════════════════════════")
+    info(f"Press [ENTER] to keep current value.")
+    print("═══════════════════════════════════════════════════")
 
-    success, name = ui.edit_string(f"  Edit name [{name}]: ", name)
+    name = ui.edit_string("  Enter name: ", name)
     name = name.upper()
-    if not success:
-        return restos_dict
-    elif name in restos_dict and previous_name != name:
+    if name in restos_dict and previous_name != name:
         raise_err(f"Resto {name} already exists.")
         return restos_dict
-
-    success, distance = ui.edit_positive_float(
-        f"  Edit distance from UPLB gate (in meters) [{distance}]: ", distance
+    distance = ui.edit_float(
+        "  Enter distance from UPLB gate (m): ", distance
     )
-    if not success:
-        return restos_dict
-
-    success, cuisine_type = ui.edit_string(
-        f"  Edit cuisine type [{cuisine_type}]: ", cuisine_type
+    info("For cuisine types and meal types, enter a comma-separated list of values.")
+    ui.print_valid_cuisines()
+    cuisine_type = ui.edit_list_of_cuisine_types(
+        "  Enter cuisine type/s: ", cuisine_type
     )
-    cuisine_type = cuisine_type.upper()
-    if not success:
-        return restos_dict
-
-    meal_type = ""
-    meal_types = ["breakfast", "lunch", "dinner"]
-    for meal in meal_types:
-        response = (
-            input(f"  This resto serves {meal.capitalize()} [Enter/N]: ")
-            .strip()
-            .upper()
-        )
-        if response != "N":
-            meal_type += meal[0].upper()  # Only gets the first letter
-    if meal_type == "":
-        raise_err("Resto must serve at least one meal type.")
-        return restos_dict
-
-    success, cost = ui.edit_positive_float(
-        f"  Edit typical cost of a meal (in pesos)[{cost}]: ", cost
+    meal_type = ui.edit_list_of_meal_types(
+        "  Enter meal type/s (Breakfast, Lunch, and/or Dinner): ", meal_type
     )
-    if not success:
-        return restos_dict
-
-    success, rating = ui.edit_valid_rating(
-        f"  Edit rating (1-5) [{cost}]: ", rating)
-    if not success:
-        return restos_dict
-
+    cost = ui.edit_float("  Enter typical cost of a meal: ", cost)
+    rating = ui.edit_rating("  Enter rating (1-5): ", rating)
     restos_dict[name] = [distance, cuisine_type, meal_type, cost, rating]
-
     if previous_name != name:
         info(f'Edited Resto "{previous_name} to {name}"')
     else:
         info(f'Edited Resto "{name}"')
-
     if previous_name != name:
         del restos_dict[previous_name]
-
     continue_prompt()
     return restos_dict
 
@@ -273,33 +209,29 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     clear_screen()
     display_restos_simple(restos_dict)
     print(
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         f"                    {C1}Delete Resto{CE}                   \n",
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
 
-    success, name = ui.get_string("  Enter name: ")
-    name = name.upper()
-    print("---------------------------------------------------")
-
-    if not success:
-        return restos_dict
+    name = input("  Enter resto name: ").strip().upper()
+    print("═══════════════════════════════════════════════════")
     if name not in restos_dict:
-        raise_err(f"Resto {name} does not exist!")
+        raise_err(f'Resto "{name}" does not exist!')
         return restos_dict
     clear_screen()
     print(
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         f"                    {C1}Delete Resto{CE}                   \n",
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
     display_resto_details(name, restos_dict)
-    print("---------------------------------------------------")
-    print(f'  Are you sure you want to delete "{name}"?')
+    print("═══════════════════════════════════════════════════")
+    print(f"{c.RED}  Are you sure you want to delete {name}?{c.END}")
     print("  [Y] Yes")
     print("  [Any Key] No")
     choice = input("  Enter choice: ").upper()
@@ -314,61 +246,75 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
 
 
 def display_restos_simple(restos_dict: dict[str, list]) -> None:
-    """Displays the restos in the restos dictionary.
+    """Displays the gusto labels and their descriptions.
 
     Args:
-        restos_dict (dict[str, list]): the dictionary of restos
+        restos_dict (dict[str, list]): the dictionary of gustos
     """
     if not restos_dict:
-        raise_err("No restos to display. Add a resto!")
+        raise_err("No restos to display! Add a resto!")
+        clear_screen()
         return
     print(
-        "---------------------------------------------------\n",
-        f"                       {C1}Restos{CE}                      \n",
-        "---------------------------------------------------\n",
-        f"{C2}        Name                    Cuisine            {CE}\n",
-        "---------------------------------------------------\n",
+        "═══════════════════════════════════════════════════\n",
+        f"{C1}                       Restos                      {CE}\n",
+        "═══════════════════════════════════════════════════\n",
+        "        Name                   Cuisines            \n",
+        "═══════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
-    for name, value in restos_dict.items():
-        print(f"  {name:>16}   {value[1].capitalize():<28}  ")
-    print("---------------------------------------------------")
+    for resto in restos_dict:
+        name = resto
+        list_of_cuisines = restos_dict[resto][1]
+        print(f"  {name:<16}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<28}")
+        for idx, cuisine in enumerate(list_of_cuisines[1:]):
+            cuisine = f"├ {cuisine}" if idx != len(list_of_cuisines[1:]) - 1 else f"└ {cuisine}"
+            print(f"  {'':<16}   {cuisine:<28}")
 
 
-def display_restos_detailed(restos_dict: dict[str, list]) -> None:
-    """Displays the restos in the restos dictionary with more detail.
+def display_restos(restos_dict: dict[str, list]) -> None:
+    """Displays the gustos in the gustos dictionary.
 
     Args:
-        restos_dict (dict[str, list]): the dictionary of restos
+        restos_dict (dict[str, list]): the dictionary of gustos
     """
     if not restos_dict:
-        raise_err("No restos to display. Add a resto!")
+        raise_err("No restos to display! Add a resto!")
+        clear_screen()
         return
     print(
-        "-------------------------------------------------------------------------------------------------------------------\n",
-        f"                                                      {C1}Restos{CE}                                                       \n",
-        "-------------------------------------------------------------------------------------------------------------------\n",
-        f"{C2}        Name         Distance from UPLB Gate      Cuisine             Meal Types             Cost        Rating    {CE}\n",
-        "-------------------------------------------------------------------------------------------------------------------\n",
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        f"{C1}                                                  Restos                                                {CE}\n",
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        f"{C2}        Name           Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         sep="",
         end="",
     )
-    for name, value in restos_dict.items():
+    for resto in restos_dict:
+        label = resto
+        distance = f"{restos_dict[resto][0]:.2f}m"
+        list_of_cuisines = restos_dict[resto][1]
+        meal_type = restos_dict[resto][2]
         meal_types = ""
-        for choice in value[2]:
-            if choice == "B":
+        for char in meal_type:
+            if char == "B":
                 meal_types += "Breakfast, "
-            elif choice == "L":
+            elif char == "L":
                 meal_types += "Lunch, "
-            elif choice == "D":
+            elif char == "D":
                 meal_types += "Dinner, "
         meal_types = meal_types.rstrip(", ")
-        cost = f"₱{value[3]:.2f}"
-        rating = f"{value[4]} / 5"
+        cost = f"₱{restos_dict[resto][3]:.2f}"
+        rating = f"{restos_dict[resto][4]:.1f}"
         print(
-            f"  {name:<16}   {value[0]:>22.2f}m   {value[1].capitalize():^13}   {meal_types:^24}   {cost:>10}   {rating:^10}  "
+            f"  {label:<16}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
         )
+        for idx, cuisine in enumerate(list_of_cuisines[1:]):
+            cuisine = f"├ {cuisine}" if idx != len(list_of_cuisines[1:]) - 1 else f"└ {cuisine}"
+            filler = f""
+            print(f"  {filler:<16}   {filler:<12}   {cuisine:<16}   {filler:<26}   {filler:>10}   {filler:^6}  ")
     print(
-        "-------------------------------------------------------------------------------------------------------------------"
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════"
     )
