@@ -173,23 +173,27 @@ def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         match choice:
             case "1":
                 g.add_gustos(gustos_dict)
+                break
             case "2":
                 g.edit_gustos(gustos_dict)
+                break
             case "3":
                 g.delete_gustos(gustos_dict)
+                break
             case "4":
                 clear_screen()
                 g.display_gustos(gustos_dict)
                 if gustos_dict:
                     continue_prompt()
+                break
             case "5":
                 g.view_gusto(gustos_dict)
+                break
             case "B" | "b":
                 break
             case _:
                 raise_err("Invalid choice!")
                 continue
-        break
     return gustos_dict
 
 
@@ -202,28 +206,32 @@ def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     Returns:
         dict[str, list]: the dictionary of restos after possible changes
     """
-    choice = print_resto_menu()
     while True:
+        choice = print_resto_menu()
         match choice:
             case "1":
                 r.add_restos(restos_dict)
+                break
             case "2":
                 r.edit_restos(restos_dict)
+                break
             case "3":
                 r.delete_restos(restos_dict)
+                break
             case "4":
                 clear_screen()
                 r.display_restos(restos_dict)
                 if restos_dict:
                     continue_prompt()
+                    break
             case "5":
                 r.view_resto(restos_dict)
+                break
             case "B" | "b":
                 break
             case _:
                 raise_err("Invalid choice!")
                 continue
-        break
     return restos_dict
 
 
@@ -232,8 +240,8 @@ def main() -> None:
     load_colors()
     sl.load(restos, gustos)
     check_window_size()
-    clear_screen()
     while True:
+        clear_screen()
         choice = print_main_menu()
         match choice:
             case "X" | "x":
