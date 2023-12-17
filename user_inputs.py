@@ -9,7 +9,7 @@ import misc as m
 
 # Global Variable
 cuisines_list = [
-    "No cuisine",
+    "Fast Food",
     "Filipino",
     "American",
     "Japanese",
