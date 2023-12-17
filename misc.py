@@ -76,5 +76,5 @@ def capitalize_words(string: str) -> None:
         return ""
     words = string.split(" ")
     for idx, word in enumerate(words):
-        words[idx] = word[0].upper() + word[1:]
+        words[idx] = word.capitalize()
     return " ".join(words)
