@@ -180,14 +180,14 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
     min_rating = gusto[1][6] if gusto[1][6] != None else "Any"
 
     if gusto[0] != None:
-        print(f"  Gusto Label: {label}")
-        print(f"  Description: {description}")
-    print(f"  Number of People: {group_size}")
-    print(f"  Meal Type: {meal_type}")
-    print(f"  Budget: {budget}")
-    print(f"  Maximum Distance: {max_distance}")
-    print(f"  Cuisine Type: {cuisine_type}")
-    print(f"  Minimum Rating: {min_rating}")
+        print(f"  {C1}Gusto Label:{CE} {label}")
+        print(f"  {C1}Description:{CE} {description}")
+    print(f"  {C1}Number of People:{CE} {group_size}")
+    print(f"  {C1}Meal Type:{CE} {meal_type}")
+    print(f"  {C1}Budget:{CE} {budget}")
+    print(f"  {C1}Maximum Distance:{CE} {max_distance}")
+    print(f"  {C1}Cuisine Type:{CE} {cuisine_type}")
+    print(f"  {C1}Minimum Rating:{CE} {min_rating}")
     if not recos:
         print(
             "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
