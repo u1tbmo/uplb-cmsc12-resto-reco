@@ -184,7 +184,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     rating = ui.edit_rating("  Enter rating (1-5): ", rating)
     restos_dict[name] = [distance, cuisine_type, meal_type, cost, rating]
     if previous_name != name:
-        info(f'Edited Resto "{previous_name} to {name}"')
+        info(f'Edited Resto "{previous_name}" to "{name}"')
     else:
         info(f'Edited Resto "{name}"')
     if previous_name != name:
