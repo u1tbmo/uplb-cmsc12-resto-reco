@@ -1,6 +1,11 @@
 """
 This file contains the color codes for the terminal output.
 """
+
+# Using ANSI escape sequences, we can format the text and change the color of the text and background.
+# Stack Overflow: https://stackoverflow.com/a/39452138
+# Wikipedia: https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+
 # Text Formatting
 END = "\33[0m"
 BOLD = "\33[1m"

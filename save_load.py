@@ -5,12 +5,13 @@ This file contains the functions for saving and loading the restos and gustos.
 # Standard Library Import
 import os
 
-# Paths for the data files
+# Data Paths
 file_dir = os.path.dirname(__file__)
 DATA_PATH = os.path.join(file_dir, "data")
 RESTO_PATH = os.path.join(DATA_PATH, "resto.dat")
 GUSTO_PATH = os.path.join(DATA_PATH, "gusto.dat")
 
+# Creates a directory for data if it doesn't exist
 if not os.path.exists(DATA_PATH):
     os.mkdir(DATA_PATH)
 
@@ -25,8 +26,7 @@ def load_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         dict[str, list]: the dictionary of restos
     """
     # Create resto.dat if it doesn't exist
-    fh = open(RESTO_PATH, "a", encoding="utf-8")
-    fh.close()
+    open(RESTO_PATH, "a", encoding="utf-8").close()
 
     # Read resto.dat
     fh = open(RESTO_PATH, "r", encoding="utf-8")
@@ -53,7 +53,8 @@ def load_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         dict[str, list]: the dictionary of gustos
     """
     # Create gusto.dat if it doesn't exist
-    fh = open(GUSTO_PATH, "a", encoding="utf-8")
+    open(GUSTO_PATH, "a", encoding="utf-8").close()
+
     # Read gusto.dat
     fh = open(GUSTO_PATH, "r", encoding="utf-8")
     for line in fh:
@@ -91,6 +92,8 @@ def load(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> tuple:
     Returns:
         tuple: the dictionary of restos and gustos
     """
+
+    # This function simply calls load_restos and load_gustos
     restos_dict = load_restos(restos_dict)
     gustos_dict = load_gustos(gustos_dict)
     return (restos_dict, gustos_dict)
@@ -125,5 +128,13 @@ def save_gustos(gustos_dict: dict[str, list]) -> None:
 
 
 def save(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> None:
+    """Saves the restos and gustos to their respective files.
+
+    Args:
+        restos_dict (dict[str, list]): the dictionary of restos
+        gustos_dict (dict[str, list]): the dictionary of gustos
+    """
+
+    # This function simply calls save_restos and save_gustos
     save_restos(restos_dict)
     save_gustos(gustos_dict)
