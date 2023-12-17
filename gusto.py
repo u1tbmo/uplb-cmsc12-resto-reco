@@ -131,9 +131,6 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     )
     info("* indicates optional fields, press [ENTER] to skip")
     label = m.capitalize_words(ui.get_string("  Enter label: "))
-    if len(label) > LABEL_LENGTH:
-        raise_err(f"Label must be {LABEL_LENGTH} characters or less!")
-        return gustos_dict
     if label in gustos_dict:
         raise_err(f'Gusto "{label}" already exists!')
         return gustos_dict
@@ -211,9 +208,6 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     label = m.capitalize_words(ui.edit_string("  Enter label: ", label))
     if label in gustos_dict and previous_label != label:
         raise_err(f'Gusto "{label}" already exists!')
-        return gustos_dict
-    if len(label) > LABEL_LENGTH:
-        raise_err(f"Label must be {LABEL_LENGTH} characters or less!")
         return gustos_dict
     description = ui.edit_string("  Enter description: ", description)
     group_size = ui.edit_integer("  Enter group size: ", group_size)

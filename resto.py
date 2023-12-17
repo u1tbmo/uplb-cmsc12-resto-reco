@@ -97,10 +97,6 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     if name in restos_dict:
         raise_err(f"Resto {name} already exists.")
         return restos_dict
-    elif len(name) > NAME_LENGTH:
-        raise_err(f"Name cannot exceed {NAME_LENGTH} characters.")
-        return restos_dict
-
     distance = ui.get_float("  Enter distance from UPLB gate (in meters): ")
     info("For cuisine/s and meal types, enter a comma-separated list of values.")
     ui.print_valid_cuisines()
