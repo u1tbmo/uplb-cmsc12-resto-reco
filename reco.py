@@ -216,7 +216,7 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
         sep="",
         end="",
     )
-    for resto in restos_dict:
+    for resto in recos:
         name = resto if len(resto) <= 20 else resto[:17] + "..."
         distance = f"{restos_dict[resto][0]:.2f}m"
         list_of_cuisines = restos_dict[resto][1]
