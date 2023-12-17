@@ -60,7 +60,7 @@ def view_resto(restos_dict: dict[str, list]) -> None:
     name = m.capitalize_words(input("  Enter resto name: ").strip())
     print("═══════════════════════════════════════════════════")
     if name not in restos_dict:
-        raise_err(f"Resto {name} does not exist!")
+        raise_err(f'Resto "{name}" does not exist!')
         return
     clear_screen()
     print(
