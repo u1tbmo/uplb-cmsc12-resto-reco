@@ -248,21 +248,21 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
         raise_err("No restos to display! Add a resto!")
         return
     print(
-        "═══════════════════════════════════════════════════\n",
-        f"{C1}                       Restos                      {CE}\n",
-        "═══════════════════════════════════════════════════\n",
-        f"{C2}{c.ITALIC}          Name                   Cuisines          {CE}\n",
-        "───────────────────────────────────────────────────\n",
+        "════════════════════════════════════════════════════════════════════════════\n",
+        f"{C1}                                   Restos                                  {CE}\n",
+        "════════════════════════════════════════════════════════════════════════════\n",
+        f"{C2}{c.ITALIC}                Name                               Cuisines                {CE}\n",
+        "────────────────────────────────────────────────────────────────────────────\n",
         sep="",
         end="",
     )
     for resto in restos_dict:
-        name = resto if len(resto) <= 20 else resto[:17] + "..."
+        name = resto if len(resto) <= 32 else resto[:29] + "..."
         list_of_cuisines = restos_dict[resto][1]
-        print(f"  {name:<20}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<26}")
+        print(f"  {name:<20}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<36}")
         for idx, cuisine in enumerate(list_of_cuisines[1:]):
             cuisine = f"├ {cuisine}" if idx != len(list_of_cuisines[1:]) - 1 else f"└ {cuisine}"
-            print(f"  {'':<20}   {cuisine:<26}")
+            print(f"  {'':<32}   {cuisine:<36}")
 
 
 def display_restos(restos_dict: dict[str, list]) -> None:
