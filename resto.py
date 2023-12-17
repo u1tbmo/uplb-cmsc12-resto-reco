@@ -9,7 +9,7 @@ import colors as c
 import misc as m
 
 # Global Variables / Constants
-NAME_LENGTH = 16
+NAME_LENGTH = 20
 
 
 def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
@@ -258,7 +258,7 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
         "═══════════════════════════════════════════════════\n",
         f"{C1}                       Restos                      {CE}\n",
         "═══════════════════════════════════════════════════\n",
-        f"{C2}{c.ITALIC}        Name                   Cuisines            {CE}\n",
+        f"{C2}{c.ITALIC}          Name                   Cuisines          {CE}\n",
         "───────────────────────────────────────────────────\n",
         sep="",
         end="",
@@ -266,10 +266,10 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
     for resto in restos_dict:
         name = resto
         list_of_cuisines = restos_dict[resto][1]
-        print(f"  {name:<16}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<28}")
+        print(f"  {name:<20}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<26}")
         for idx, cuisine in enumerate(list_of_cuisines[1:]):
             cuisine = f"├ {cuisine}" if idx != len(list_of_cuisines[1:]) - 1 else f"└ {cuisine}"
-            print(f"  {'':<16}   {cuisine:<28}")
+            print(f"  {'':<20}   {cuisine:<26}")
 
 
 def display_restos(restos_dict: dict[str, list]) -> None:
@@ -283,11 +283,11 @@ def display_restos(restos_dict: dict[str, list]) -> None:
         return
     clear_screen()
     print(
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{C1}                                                  Restos                                                {CE}\n",
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{C2}{c.ITALIC}        Name           Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
-        "─────────────────────────────────────────────────────────────────────────────────────────────────────────\n",
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        f"{C1}                                                    Restos                                                  {CE}\n",
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        f"{C2}{c.ITALIC}          Name             Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
+        "─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n",
         sep="",
         end="",
     )
@@ -308,12 +308,12 @@ def display_restos(restos_dict: dict[str, list]) -> None:
         cost = f"₱{restos_dict[resto][3]:.2f}"
         rating = f"{restos_dict[resto][4]:.1f}"
         print(
-            f"  {name:<16}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
+            f"  {name:<20}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
         )
         for idx, cuisine in enumerate(list_of_cuisines[1:]):
             cuisine = f"├ {cuisine}" if idx != len(list_of_cuisines[1:]) - 1 else f"└ {cuisine}"
             filler = f""
-            print(f"  {filler:<16}   {filler:<12}   {cuisine:<16}   {filler:<26}   {filler:>10}   {filler:^6}  ")
+            print(f"  {filler:<20}   {filler:<12}   {cuisine:<16}   {filler:<26}   {filler:>10}   {filler:^6}  ")
     print(
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════"
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     )

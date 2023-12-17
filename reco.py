@@ -119,6 +119,9 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     choice = input("  Enter choice: ")
     match choice:
         case "1":
+            if not gustos_dict:
+                m.raise_err("No Gustos to get Recos from! Add some Gustos first!")
+                return
             m.clear_screen()
             print(
                 "═══════════════════════════════════════════════════\n",

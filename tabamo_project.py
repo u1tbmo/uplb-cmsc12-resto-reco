@@ -173,21 +173,16 @@ def manage_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         match choice:
             case "1":
                 g.add_gustos(gustos_dict)
-                break
             case "2":
                 g.edit_gustos(gustos_dict)
-                break
             case "3":
                 g.delete_gustos(gustos_dict)
-                break
             case "4":
                 g.display_gustos(gustos_dict)
                 if gustos_dict:
                     continue_prompt()
-                break
             case "5":
                 g.view_gusto(gustos_dict)
-                break
             case "B" | "b":
                 break
             case _:
@@ -210,21 +205,16 @@ def manage_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         match choice:
             case "1":
                 r.add_restos(restos_dict)
-                break
             case "2":
                 r.edit_restos(restos_dict)
-                break
             case "3":
                 r.delete_restos(restos_dict)
-                break
             case "4":
                 r.display_restos(restos_dict)
                 if restos_dict:
                     continue_prompt()
-                    break
             case "5":
                 r.view_resto(restos_dict)
-                break
             case "B" | "b":
                 break
             case _:

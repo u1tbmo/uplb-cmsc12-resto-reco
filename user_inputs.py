@@ -212,7 +212,7 @@ def get_cuisine_type(prompt: str, required: bool = True) -> str:
         str: The cuisine from the user.
     """
     while True:
-        cuisine_type = input(prompt).strip().capitalize()
+        cuisine_type = m.capitalize_words(input(prompt).strip())
         if required and cuisine_type == "":
             print_err("Input cannot be blank.")
             continue
@@ -244,7 +244,7 @@ def get_list_of_cuisine_types(prompt: str, required: bool = True) -> list:
             return None
         cuisine_type_list = []
         for cuisine_type in cuisine_types.split(","):
-            cuisine_type = cuisine_type.strip().capitalize()
+            cuisine_type = m.capitalize_words(cuisine_type.strip())
             if cuisine_type in cuisines_list:
                 cuisine_type_list.append(cuisine_type)
             else:
@@ -443,7 +443,7 @@ def edit_cuisine_type(prompt: str, old_value: str, required: bool = True) -> str
         str | None: The edited cuisine or None.
     """
     while True:
-        cuisine_type = input(prompt).strip().capitalize()
+        cuisine_type = m.capitalize_words(input(prompt).strip())
         if cuisine_type == "":
             return old_value
         elif cuisine_type.capitalize() == "Any" and not required:
@@ -474,7 +474,7 @@ def edit_list_of_cuisine_types(prompt: str, old_value: list) -> list:
             return old_value
         cuisine_type_list = []
         for cuisine_type in cuisine_types.split(","):
-            cuisine_type = cuisine_type.strip().capitalize()
+            cuisine_type = m.capitalize_words(cuisine_type.strip())
             if cuisine_type in cuisines_list:
                 cuisine_type_list.append(cuisine_type)
             else:
