@@ -6,8 +6,9 @@ This module contains the functions for recommending restos.
 import random
 
 # Local Module Imports
-from misc import clear_screen, continue_prompt, raise_err
 import gusto as g
+import user_inputs as ui
+import misc as m
 from colors import C1, C2, CE, CD
 import colors as c
 
@@ -22,7 +23,11 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
     Returns:
         list: the list of recommended restos
     """
+
+    # Initalize the list of recommended restos
     recos = []
+
+    # Unpack the gusto details
     _, [
         _,
         group_size,
@@ -32,6 +37,8 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
         g_cuisine_type,
         min_rating,
     ] = gusto
+
+    # Iterate through the restos
     for name, [
         distance,
         r_cuisine_type,
@@ -39,6 +46,9 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
         cost,
         rating,
     ] in restos_dict.items():
+        # Check if a resto fulfills the requirements of the gusto
+        # If a resto fails to fulfill a requirement, continue to the next resto
+        # Otherwise, add the resto to the list of recommended restos
         meal_types = []
         for char in r_meal_type:
             if char == "B":
@@ -59,6 +69,7 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
             continue
         recos.append(name)
 
+    # Randomly pops a resto from the list until there are only 3 left
     while len(recos) > 3:
         recos.pop(random.randint(0, len(recos) - 1))
     return recos
@@ -71,10 +82,12 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         restos_dict (dict[str, list]): the dictionary of restos
         gustos_dict (dict[str, list]): the dictionary of gustos
     """
+
+    # Check if there are gustos and restos to reco
     if not restos_dict:
-        raise_err("No Restos to Reco! Add some Restos first!")
+        m.raise_err("No Restos to Reco! Add some Restos first!")
         return
-    clear_screen()
+    m.clear_screen()
     print(
         f"{CD}",
         "═══════════════════════════════════════════════════\n",
@@ -106,7 +119,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     choice = input("  Enter choice: ")
     match choice:
         case "1":
-            clear_screen()
+            m.clear_screen()
             print(
                 "═══════════════════════════════════════════════════\n",
                 f"         {C1}Get Reco/s from an Existing Gusto{CE}         \n",
@@ -116,24 +129,37 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
             )
             g.display_gustos_simple(gustos_dict)
             print("═══════════════════════════════════════════════════")
-            label = input("  Enter gusto label: ").strip().capitalize()
+            label = m.capitalize_words(input("  Enter gusto label: ").strip())
+
             if label not in gustos_dict:
-                raise_err(f'Gusto \"{label}\" does not exist!')
+                m.raise_err(f'Gusto "{label}" does not exist!')
                 return
+            
             gusto = (label, gustos_dict[label])
             recos = recommend_restos(restos_dict, gusto)
+
+            print_recos(gusto, recos, restos_dict)
         case "2":
             gusto = g.ad_hoc_gusto()
-            if gusto is None:
-                return
             recos = recommend_restos(restos_dict, gusto)
+
+            print_recos(gusto, recos, restos_dict)
         case "B" | "b":
-            clear_screen()
+            m.clear_screen()
             return
         case _:
-            raise_err("Invalid choice!")
+            m.raise_err("Invalid choice!")
             return
-    clear_screen()
+
+def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None:
+    """Prints the recos.
+
+    Args:
+        gusto (tuple): the gusto to be used for recommending restos
+        recos (list): the list of recommended restos
+        restos_dict (dict[str, list]): the dictionary of restos
+    """
+    m.clear_screen()
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
        f"{C1}                                                  Gusto                                                  {CE}\n",
@@ -178,7 +204,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
             sep="",
             end="",
         )
-        continue_prompt()
+        m.continue_prompt()
         return
     
     print(
@@ -216,4 +242,6 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════"
     )
-    continue_prompt()
+    m.continue_prompt()
+
+    

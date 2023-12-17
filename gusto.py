@@ -5,6 +5,7 @@ This module contains the functions for adding, editing, deleting, and displaying
 # Local Module Imports
 import user_inputs as ui
 from misc import clear_screen, continue_prompt, info, raise_err
+import misc as m
 from colors import C1, C2, CE
 import colors as c
 
@@ -60,7 +61,7 @@ def view_gusto(gustos_dict: dict[str, list]) -> None:
         sep="",
         end="",
     )
-    gusto = input("  Enter gusto label: ").strip().capitalize()
+    gusto = m.capitalize_words(input("  Enter gusto label: ").strip())
     if gusto not in gustos_dict:
         raise_err(f'Gusto "{gusto}" does not exist!')
         return
@@ -77,11 +78,11 @@ def view_gusto(gustos_dict: dict[str, list]) -> None:
     continue_prompt()
 
 
-def ad_hoc_gusto() -> tuple[str, list] | None:
+def ad_hoc_gusto() -> tuple[str, list]:
     """Prompts the user to enter the attributes of a gusto.
 
     Returns:
-        tuple | None: a tuple containing the label and attributes of the gusto
+        tuple: a tuple containing the label and attributes of the gusto
     """
     clear_screen()
     print(
@@ -96,6 +97,7 @@ def ad_hoc_gusto() -> tuple[str, list] | None:
     meal_type = ui.get_meal_type("  Enter meal type (Breakfast, Lunch, or Dinner): ")
     budget = ui.get_float("  *Enter budget: ", False)
     max_distance = ui.get_float("  *Enter maximum distance from UPLB: ", False)
+    ui.print_valid_cuisines()
     cuisine_type = ui.get_cuisine_type("  *Enter cuisine type: ", False)
     min_rating = ui.get_rating("  *Enter minimum rating (1-5): ", False)
 
@@ -131,7 +133,7 @@ def add_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         end="",
     )
     info("* indicates optional fields, press [ENTER] to skip")
-    label = ui.get_string("  Enter label: ").capitalize()
+    label = m.capitalize_words(ui.get_string("  Enter label: "))
     if len(label) > LABEL_LENGTH:
         raise_err(f"Label must be {LABEL_LENGTH} characters or less!")
         return gustos_dict
@@ -182,11 +184,11 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-    label = input("  Enter gusto label: ").capitalize()
+    label = m.capitalize_words(input("  Enter gusto label: "))
     if label not in gustos_dict:
         raise_err(f'Gusto "{label}" does not exist!')
         return gustos_dict
-    previous_label = label.capitalize()
+    previous_label = label
     (
         description,
         group_size,
@@ -209,7 +211,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     info("Press [ENTER] to keep current value.")
     info('* indicates optional fields, type "Any" to skip')
     print("═══════════════════════════════════════════════════")
-    label = ui.edit_string("  Enter label: ", label).capitalize()
+    label = m.capitalize_words(ui.edit_string("  Enter label: ", label))
     if label in gustos_dict and previous_label != label:
         raise_err(f'Gusto "{label}" already exists!')
         return gustos_dict
@@ -279,7 +281,7 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-    label = input("  Enter gusto label: ").capitalize()
+    label = m.capitalize_words(input("  Enter gusto label: "))
     print("═══════════════════════════════════════════════════")
     if label not in gustos_dict:
         raise_err(f'Gusto "{label}" does not exist!')
@@ -297,7 +299,7 @@ def delete_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     print(f"{c.RED}  Are you sure you want to delete {label}?{c.END}")
     print(f"  [Y] Yes")
     print(f"  [Any Key] No")
-    choice = input("  Enter choice: ").capitalize()
+    choice = m.capitalize_words(input("  Enter choice: "))
     if choice == "Y":
         del gustos_dict[label]
         info(f'Deleted Gusto "{label}"')

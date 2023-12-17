@@ -9,6 +9,7 @@ import misc as m
 
 # Global Variable
 cuisines_list = [
+    "No cuisine",
     "Filipino",
     "American",
     "Japanese",
@@ -27,6 +28,7 @@ cuisines_list = [
     "African",
 ]
 
+# Used for sorting meal types
 meal_types_sorter = {
     "B": 0,
     "L": 1,
