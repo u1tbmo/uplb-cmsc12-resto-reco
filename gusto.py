@@ -312,11 +312,11 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         raise_err("No gustos to display! Add a gusto!")
         return
     print(
-        "════════════════════════════════════════════════════════════════════════════\n",
-        f"{C1}                                   Gustos                                  {CE}\n",
-        "════════════════════════════════════════════════════════════════════════════\n",
-        f"{C2}{c.ITALIC}             Label                              Description                {CE}\n",
-        "────────────────────────────────────────────────────────────────────────────\n",
+        "═══════════════════════════════════════════════════\n",
+        f"                       Gustos                     \n",
+        "═══════════════════════════════════════════════════\n",
+        f"             Label              Description       \n",
+        "───────────────────────────────────────────────────\n",
         sep="",
         end="",
     )
@@ -324,8 +324,8 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         label = gusto if len(gusto) <= 27 else gusto[:24] + "..."
         description = (
             gustos_dict[gusto][0]
-            if len(gustos_dict[gusto][0]) <= 41
-            else gustos_dict[gusto][0][:38] + "..."
+            if len(gustos_dict[gusto][0]) <= 18
+            else gustos_dict[gusto][0][:15] + "..."
         )
         print(f"  {label:<27}   {description:<41}  ")
 
