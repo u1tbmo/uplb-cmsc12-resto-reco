@@ -8,9 +8,6 @@ from colors import C1, C2, CE
 import colors as c
 import misc as m
 
-# Global Variables / Constants
-NAME_LENGTH = 20
-
 
 def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
     """Displays the details of a resto
@@ -264,7 +261,7 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
         end="",
     )
     for resto in restos_dict:
-        name = resto
+        name = resto if len(resto) <= 20 else resto[:17] + "..."
         list_of_cuisines = restos_dict[resto][1]
         print(f"  {name:<20}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<26}")
         for idx, cuisine in enumerate(list_of_cuisines[1:]):
@@ -292,7 +289,7 @@ def display_restos(restos_dict: dict[str, list]) -> None:
         end="",
     )
     for resto in restos_dict:
-        name = resto
+        name = resto if len(resto) <= 20 else resto[:17] + "..."
         distance = f"{restos_dict[resto][0]:.2f}m"
         list_of_cuisines = restos_dict[resto][1]
         meal_type = restos_dict[resto][2]

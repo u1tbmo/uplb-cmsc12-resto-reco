@@ -208,16 +208,16 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
         return
     
     print(
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{C1}                                                  Recos                                                 {CE}\n",
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{C2}{c.ITALIC}        Name           Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
-        "─────────────────────────────────────────────────────────────────────────────────────────────────────────\n",
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        f"{C1}                                                    Restos                                                  {CE}\n",
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
+        f"{C2}{c.ITALIC}          Name             Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
+        "─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n",
         sep="",
         end="",
     )
-    for resto in recos:
-        label = resto
+    for resto in restos_dict:
+        name = resto if len(resto) <= 20 else resto[:17] + "..."
         distance = f"{restos_dict[resto][0]:.2f}m"
         list_of_cuisines = restos_dict[resto][1]
         meal_type = restos_dict[resto][2]
@@ -233,14 +233,14 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
         cost = f"₱{restos_dict[resto][3]:.2f}"
         rating = f"{restos_dict[resto][4]:.1f}"
         print(
-            f"  {label:<16}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
+            f"  {name:<20}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
         )
         for idx, cuisine in enumerate(list_of_cuisines[1:]):
             cuisine = f"├ {cuisine}" if idx != len(list_of_cuisines[1:]) - 1 else f"└ {cuisine}"
             filler = f""
-            print(f"  {filler:<16}   {filler:<12}   {cuisine:<16}   {filler:<26}   {filler:>10}   {filler:^6}  ")
+            print(f"  {filler:<20}   {filler:<12}   {cuisine:<16}   {filler:<26}   {filler:>10}   {filler:^6}  ")
     print(
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════"
+        "═════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     )
     m.continue_prompt()
 

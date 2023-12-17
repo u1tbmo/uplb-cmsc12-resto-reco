@@ -9,9 +9,6 @@ import misc as m
 from colors import C1, C2, CE
 import colors as c
 
-# Global Variables / Constants
-LABEL_LENGTH = 16
-
 
 def display_gusto_details(gusto: str, gustos_dict: dict[str, list]) -> None:
     """Displays the details of a gusto.
@@ -330,7 +327,7 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         end="",
     )
     for gusto in gustos_dict:
-        label = gusto
+        label = gusto if len(gusto) <= 16 else gusto[:13] + "..."
         description = (
             gustos_dict[gusto][0]
             if len(gustos_dict[gusto][0]) <= 27
@@ -359,7 +356,7 @@ def display_gustos(gustos_dict: dict[str, list]) -> None:
         end="",
     )
     for gusto in gustos_dict:
-        label = gusto
+        label = gusto if len(gusto) <= 16 else gusto[:13] + "..."
         description = (
             gustos_dict[gusto][0]
             if len(gustos_dict[gusto][0]) <= 31
