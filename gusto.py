@@ -214,7 +214,7 @@ def edit_gustos(gustos_dict: dict[str, list]) -> dict[str, list]:
     meal_type = ui.edit_meal_type(
         "  Enter meal type (Breakfast, Lunch, or Dinner): ", meal_type
     )
-    budget = ui.edit_float("  *Enter group budget: ", budget, True)
+    budget = ui.edit_float("  *Enter group budget: ", budget, False)
     max_distance = ui.edit_float(
         "  *Enter maximum distance from UPLB Gate (m): ",
         max_distance,
