@@ -324,7 +324,7 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         "═══════════════════════════════════════════════════\n",
         f"{C1}                       Gustos                      {CE}\n",
         "═══════════════════════════════════════════════════\n",
-        f"       Label                 Description          \n",
+        f"{C2}{c.ITALIC}       Label                 Description          {CE}\n",
         "───────────────────────────────────────────────────\n",
         sep="",
         end="",
