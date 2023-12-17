@@ -185,9 +185,6 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
     print(f"  Maximum Distance: {max_distance}")
     print(f"  Cuisine Type: {cuisine_type}")
     print(f"  Minimum Rating: {min_rating}")
-    print(
-        "═════════════════════════════════════════════════════════════════════════════════════════════════════════"
-    )
     if not recos:
         print(
             "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
