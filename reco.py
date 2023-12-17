@@ -174,8 +174,8 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
     description = gusto[1][0]
     group_size = gusto[1][1]
     meal_type = gusto[1][2].capitalize()
-    budget = gusto[1][3] if gusto[1][3] != None else "Any"
-    max_distance = gusto[1][4] if gusto[1][4] != None else "Any"
+    budget = f"₱{gusto[1][3]:.2f}" if gusto[1][3] != None else "Any"
+    max_distance = f"{gusto[1][4]:.2f} meters" if gusto[1][4] != None else "Any"
     cuisine_type = gusto[1][5] if gusto[1][5] != None else "Any"
     min_rating = gusto[1][6] if gusto[1][6] != None else "Any"
 
