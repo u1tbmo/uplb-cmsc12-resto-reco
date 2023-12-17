@@ -31,12 +31,12 @@ def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
     cost = restos_dict[resto][3]
     rating = restos_dict[resto][4]
 
-    print(f"  Name: {resto}")
-    print(f"  Distance from UPLB gate: {distance:.2f} meters")
-    print(f"  Cuisine Type: {cuisine_type}")
-    print(f"  Meal Types: {meal_types}")
-    print(f"  Cost per Person: ₱{cost:.2f}")
-    print(f"  Rating: {rating}")
+    print(f"  {C2}Name:{CE} {resto}")
+    print(f"  {C2}Distance from UPLB gate:{CE} {distance:.2f} meters")
+    print(f"  {C2}Cuisine Type:{CE} {cuisine_type}")
+    print(f"  {C2}Meal Types:{CE} {meal_types}")
+    print(f"  {C2}Cost per Person:{CE} ₱{cost:.2f}")
+    print(f"  {C2}Rating:{CE} {rating}")
 
 
 def view_resto(restos_dict: dict[str, list]) -> None:

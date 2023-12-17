@@ -30,14 +30,14 @@ def display_gusto_details(gusto: str, gustos_dict: dict[str, list]) -> None:
         gustos_dict[gusto][5].capitalize() if gustos_dict[gusto][5] != None else "Any"
     )
     min_rating = gustos_dict[gusto][6] if gustos_dict[gusto][6] != None else "Any"
-    print(f"  Gusto Label: {gusto}")
-    print(f"  Description: {description}")
-    print(f"  Number of People: {group_size}")
-    print(f"  Meal Type: {meal_type}")
-    print(f"  Budget: {budget}")
-    print(f"  Maximum Distance from UPLB Gate: {max_distance}")
-    print(f"  Cuisine Type: {cuisine_type}")
-    print(f"  Minimum Rating: {min_rating}")
+    print(f"  {C2}Gusto Label:{CE} {gusto}")
+    print(f"  {C2}Description:{CE} {description}")
+    print(f"  {C2}Number of People:{CE} {group_size}")
+    print(f"  {C2}Meal Type:{CE} {meal_type}")
+    print(f"  {C2}Budget:{CE} {budget}")
+    print(f"  {C2}Maximum Distance from UPLB Gate:{CE} {max_distance}")
+    print(f"  {C2}Cuisine Type:{CE} {cuisine_type}")
+    print(f"  {C2}Minimum Rating:{CE} {min_rating}")
 
 
 def view_gusto(gustos_dict: dict[str, list]) -> None:
@@ -313,9 +313,9 @@ def display_gustos_simple(gustos_dict: dict[str, list]) -> None:
         return
     print(
         "═══════════════════════════════════════════════════\n",
-        f"                       Gustos                     \n",
+        f"{C1}                       Gustos                     {CE}\n",
         "═══════════════════════════════════════════════════\n",
-        f"             Label              Description       \n",
+        f"{C2}{c.ITALIC}             Label              Description       {CE}\n",
         "───────────────────────────────────────────────────\n",
         sep="",
         end="",
