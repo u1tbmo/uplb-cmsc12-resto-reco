@@ -43,7 +43,7 @@ def load_colors() -> None:
 
 
 def check_window_size() -> None:
-    """Checks if the window size is at least 128 columns."""
+    """Checks if the window size is the intended size."""
 
     while True:
         clear_screen()
