@@ -5,6 +5,7 @@ This module contains functions for getting user inputs and validating them.
 # Local Module Imports
 from misc import print_err
 import colors as c
+import misc as m
 
 # Global Variable
 cuisines_list = [
@@ -187,6 +188,8 @@ def get_list_of_meal_types(prompt: str, required: bool = True) -> str:
             meal_type = meal_type.strip().capitalize()
             if meal_type in ["Breakfast", "Lunch", "Dinner"]:
                 meal_type_lst.append(meal_type[0])
+            else:
+                m.print_err(f"Discarding invalid meal type: {meal_type}")
         if len(meal_type_lst) == 0:
             print_err("Input must have at least one valid meal type.")
             continue
@@ -242,6 +245,8 @@ def get_list_of_cuisine_types(prompt: str, required: bool = True) -> list:
             cuisine_type = cuisine_type.strip().capitalize()
             if cuisine_type in cuisines_list:
                 cuisine_type_list.append(cuisine_type)
+            else:
+                m.print_err(f"Discarding invalid cuisine type: {cuisine_type}")
         if len(cuisine_type_list) == 0:
             print_err("Input must have at least one valid cuisine type.")
             continue
@@ -413,6 +418,8 @@ def edit_list_of_meal_types(prompt: str, old_value: str) -> str:
             meal_type = meal_type.strip().capitalize()
             if meal_type in ["Breakfast", "Lunch", "Dinner"]:
                 meal_type_lst.append(meal_type[0])
+            else:
+                m.print_err(f"Discarding invalid meal type: {meal_type}")
         if len(meal_type_lst) == 0:
             print_err("Input must have at least one valid meal type.")
             continue
@@ -468,6 +475,8 @@ def edit_list_of_cuisine_types(prompt: str, old_value: list) -> list:
             cuisine_type = cuisine_type.strip().capitalize()
             if cuisine_type in cuisines_list:
                 cuisine_type_list.append(cuisine_type)
+            else:
+                m.print_err(f"Discarding invalid cuisine type: {cuisine_type}")
         if len(cuisine_type_list) == 0:
             print_err("Input must have at least one valid cuisine type.")
             continue
