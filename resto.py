@@ -251,7 +251,7 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
         "═══════════════════════════════════════════════════\n",
         f"{C1}                       Restos                     {CE}\n",
         "═══════════════════════════════════════════════════\n",
-        f"{C2}{c.ITALIC}  Name                               Cuisines{CE}\n",
+        f"{C2}{c.ITALIC}                Name                 Cuisines{CE}\n",
         "───────────────────────────────────────────────────\n",
         sep="",
         end="",
