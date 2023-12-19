@@ -47,6 +47,8 @@ def print_valid_cuisines() -> None:
         sep="",
         end="",
     )
+    # This sets up a three column table for the cuisines.
+    # Try except is used to handle the case where there are less than 3 cuisines left.
     for i in range(0, len(cuisines_list), 3):
         try:
             cuisine1 = cuisines_list[i]
@@ -199,6 +201,9 @@ def get_list_of_meal_types(prompt: str, required: bool = True) -> str:
             continue
         else:
             break
+    # Sorts the meal types in the order of Breakfast, Lunch, Dinner
+    # This uses the dictionary meal_types_sorter to sort the meal types
+    # https://learnpython.com/blog/python-custom-sort-function/
     meal_type_lst.sort(key=lambda x: meal_types_sorter[x])
     return "".join(meal_type_lst)
 

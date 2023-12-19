@@ -48,7 +48,7 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
     ] in restos_dict.items():
         # Check if a resto fulfills the requirements of the gusto
         # If a resto fails to fulfill a requirement, continue to the next resto
-        # Otherwise, add the resto to the list of recommended restos
+        # Otherwise, append the resto to the list of recommended restos
         meal_types = []
         for char in r_meal_type:
             if char == "B":
@@ -69,9 +69,9 @@ def recommend_restos(restos_dict: dict[str, list], gusto: tuple) -> list:
             continue
         recos.append(name)
 
-    # Randomly pops a resto from the list until there are only 3 left
+    # Randomly removes a resto from the list until there are only 3 left
     while len(recos) > 3:
-        recos.pop(random.randint(0, len(recos) - 1))
+        recos.remove(random.choice(recos))
     return recos
 
 
@@ -83,7 +83,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         gustos_dict (dict[str, list]): the dictionary of gustos
     """
 
-    # Check if there are gustos and restos to reco
+    # Raise an error if there are no restos to recommend
     if not restos_dict:
         m.raise_err("No Restos to Reco! Add some Restos first!")
         return
@@ -119,6 +119,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
     choice = input("  Enter choice: ")
     match choice:
         case "1":
+            # Raise an error if there are no gustos to get recommendations from
             if not gustos_dict:
                 m.raise_err("No Gustos to get Recos from! Add some Gustos first!")
                 return
@@ -130,22 +131,33 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
                 sep="",
                 end="",
             )
+
+            # Prompt the user to choose a gusto
             g.display_gustos_simple(gustos_dict)
             print("═══════════════════════════════════════════════════")
             label = m.capitalize_words(input("  Enter gusto label: ").strip())
-
             if label not in gustos_dict:
                 m.raise_err(f'Gusto "{label}" does not exist!')
                 return
-            
+
+            # Assign the gusto to a variable "gusto" which is a tuple of the gusto label and the gusto details
             gusto = (label, gustos_dict[label])
+
+            # Get the recommended restos
             recos = recommend_restos(restos_dict, gusto)
 
+            # Print the recommended restos
             print_recos(gusto, recos, restos_dict)
         case "2":
+            # Ask the user for the gusto details
+            # The function ad_hoc_gusto() returns a tuple of the gusto label and the gusto details
+            # The label and description are None
             gusto = g.ad_hoc_gusto()
+
+            # Get the recommended restos
             recos = recommend_restos(restos_dict, gusto)
 
+            # Print the recommended restos
             print_recos(gusto, recos, restos_dict)
         case "B" | "b":
             m.clear_screen()
@@ -153,6 +165,7 @@ def get_recos(restos_dict: dict[str, list], gustos_dict: dict[str, list]) -> Non
         case _:
             m.raise_err("Invalid choice!")
             return
+
 
 def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None:
     """Prints the recos.
@@ -163,9 +176,10 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
         restos_dict (dict[str, list]): the dictionary of restos
     """
     m.clear_screen()
+    # Print the gusto details
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-       f"{C1}                                                    Gusto                                                    {CE}\n",
+        f"{C1}                                                    Gusto                                                    {CE}\n",
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         sep="",
         end="",
@@ -174,11 +188,15 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
     description = gusto[1][0]
     group_size = gusto[1][1]
     meal_type = gusto[1][2].capitalize()
+    # If the gusto details are None, print "Any" instead
     budget = f"₱{gusto[1][3]:.2f}" if gusto[1][3] != None else "Any"
     max_distance = f"{gusto[1][4]:.2f} meters" if gusto[1][4] != None else "Any"
     cuisine_type = gusto[1][5] if gusto[1][5] != None else "Any"
     min_rating = gusto[1][6] if gusto[1][6] != None else "Any"
 
+    # Do not print the gusto label and description if they are None
+    # A None label and description means that the gusto is an ad hoc gusto
+    # An ad hoc gusto is a gusto that is not saved in the gustos dictionary
     if gusto[0] != None:
         print(f"  {C2}Gusto Label:{CE} {label}")
         print(f"  {C2}Description:{CE} {description}")
@@ -188,6 +206,8 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
     print(f"  {C2}Maximum Distance:{CE} {max_distance}")
     print(f"  {C2}Cuisine Type:{CE} {cuisine_type}")
     print(f"  {C2}Minimum Rating:{CE} {min_rating}")
+
+    # If the recos list is empty, print a message saying that there are no recos
     if not recos:
         print(
             "═════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
@@ -206,10 +226,11 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
         )
         m.continue_prompt()
         return
-    
+
+    # Otherwise, print the recommended restos using the same display format as the restos
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
-        f"{C1}                                                    Restos                                                  {CE}\n",
+        f"{C1}                                                    Recos                                                   {CE}\n",
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════════\n",
         f"{C2}{c.ITALIC}          Name             Distance         Cuisines               Meal Types              Cost      Rating  {CE}\n"
         "─────────────────────────────────────────────────────────────────────────────────────────────────────────────\n",
@@ -233,15 +254,19 @@ def print_recos(gusto: tuple, recos: list, restos_dict: dict[str, list]) -> None
         cost = f"₱{restos_dict[resto][3]:.2f}"
         rating = f"{restos_dict[resto][4]:.1f}"
         print(
-            f"  {name:<20}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
+            f"  {c.YELLOW2}{name:<20}{CE}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else f'┬ {list_of_cuisines[0]}':<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
         )
         for idx, cuisine in enumerate(list_of_cuisines[1:]):
-            cuisine = f"├ {cuisine}" if idx != len(list_of_cuisines[1:]) - 1 else f"└ {cuisine}"
+            cuisine = (
+                f"├ {cuisine}"
+                if idx != len(list_of_cuisines[1:]) - 1
+                else f"└ {cuisine}"
+            )
             filler = f""
-            print(f"  {filler:<20}   {filler:<12}   {cuisine:<16}   {filler:<26}   {filler:>10}   {filler:^6}  ")
+            print(
+                f"  {filler:<20}   {filler:<12}   {cuisine:<16}   {filler:<26}   {filler:>10}   {filler:^6}  "
+            )
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     )
     m.continue_prompt()
-
-    

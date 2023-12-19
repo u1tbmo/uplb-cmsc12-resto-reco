@@ -16,8 +16,10 @@ def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
         resto (str): the resto
         restos_dict (dict[str, list]): the dictionary of restos
     """
+    # Get the details of the resto from the restos dictionary
     distance = restos_dict[resto][0]
-    cuisine_type = ", ".join(restos_dict[resto][1])
+    cuisine_type = ", ".join(restos_dict[resto][1])  # Stringify the list of cuisines
+    # Stringify the list of meal types, since it is a Literal string of "B", "L", and/or "D"
     meal_type = restos_dict[resto][2]
     meal_types = ""
     for char in meal_type:
@@ -31,6 +33,7 @@ def display_resto_details(resto: str, restos_dict: dict[str, list]) -> None:
     cost = restos_dict[resto][3]
     rating = restos_dict[resto][4]
 
+    # Display the details of the resto
     print(f"  {C2}Name:{CE} {resto}")
     print(f"  {C2}Distance from UPLB gate:{CE} {distance:.2f} meters")
     print(f"  {C2}Cuisine Type:{CE} {cuisine_type}")
@@ -45,6 +48,7 @@ def view_resto(restos_dict: dict[str, list]) -> None:
     Args:
         restos_dict (dict[str, list]): the dictionary of restos
     """
+    # Raise an error if there are no restos in the restos dictionary
     if not restos_dict:
         raise_err("No restos to view. Add a resto!")
         return
@@ -57,12 +61,16 @@ def view_resto(restos_dict: dict[str, list]) -> None:
         sep="",
         end="",
     )
+    # Prompt the user to enter the resto to view
+    # Raise an error if the resto does not exist
     name = m.capitalize_words(input("  Enter resto name: ").strip())
     print("═══════════════════════════════════════════════════")
     if name not in restos_dict:
         raise_err(f'Resto "{name}" does not exist!')
         return
     clear_screen()
+
+    # Display the details of the resto
     print(
         "═══════════════════════════════════════════════════\n",
         f"                     {C1}View Resto{CE}                    \n",
@@ -92,20 +100,22 @@ def add_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
+    # Prompt the user to enter the details of the resto
     name = m.capitalize_words(ui.get_string("  Enter name: "))
-
     if name in restos_dict:
         raise_err(f"Resto {name} already exists.")
         return restos_dict
     distance = ui.get_float("  Enter distance from UPLB gate (in meters): ")
     info("For cuisine/s and meal types, enter a comma-separated list of values.")
     ui.print_valid_cuisines()
-    cuisine_type = ui.get_list_of_cuisine_types(
-        "  Enter cuisine/s: "
+    cuisine_type = ui.get_list_of_cuisine_types("  Enter cuisine/s: ")
+    meal_type = ui.get_list_of_meal_types(
+        "  Enter meal type/s (Breakfast, Lunch, and/or Dinner): "
     )
-    meal_type = ui.get_list_of_meal_types("  Enter meal type/s (Breakfast, Lunch, and/or Dinner): ")
     cost = ui.get_float("  Enter typical cost of a meal (in pesos): ")
     rating = ui.get_rating("  Enter rating (1-5): ")
+
+    # Add the resto to the restos dictionary
     restos_dict[name] = [distance, cuisine_type, meal_type, cost, rating]
     info(f'Added Resto "{name}"')
     continue_prompt()
@@ -121,6 +131,7 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     Returns:
         dict[str, list]: the updated dictionary of restos which has the resto edited
     """
+    # Raise an error if there are no restos in the restos dictionary
     if not restos_dict:
         raise_err("No restos to edit. Add a resto!")
         return restos_dict
@@ -135,12 +146,16 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         end="",
     )
 
+    # Prompt the user to enter the resto to edit
     name = m.capitalize_words(input("  Enter resto name: ").strip())
-    previous_name = name
-
     if name not in restos_dict:
         raise_err(f'Resto "{name}" does not exist!')
         return restos_dict
+
+    # Setting previous_name to check if the name was changed
+    # Get the details of the resto from the restos dictionary
+    previous_name = name
+    distance, cuisine_type, meal_type, cost, rating = restos_dict[name]
 
     clear_screen()
     print(
@@ -150,21 +165,17 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
-
-    distance, cuisine_type, meal_type, cost, rating = restos_dict[name]
-
     display_resto_details(name, restos_dict)
     print("═══════════════════════════════════════════════════")
     info(f"Press [ENTER] to keep current value.")
     print("═══════════════════════════════════════════════════")
 
+    # Prompt the user to enter the new details of the resto
     name = m.capitalize_words(ui.edit_string("  Enter name: ", name))
     if name in restos_dict and previous_name != name:
         raise_err(f"Resto {name} already exists.")
         return restos_dict
-    distance = ui.edit_float(
-        "  Enter distance from UPLB gate (m): ", distance
-    )
+    distance = ui.edit_float("  Enter distance from UPLB gate (m): ", distance)
     info("For cuisine types and meal types, enter a comma-separated list of values.")
     ui.print_valid_cuisines()
     cuisine_type = ui.edit_list_of_cuisine_types(
@@ -175,11 +186,17 @@ def edit_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     )
     cost = ui.edit_float("  Enter typical cost of a meal: ", cost)
     rating = ui.edit_rating("  Enter rating (1-5): ", rating)
+
+    # Update the details of the resto in the restos dictionary
     restos_dict[name] = [distance, cuisine_type, meal_type, cost, rating]
+
+    # Display a message depending on whether the name was changed or not
     if previous_name != name:
         info(f'Edited Resto "{previous_name}" to "{name}"')
     else:
         info(f'Edited Resto "{name}"')
+
+    # Delete the old resto if the name was changed
     if previous_name != name:
         del restos_dict[previous_name]
     continue_prompt()
@@ -195,10 +212,10 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
     Returns:
         dict[str, list]: the updated dictionary of restos which has the resto deleted
     """
+    # Raise an error if there are no restos in the restos dictionary
     if not restos_dict:
         raise_err("No restos to delete. Add a resto!")
         return restos_dict
-
     clear_screen()
     display_restos_simple(restos_dict)
     print(
@@ -209,6 +226,8 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         end="",
     )
 
+    # Prompt the user to enter the resto to delete
+    # Raise an error if the resto does not exist
     name = m.capitalize_words(input("  Enter resto name: ").strip())
     print("═══════════════════════════════════════════════════")
     if name not in restos_dict:
@@ -222,6 +241,7 @@ def delete_restos(restos_dict: dict[str, list]) -> dict[str, list]:
         sep="",
         end="",
     )
+    # Ask the user to confirm the deletion of the resto
     display_resto_details(name, restos_dict)
     print("═══════════════════════════════════════════════════")
     print(f"{c.RED}  Are you sure you want to delete {name}?{c.END}")
@@ -244,6 +264,7 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
     Args:
         restos_dict (dict[str, list]): the dictionary of gustos
     """
+    # Raise an error if there are no restos in the restos dictionary
     if not restos_dict:
         raise_err("No restos to display! Add a resto!")
         return
@@ -256,12 +277,23 @@ def display_restos_simple(restos_dict: dict[str, list]) -> None:
         sep="",
         end="",
     )
+    # Loop through the restos dictionary and display the resto name and its list of cuisines
     for resto in restos_dict:
+        # Truncate the resto name if it is longer than 32 characters
         name = resto if len(resto) <= 32 else resto[:29] + "..."
         list_of_cuisines = restos_dict[resto][1]
-        print(f"  {name:<32}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]}")
+        # Using ternary if-else, if the length of the list of cuisines is 1, display the cuisine
+        # If the length of the list of cuisines is greater than 1, display the first cuisine
+        # Then loop for the rest of the cuisines and display them per line
+        print(
+            f"  {name:<32}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else f'┬ {list_of_cuisines[0]}'}"
+        )
         for idx, cuisine in enumerate(list_of_cuisines[1:]):
-            cuisine = f"├ {cuisine}" if idx != len(list_of_cuisines[1:]) - 1 else f"└ {cuisine}"
+            cuisine = (
+                f"├ {cuisine}"
+                if idx != len(list_of_cuisines[1:]) - 1
+                else f"└ {cuisine}"
+            )
             print(f"  {'':<32}   {cuisine}")
 
 
@@ -271,6 +303,7 @@ def display_restos(restos_dict: dict[str, list]) -> None:
     Args:
         restos_dict (dict[str, list]): the dictionary of gustos
     """
+    # Raise an error if there are no restos in the restos dictionary
     if not restos_dict:
         raise_err("No restos to display! Add a resto!")
         return
@@ -285,9 +318,11 @@ def display_restos(restos_dict: dict[str, list]) -> None:
         end="",
     )
     for resto in restos_dict:
+        # Truncate the resto name if it is too long
         name = resto if len(resto) <= 20 else resto[:17] + "..."
         distance = f"{restos_dict[resto][0]:.2f}m"
         list_of_cuisines = restos_dict[resto][1]
+        # Stringify the list of meal types, since it is a Literal string of "B", "L", and/or "D"
         meal_type = restos_dict[resto][2]
         meal_types = ""
         for char in meal_type:
@@ -300,13 +335,22 @@ def display_restos(restos_dict: dict[str, list]) -> None:
         meal_types = meal_types.rstrip(", ")
         cost = f"₱{restos_dict[resto][3]:.2f}"
         rating = f"{restos_dict[resto][4]:.1f}"
+        # Using ternary if-else, if the length of the list of cuisines is 1, display the cuisine
+        # If the length of the list of cuisines is greater than 1, display the first cuisine
+        # Then loop for the rest of the cuisines and display them per line
         print(
-            f"  {name:<20}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else "┬ "+list_of_cuisines[0]:<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
+            f"  {name:<20}   {distance:<12}   {list_of_cuisines[0] if len(list_of_cuisines) == 1 else f'┬ {list_of_cuisines[0]}':<16}   {meal_types:<26}   {cost:>10}   {rating:^6}  "
         )
         for idx, cuisine in enumerate(list_of_cuisines[1:]):
-            cuisine = f"├ {cuisine}" if idx != len(list_of_cuisines[1:]) - 1 else f"└ {cuisine}"
-            filler = f""
-            print(f"  {filler:<20}   {filler:<12}   {cuisine:<16}   {filler:<26}   {filler:>10}   {filler:^6}  ")
+            cuisine = (
+                f"├ {cuisine}"
+                if idx != len(list_of_cuisines[1:]) - 1
+                else f"└ {cuisine}"
+            )
+            filler = ""
+            print(
+                f"  {filler:<20}   {filler:<12}   {cuisine:<16}   {filler:<26}   {filler:>10}   {filler:^6}  "
+            )
     print(
         "═════════════════════════════════════════════════════════════════════════════════════════════════════════════"
     )
