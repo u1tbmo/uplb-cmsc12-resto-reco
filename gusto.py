@@ -401,7 +401,7 @@ def display_gustos(gustos_dict: dict[str, list]) -> None:
         description = (
             gustos_dict[gusto][0]
             if len(gustos_dict[gusto][0]) <= 31
-            else gustos_dict[gusto][0][:29] + "..."
+            else gustos_dict[gusto][0][:28] + "..."
         )
         group_size = gustos_dict[gusto][1]
         meal_type = gustos_dict[gusto][2].capitalize()
