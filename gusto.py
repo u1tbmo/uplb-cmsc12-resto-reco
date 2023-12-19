@@ -414,7 +414,7 @@ def display_gustos(gustos_dict: dict[str, list]) -> None:
             f"{gustos_dict[gusto][4]:.2f}m" if gustos_dict[gusto][4] != None else "Any"
         )
         cuisine_type = (
-            gustos_dict[gusto][5].capitalize()
+            m.capitalize_words(gustos_dict[gusto][5])
             if gustos_dict[gusto][5] != None
             else "Any"
         )
