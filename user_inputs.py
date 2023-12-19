@@ -10,6 +10,8 @@ import misc as m
 # Global Variable
 cuisines_list = [
     "Fast Food",
+    "Vegetarian",
+    "Vegan",
     "Filipino",
     "American",
     "Japanese",
@@ -140,7 +142,7 @@ def get_float(prompt: str, required: bool = True) -> float:
             else:
                 return float_num
         except ValueError:
-            print_err("Input must be a float.")
+            print_err("Input must be a decimal number.")
             continue
 
 
